@@ -1,0 +1,106 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+def keystoreProperties = new Properties()
+   def keystorePropertiesFile = rootProject.file('key.properties')
+   if (keystorePropertiesFile.exists()) {
+       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+   }
+
+def passwordsProperties = new Properties()
+   def passwordsPropertiesFile = rootProject.file('../secrets/passwords.properties')
+   if (passwordsPropertiesFile.exists()) {
+       passwordsProperties.load(new FileInputStream(passwordsPropertiesFile))
+   }
+
+android {
+    compileSdkVersion 30
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "me.tginfo.stickerimport"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    splits {
+
+        // Configures multiple APKs based on ABI.
+        abi {
+    
+          // Enables building multiple APKs per ABI.
+          enable true
+
+          reset()
+          include "armeabi-v7a", "arm64-v8a", "x86_64"
+
+          // Specifies that we do not want to also generate a universal APK that includes all ABIs.
+          universalApk true
+        }
+  }
+
+    signingConfigs {
+       release {
+           keyAlias keystoreProperties['releaseKeyAlias']
+           keyPassword passwordsProperties['releasePassword']
+           storeFile keystoreProperties['releaseStoreFile'] ? file(keystoreProperties['releaseStoreFile']) : null
+           storePassword passwordsProperties['releasePassword']
+       }
+    }
+   
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def v = getFilter(com.android.build.OutputFile.ABI)
+
+        outputFileName = defaultConfig.applicationId + "." + (v ?: "z.fat") + ".apk"
+    }
+}
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}

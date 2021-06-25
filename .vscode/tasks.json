@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "command": "flutter pub run intl_utils:generate",
+            "label": "Generate Localization",
+            "problemMatcher": []
+        }
+    ]
+}
