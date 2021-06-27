@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:enough_convert/windows/windows1252.dart';
+import 'package:flutter/material.dart';
 import 'package:vkget/vkget.dart';
 
 Future<int?> stickerUrlToId(VKGet client, Uri url) async {
@@ -18,10 +19,15 @@ Future<int?> stickerUrlToId(VKGet client, Uri url) async {
   if (res != null) return int.tryParse(res);
 }
 
-Future<Map<String, dynamic>> getStickerJson(VKGet client, int id) async {
+Future<Map<String, dynamic>> getStickerJson(
+    BuildContext context, VKGet client, int id) async {
   final req = await client.fetch(
       Uri.parse('https://vk.com/stickers.php?act=preview_products_order'),
       method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept-Language': Localizations.localeOf(context).languageCode,
+      },
       bodyFields: {
         'act': 'preview_products_order',
         'al': '1',
@@ -30,5 +36,5 @@ Future<Map<String, dynamic>> getStickerJson(VKGet client, int id) async {
       });
   final text =
       await const Windows1252Codec(allowInvalid: false).decodeStream(req);
-  return jsonDecode(text.substring(4)) as Map<String, dynamic>;
+  return jsonDecode(text) as Map<String, dynamic>;
 }

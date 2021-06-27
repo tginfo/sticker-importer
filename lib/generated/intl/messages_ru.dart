@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Проверьте правильность ссылки"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Выбор эмодзи"),
         "confirmnation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
+        "continue_btn": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),
@@ -72,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Загрузка стикеров..."),
         "follow_tginfo":
             MessageLookupByLibrary.simpleMessage("Подписаться на @tginfo"),
+        "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Назад"),
         "licenses": MessageLookupByLibrary.simpleMessage("Лицензии"),
         "licenses_desc":
@@ -98,7 +100,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_all": MessageLookupByLibrary.simpleMessage("Выбрать всё"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Разработчик"),
+        "source_code": MessageLookupByLibrary.simpleMessage("Исходный код"),
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
+        "sticker_styles":
+            MessageLookupByLibrary.simpleMessage("Стиль стикеров"),
+        "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
+            "Этот набор имеет несколько стилей. Какой Вы желаете использовать?"),
         "still": MessageLookupByLibrary.simpleMessage("Статичный"),
         "stop": MessageLookupByLibrary.simpleMessage("Стоп"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(

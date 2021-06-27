@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sticker_import/components/icons/custom_icons_icons.dart';
 import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
@@ -79,6 +80,23 @@ class AboutRoute extends StatelessWidget {
                     title: Text(S.of(context).antonio_marreti),
                     subtitle: Text(S.of(context).antonio_marreti_desc),
                   ),
+                  ListTile(
+                    leading: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(
+                        CustomIcons.github,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Theme.of(context).primaryColor),
+                      ),
+                    ),
+                    title: Text(S.of(context).github),
+                    subtitle: Text(S.of(context).source_code),
+                    onTap: () {
+                      launch('https://github.com/tginfo/sticker-importer');
+                    },
+                  ),
+                  Divider(),
                   ListTile(
                     leading: Padding(
                       padding: EdgeInsets.all(10),

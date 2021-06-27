@@ -17,25 +17,25 @@ void goOn(BuildContext context, TextEditingController urlController) {
     return;
   }
 
+  var v = urlController.value.text;
+  v = v.trim();
+
+  if (!v.startsWith('http://') && !v.startsWith('https://')) {
+    v = 'https://' + v;
+  }
+
+  var u = Uri.parse(v);
+
+  u = u.replace(host: 'vk.com', scheme: 'https');
+
+  final account = Account.from('', 0);
+  account.vk.onRequestStateChange = print;
+
+  urlController.clear();
+
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (BuildContext context) {
-        var v = urlController.value.text;
-        v = v.trim();
-
-        if (!v.startsWith('http://') && !v.startsWith('https://')) {
-          v = 'https://' + v;
-        }
-
-        var u = Uri.parse(v);
-
-        u = u.replace(host: 'vk.com', scheme: 'https');
-
-        final account = Account.from('', 0);
-        account.vk.onRequestStateChange = print;
-
-        urlController.clear();
-
         return ExportProgressFlow(
           account: account,
           uri: u,

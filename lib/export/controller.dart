@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/utils/sticker_url_to_id.dart';
+import 'package:sticker_import/utils/map.dart';
 
 enum ExportControllerState {
   stopped,
@@ -36,10 +38,11 @@ class ExportController {
 
   List<int> get stickerIds {
     if (info == null) return [];
-    return List<int>.from(info!['payload'][1][0]['products'][0]['sticker_ids']);
+    return List<int>.from(stickerTarget!['sticker_ids']);
   }
 
   Map<String, dynamic>? info;
+  Map<String, dynamic>? stickerTarget;
   final Account account;
 
   final StreamController<Function> _notifier = StreamController();
@@ -87,10 +90,23 @@ class ExportController {
         return;
       }
 
-      info = await getStickerJson(account.vk, id!);
-      print(info);
+      info = await getStickerJson(context, account.vk, id!);
 
-      if (info!['payload'][1][0]['products'][0]['is_animated'] as bool &&
+      if (info!['payload'][1][0]['products'].length > 0) {
+        stickerTarget = await chooseYourFighter(
+          context,
+          List<Map<String, dynamic>>.from(info!['payload'][1][0]['products']),
+          this,
+        );
+      } else {
+        stickerTarget = info!['payload'][1][0]['products'][0];
+      }
+
+      if (state == ExportControllerState.stopped) {
+        return;
+      }
+
+      if (stickerTarget!['is_animated'] as bool &&
           await shouldUseAnimated(context)) {
         isAnimated = true;
         previews = [];
@@ -231,4 +247,131 @@ Future<bool> shouldUseAnimated(BuildContext context) async {
         },
       ) ??
       true;
+}
+
+Future<Map<String, dynamic>> chooseYourFighter(
+  BuildContext context,
+  List<Map<String, dynamic>> packs,
+  ExportController controller,
+) async {
+  var index = 0;
+
+  void changer(int ind) {
+    index = ind;
+  }
+
+  final images = <Image>[];
+  for (final style in packs) {
+    final i = await controller.account.vk.fetch(
+        Uri.parse('https://vk.com/sticker/1-${style['sticker_ids'][0]}-128'));
+
+    final imgRawList = <int>[];
+    await for (final b in i) {
+      imgRawList.addAll(b);
+    }
+
+    if (controller.state == ExportControllerState.stopped) {
+      return {};
+    }
+
+    final imgRaw = Uint8List.fromList(imgRawList);
+    images.add(Image.memory(imgRaw));
+  }
+
+  var alert = AlertDialog(
+    contentPadding: EdgeInsets.only(bottom: 25, left: 25, right: 25),
+    content: Container(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height / 2,
+      ),
+      decoration: BoxDecoration(),
+      clipBehavior: Clip.antiAlias,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 25.0,
+            ),
+            Text(
+              S.of(context).sticker_styles,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(S.of(context).sticker_styles_info),
+            SizedBox(
+              height: 10.0,
+            ),
+            StickerStyleChooser(
+              styles: packs,
+              changer: changer,
+              images: images,
+            ),
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop(packs[index]);
+        },
+        child: Text(S.of(context).continue_btn),
+      ),
+    ],
+  );
+
+  // show the dialog
+  return (await showDialog<Map<String, dynamic>>(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      )) ??
+      packs[0];
+}
+
+class StickerStyleChooser extends StatefulWidget {
+  StickerStyleChooser({
+    Key? key,
+    required this.styles,
+    required this.changer,
+    required this.images,
+  }) : super(key: key);
+
+  final List<Map<String, dynamic>> styles;
+  final List<Image> images;
+  final void Function(int index) changer;
+
+  @override
+  _StickerStyleChooserState createState() => _StickerStyleChooserState();
+}
+
+class _StickerStyleChooserState extends State<StickerStyleChooser> {
+  int chosen = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: widget.styles.mapIndexed((style, index) {
+        return ListTile(
+          selected: chosen == index,
+          title: Text(style['title']),
+          leading: widget.images[index],
+          selectedTileColor: Theme.of(context).primaryColor,
+          contentPadding: EdgeInsets.all(2.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          onTap: () {
+            setState(() {
+              chosen = index;
+              widget.changer(index);
+            });
+          },
+        );
+      }).toList(),
+    );
+  }
 }

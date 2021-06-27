@@ -27,7 +27,6 @@ void checkUpdates(BuildContext context) async {
     if (release['prerelease'] == true) continue;
     final b = int.tryParse((release['tag_name'] as String).split('+').last);
     if (b == null || b <= build) {
-      print("Found build $b that doesn't macth");
       continue;
     }
 

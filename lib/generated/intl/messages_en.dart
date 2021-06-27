@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Check the link"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Choose Emoji"),
         "confirmnation": MessageLookupByLibrary.simpleMessage("Confirmnation"),
+        "continue_btn": MessageLookupByLibrary.simpleMessage("Continue"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Customize before continuing"),
@@ -72,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Downloading stickers..."),
         "follow_tginfo":
             MessageLookupByLibrary.simpleMessage("Subscribe @tginfo"),
+        "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenses"),
         "licenses_desc":
@@ -98,7 +100,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_all": MessageLookupByLibrary.simpleMessage("Select All"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Developer"),
+        "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "sticker_styles":
+            MessageLookupByLibrary.simpleMessage("Sticker Styles"),
+        "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
+            "This set has multiple sticker styles. Which one are you going with?"),
         "still": MessageLookupByLibrary.simpleMessage("Still Pictures"),
         "stop": MessageLookupByLibrary.simpleMessage("Stop"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(

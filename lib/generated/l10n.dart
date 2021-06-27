@@ -741,6 +741,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Sticker Styles`
+  String get sticker_styles {
+    return Intl.message(
+      'Sticker Styles',
+      name: 'sticker_styles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This set has multiple sticker styles. Which one are you going with?`
+  String get sticker_styles_info {
+    return Intl.message(
+      'This set has multiple sticker styles. Which one are you going with?',
+      name: 'sticker_styles_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continue_btn {
+    return Intl.message(
+      'Continue',
+      name: 'continue_btn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GitHub`
+  String get github {
+    return Intl.message(
+      'GitHub',
+      name: 'github',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source code`
+  String get source_code {
+    return Intl.message(
+      'Source code',
+      name: 'source_code',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

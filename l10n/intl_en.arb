@@ -68,5 +68,10 @@
     "animated": "Animated",
     "still": "Still Pictures",
     "not_all_animated": "Not all animated stickers from VK are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all",
-    "not_installed": "Telegram is not installed on your device, so we couldn't export the pack"
+    "not_installed": "Telegram is not installed on your device, so we couldn't export the pack",
+    "sticker_styles": "Sticker Styles",
+    "sticker_styles_info": "This set has multiple sticker styles. Which one are you going with?",
+    "continue_btn": "Continue",
+    "github": "GitHub",
+    "source_code": "Source code"
 }
