@@ -92,7 +92,7 @@ class ExportController {
 
       info = await getStickerJson(context, account.vk, id!);
 
-      if (info!['payload'][1][0]['products'].length > 0) {
+      if (info!['payload'][1][0]['products'].length > 1) {
         stickerTarget = await chooseYourFighter(
           context,
           List<Map<String, dynamic>>.from(info!['payload'][1][0]['products']),
