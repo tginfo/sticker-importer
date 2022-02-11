@@ -31,14 +31,14 @@ class ExportController {
   final bool isWithBorder;
   final Uri uri;
   final BuildContext context;
-  String? errorDefails;
+  String? errorDetails;
   List<String>? result;
   List<String>? previews;
   bool isAnimated = false;
 
   List<int> get stickerIds {
     if (info == null) return [];
-    return List<int>.from(stickerTarget!['sticker_ids']);
+    return List<int>.from(stickerTarget!['sticker_ids'] as Iterable<dynamic>);
   }
 
   Map<String, dynamic>? info;
@@ -49,7 +49,7 @@ class ExportController {
   Stream<Function>? _broadcast;
   Stream<Function> get notifier => _broadcast!;
 
-  void _setState(f) {
+  void _setState(Function f) {
     _notifier.add(f);
   }
 
@@ -62,8 +62,9 @@ class ExportController {
     warmup().onError((error, stackTrace) {
       _setState(() {
         state = ExportControllerState.error;
-        errorDefails = stackTrace.toString();
+        errorDetails = stackTrace.toString();
       });
+      if (error != null) throw error;
     });
   }
 
@@ -82,7 +83,7 @@ class ExportController {
 
       if (id == null) {
         _setState(() {
-          errorDefails = 'Pack ID is not found for ' +
+          errorDetails = 'Pack ID is not found for ' +
               uri.toString() +
               '. Check if your link is correct.';
           state = ExportControllerState.error;
@@ -92,14 +93,16 @@ class ExportController {
 
       info = await getStickerJson(context, account.vk, id!);
 
-      if (info!['payload'][1][0]['products'].length > 1) {
+      if ((info!['payload'][1][0]['products'] as List<dynamic>).length > 1) {
         stickerTarget = await chooseYourFighter(
           context,
-          List<Map<String, dynamic>>.from(info!['payload'][1][0]['products']),
+          List<Map<String, dynamic>>.from(
+              info!['payload'][1][0]['products'] as List<dynamic>),
           this,
         );
       } else {
-        stickerTarget = info!['payload'][1][0]['products'][0];
+        stickerTarget =
+            info!['payload'][1][0]['products'][0] as Map<String, dynamic>;
       }
 
       if (state == ExportControllerState.stopped) {
@@ -118,13 +121,14 @@ class ExportController {
       _worker().onError((error, stackTrace) {
         _setState(() {
           state = ExportControllerState.error;
-          errorDefails = stackTrace.toString();
+          errorDetails = stackTrace.toString();
         });
+        if (error != null) throw error;
       });
     }
   }
 
-  Future _worker() async {
+  Future<void> _worker() async {
     _setState(() {
       state = ExportControllerState.working;
     });
@@ -166,13 +170,13 @@ class ExportController {
             File('$directory/stickers/$id/previews/$stickerId.png');
         await previewFile.create(recursive: true);
         final previewFileStream = previewFile.openWrite();
-        await preview.listen(previewFileStream.add).asFuture();
+        await preview.listen(previewFileStream.add).asFuture<List<int>?>();
         await previewFileStream.flush();
         await previewFileStream.close();
 
         previews!.add(previewFile.path);
 
-        await i.listen(tempFileStream.add).asFuture();
+        await i.listen(tempFileStream.add).asFuture<List<int>?>();
         await tempFileStream.flush();
         await tempFileStream.close();
 
@@ -189,7 +193,7 @@ class ExportController {
               (isWithBorder ? 'b' : '')),
         );
 
-        await i.listen(targetFileStream.add).asFuture();
+        await i.listen(targetFileStream.add).asFuture<List<int>?>();
         await targetFileStream.flush();
         await targetFileStream.close();
       }
@@ -218,7 +222,7 @@ class ExportController {
 }
 
 Future<bool> shouldUseAnimated(BuildContext context) async {
-  var alert = AlertDialog(
+  final alert = AlertDialog(
     title: Text(S.of(context).animated_pack),
     content: Text(S.of(context).animated_pack_info +
         '\n\n' +
@@ -271,14 +275,14 @@ Future<Map<String, dynamic>> chooseYourFighter(
     }
 
     if (controller.state == ExportControllerState.stopped) {
-      return {};
+      return <String, dynamic>{};
     }
 
     final imgRaw = Uint8List.fromList(imgRawList);
     images.add(Image.memory(imgRaw));
   }
 
-  var alert = AlertDialog(
+  final alert = AlertDialog(
     contentPadding: EdgeInsets.only(bottom: 25, left: 25, right: 25),
     content: Container(
       constraints: BoxConstraints(
@@ -358,7 +362,7 @@ class _StickerStyleChooserState extends State<StickerStyleChooser> {
       children: widget.styles.mapIndexed((style, index) {
         return ListTile(
           selected: chosen == index,
-          title: Text(style['title']),
+          title: Text(style['title'] as String),
           leading: widget.images[index],
           selectedTileColor: Theme.of(context).primaryColor,
           contentPadding: EdgeInsets.all(2.0),

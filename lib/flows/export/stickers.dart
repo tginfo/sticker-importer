@@ -72,8 +72,8 @@ class _StickerChooserRouteState extends State<StickerChooserRoute> {
                 }
               });
 
-              Navigator.of(context).push(
-                MaterialPageRoute(
+              Navigator.of(context).push<dynamic>(
+                MaterialPageRoute<dynamic>(
                   builder: (BuildContext context) {
                     return ExportFinishRoute(
                       paths: pth,

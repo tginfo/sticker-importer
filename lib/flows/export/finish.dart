@@ -28,9 +28,9 @@ class _ExportFinishRouteState extends State<ExportFinishRoute> {
   void initState() {
     super.initState();
 
-    SettingsStorage.intentChannel.invokeMethod(
+    SettingsStorage.intentChannel.invokeMethod<dynamic>(
       'sendDrKLOIntent',
-      {
+      <String, dynamic>{
         'paths': widget.paths,
         'emoji': widget.emojis,
         'isAnimated': widget.isAnimated,
@@ -110,7 +110,7 @@ class _ExportFinishRouteState extends State<ExportFinishRoute> {
 }
 
 Future<void> noTelegramAppAlert(BuildContext context) async {
-  var alert = AlertDialog(
+  final alert = AlertDialog(
     title: Text(S.of(context).error),
     content: Text(S.of(context).not_installed),
     actions: [
@@ -123,7 +123,7 @@ Future<void> noTelegramAppAlert(BuildContext context) async {
     ],
   );
 
-  await showDialog(
+  await showDialog<dynamic>(
     context: context,
     builder: (BuildContext context) {
       return alert;

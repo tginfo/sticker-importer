@@ -8,6 +8,7 @@
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
 // ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
+// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
@@ -39,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "check_the_link": MessageLookupByLibrary.simpleMessage(
             "Проверьте правильность ссылки"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Выбор эмодзи"),
-        "confirmnation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
+        "confirmation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
         "customize_your_pack":
@@ -83,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ссылка некорректна"),
         "link_not_pack": MessageLookupByLibrary.simpleMessage(
             "Ссылка не является стикерпаком ВКонтакте"),
+        "no_error_details": MessageLookupByLibrary.simpleMessage(
+            "Дополнительные свидетельства об этой ошибке отсутствуют"),
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),

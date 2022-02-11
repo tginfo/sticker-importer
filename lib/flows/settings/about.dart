@@ -110,8 +110,8 @@ class AboutRoute extends StatelessWidget {
                     title: Text(S.of(context).licenses),
                     subtitle: Text(S.of(context).licenses_desc),
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
+                      Navigator.of(context).push<dynamic>(
+                        MaterialPageRoute<dynamic>(
                           builder: (BuildContext context) {
                             return LicensesRoute();
                           },

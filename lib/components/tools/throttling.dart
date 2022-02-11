@@ -30,7 +30,7 @@ class LoadThrottler<T> {
     _runQueue(isRecursive: true);
   }
 
-  void _runQueue({isRecursive = false}) async {
+  void _runQueue({bool isRecursive = false}) async {
     if (!isRecursive && _isBusy) return;
     if (_tasks.isEmpty) return;
 
@@ -38,7 +38,7 @@ class LoadThrottler<T> {
 
     final d = DateTime.now().difference(_lastTaskStart);
     if (d < delay) {
-      await Future.delayed(d);
+      await Future<Duration>.delayed(d);
     }
 
     while (_currentlyActiveTasks < parallelTasks && _tasks.isNotEmpty) {

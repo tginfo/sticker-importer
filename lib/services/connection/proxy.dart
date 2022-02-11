@@ -10,17 +10,17 @@ extension VkGetProxy on VKGet {
     try {
       print('Checking VK access');
       ping = await VKGetUtils.pingVK(client, timeout: Duration(seconds: 1));
-      print('VK ping successed in $ping. No proxy needed');
+      print('VK ping succeeded in $ping. No proxy needed');
       return false;
     } catch (e) {
       print('Getting VK proxies');
-      var r = await VKGetUtilsFlutter.getProxyListAsAndroidDevice();
+      final r = await VKGetUtilsFlutter.getProxyListAsAndroidDevice();
 
       print('Loaded proxy list from Firebase');
       VKGetUtils.trustify(r.certificates, client);
       proxies = r.proxy;
-      var lastError;
-      for (var proxy in r.proxy) {
+      Object? lastError;
+      for (final proxy in r.proxy) {
         try {
           print('Trying proxy $proxy');
           ping = await VKGetUtils.pingVK(client,
@@ -39,7 +39,7 @@ extension VkGetProxy on VKGet {
           throw NoInternetConnectionError();
         }
 
-        if (lastError) throw lastError;
+        if (lastError != null) throw lastError;
         throw Exception('Unknown error');
       }
 

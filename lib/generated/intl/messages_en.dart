@@ -8,6 +8,7 @@
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
 // ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
+// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
@@ -39,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "check_the_link":
             MessageLookupByLibrary.simpleMessage("Check the link"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Choose Emoji"),
-        "confirmnation": MessageLookupByLibrary.simpleMessage("Confirmnation"),
+        "confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Continue"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "customize_your_pack":
@@ -83,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The link is incorrect"),
         "link_not_pack": MessageLookupByLibrary.simpleMessage(
             "The link is not a VK stickerpack"),
+        "no_error_details":
+            MessageLookupByLibrary.simpleMessage("No error details available"),
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),

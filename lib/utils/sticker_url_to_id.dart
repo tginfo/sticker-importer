@@ -17,6 +17,7 @@ Future<int?> stickerUrlToId(VKGet client, Uri url) async {
   print(res);
 
   if (res != null) return int.tryParse(res);
+  return null;
 }
 
 Future<Map<String, dynamic>> getStickerJson(
@@ -28,7 +29,7 @@ Future<Map<String, dynamic>> getStickerJson(
         'X-Requested-With': 'XMLHttpRequest',
         'Accept-Language': Localizations.localeOf(context).languageCode,
       },
-      bodyFields: {
+      bodyFields: <String, String>{
         'act': 'preview_products_order',
         'al': '1',
         'cart': '{"items":[{"product_id":$id,"amount":1}],"recipient_ids":[]}',

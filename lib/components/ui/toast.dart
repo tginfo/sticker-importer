@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum StatusToastType { normal, success, error }
 
 Widget statusToast({
-  type = StatusToastType.normal,
+  StatusToastType type = StatusToastType.normal,
   required Widget child,
   Widget? leading,
   required BuildContext context,

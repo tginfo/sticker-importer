@@ -33,8 +33,8 @@ void goOn(BuildContext context, TextEditingController urlController) {
 
   urlController.clear();
 
-  Navigator.of(context).push(
-    MaterialPageRoute(
+  Navigator.of(context).push<dynamic>(
+    MaterialPageRoute<dynamic>(
       builder: (BuildContext context) {
         return ExportProgressFlow(
           account: account,
@@ -137,6 +137,8 @@ class _StartRouteState extends State<StartRoute> {
                                 print(u.pathSegments);
                                 return S.of(context).link_not_pack;
                               }
+
+                              return null;
                             },
                           ),
                         ),
@@ -175,8 +177,8 @@ class _StartRouteState extends State<StartRoute> {
                       // Finish buttons
                       OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
+                          Navigator.of(context).push<dynamic>(
+                            MaterialPageRoute<dynamic>(
                               builder: (BuildContext context) {
                                 return AboutRoute();
                               },

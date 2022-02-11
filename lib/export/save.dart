@@ -61,7 +61,7 @@ class AppDocsSaveController implements SaveController {
   Future<List<Directory>> readDirectory({required Directory name}) async {
     final res = <Directory>[];
 
-    await for (var item in _getPath(name).list()) {
+    await for (final item in _getPath(name).list()) {
       res.add(Directory(item.path));
     }
 

@@ -28,7 +28,7 @@ class ExportProgressFlow extends StatefulWidget {
 
 class _ExportProgressFlowState extends State<ExportProgressFlow> {
   ExportController? controller;
-  StreamSubscription? notifier;
+  StreamSubscription<Function>? notifier;
 
   @override
   void initState() {
@@ -63,8 +63,8 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
 
     if (controller != null && controller!.state == ExportControllerState.done) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.of(context).push(
-        MaterialPageRoute(
+      Navigator.of(context).push<dynamic>(
+        MaterialPageRoute<dynamic>(
           builder: (BuildContext context) {
             return StickerChooserRoute(
               controller: controller!,
@@ -79,11 +79,11 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        var res = await showDialog<bool>(
+        final res = await showDialog<bool>(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text(S.of(context).confirmnation),
+              title: Text(S.of(context).confirmation),
               content: Text(S.of(context).stop_export_confirm),
               actions: [
                 TextButton(
@@ -181,7 +181,7 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                           backgroundColor: Theme.of(context).dividerColor,
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).brightness == Brightness.dark
-                                  ? Theme.of(context).accentColor
+                                  ? Theme.of(context).colorScheme.secondary
                                   : Theme.of(context).primaryColor),
                         ),
                         SizedBox(
@@ -207,7 +207,7 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                             style: TextStyle(
                               color: (Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? Theme.of(context).accentColor
+                                  ? Theme.of(context).colorScheme.secondary
                                   : Theme.of(context).primaryColor),
                             ),
                           ),
@@ -275,7 +275,7 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                           ].contains(controller!.state))
                             TextButton(
                               onPressed: () {
-                                showModalBottomSheet(
+                                showModalBottomSheet<dynamic>(
                                   context: context,
                                   builder: (context) => ListView(
                                     shrinkWrap: true,
@@ -283,8 +283,8 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                                       ListTile(
                                         title: Text(S.of(context).error),
                                         subtitle: Text(
-                                          controller!.errorDefails ??
-                                              'No error detaild available',
+                                          controller!.errorDetails ??
+                                              S.of(context).no_error_details,
                                         ),
                                         trailing: IconButton(
                                           tooltip: S.of(context).copy,
@@ -292,7 +292,7 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                                             Clipboard.setData(
                                               ClipboardData(
                                                   text: controller!
-                                                          .errorDefails ??
+                                                          .errorDetails ??
                                                       ''),
                                             );
                                           },
@@ -303,7 +303,6 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                                     ],
                                   ),
                                 );
-                                ;
                               },
                               child: Row(
                                 children: [

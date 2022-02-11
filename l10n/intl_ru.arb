@@ -22,7 +22,7 @@
     "unit_kb": "KB",
     "unit_mb": "MB",
     "unit_gb": "GB",
-    "confirmnation": "Подтверждение",
+    "confirmation": "Подтверждение",
     "stop_export_confirm": "Вы уверены, что хотите остановить экспорт?",
     "stop": "Стоп",
     "go_back": "Назад",
@@ -73,5 +73,6 @@
     "sticker_styles_info": "Этот набор имеет несколько стилей. Какой Вы желаете использовать?",
     "continue_btn": "Продолжить",
     "github": "GitHub",
-    "source_code": "Исходный код"
+    "source_code": "Исходный код",
+    "no_error_details": "Дополнительные свидетельства об этой ошибке отсутствуют"
 }

@@ -22,7 +22,7 @@
     "unit_kb": "KB",
     "unit_mb": "MB",
     "unit_gb": "GB",
-    "confirmnation": "Confirmnation",
+    "confirmation": "Confirmation",
     "stop_export_confirm": "Are you sure you want to stop export?",
     "stop": "Stop",
     "go_back": "Return",
@@ -73,5 +73,6 @@
     "sticker_styles_info": "This set has multiple sticker styles. Which one are you going with?",
     "continue_btn": "Continue",
     "github": "GitHub",
-    "source_code": "Source code"
+    "source_code": "Source code",
+    "no_error_details": "No error details available"
 }

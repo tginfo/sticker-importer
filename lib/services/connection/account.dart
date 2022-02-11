@@ -34,11 +34,11 @@ class Account {
   String name;
 
   @override
-  bool operator ==(a) {
-    if (a is! Account) return false;
+  bool operator ==(other) {
+    if (other is! Account) return false;
 
-    var acc = a;
-    return acc.id == id;
+    final account = other;
+    return account.id == id;
   }
 
   @override
@@ -65,7 +65,9 @@ class Account {
   }
 
   Future<Account> refresh() async {
-    final data = (await vk.call('users.get', {})).asJson;
+    final Map<String, dynamic> data =
+        (await vk.call('users.get', <String, String>{})).asJson
+            as Map<String, dynamic>;
 
     return Account(
       vk,

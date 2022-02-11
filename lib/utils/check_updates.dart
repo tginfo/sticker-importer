@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as p;
 
 import 'package:flutter/material.dart';
@@ -15,11 +15,11 @@ void checkUpdates(BuildContext context) async {
   final res = await http
       .get(Uri.parse('https://api.github.com/repositories/379931593/releases'));
 
-  final j = List<Map<String, dynamic>>.from(jsonDecode(res.body));
+  final j = jsonDecode(res.body) as List<dynamic>;
 
-  var targetRelease;
-  var targetFile;
-  var fatTargetFile;
+  Map<String, dynamic>? targetRelease;
+  Map<String, dynamic>? targetFile;
+  Map<String, dynamic>? fatTargetFile;
   final build = int.parse((await PackageInfo.fromPlatform()).buildNumber);
   print('My build is $build');
 
@@ -32,11 +32,11 @@ void checkUpdates(BuildContext context) async {
 
     abiSearch:
     for (final abi in supportedAbis) {
-      for (final asset in release['assets']) {
-        final f = p.extension(asset['name'], 1);
+      for (final Map<String, dynamic> asset in release['assets']) {
+        final f = p.extension(asset['name'] as String, 1);
         if (f != '.apk') continue;
 
-        final fs = p.extension(asset['name'], 2);
+        final fs = p.extension(asset['name'] as String, 2);
         if (fatTargetFile == null && fs == '.fat.apk') {
           fatTargetFile = asset;
         }
@@ -55,7 +55,7 @@ void checkUpdates(BuildContext context) async {
     }
 
     if (targetFile != null) {
-      targetRelease = release;
+      targetRelease = release as Map<String, dynamic>;
       break;
     }
   }
@@ -68,7 +68,7 @@ void checkUpdates(BuildContext context) async {
     return;
   }
 
-  await showModalBottomSheet(
+  await showModalBottomSheet<dynamic>(
     context: context,
     isScrollControlled: true,
     builder: (context) {
@@ -84,7 +84,7 @@ void checkUpdates(BuildContext context) async {
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(targetRelease['body']),
+                child: Text(targetRelease!['body'] as String),
               ),
             ),
           ),
@@ -102,7 +102,7 @@ void checkUpdates(BuildContext context) async {
                 SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () {
-                    launch(targetFile['browser_download_url']);
+                    launch(targetFile!['browser_download_url'] as String);
                   },
                   icon: Icon(Icons.download),
                   label: Text(S.of(context).download),

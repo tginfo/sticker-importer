@@ -270,11 +270,11 @@ class S {
     );
   }
 
-  /// `Confirmnation`
-  String get confirmnation {
+  /// `Confirmation`
+  String get confirmation {
     return Intl.message(
-      'Confirmnation',
-      name: 'confirmnation',
+      'Confirmation',
+      name: 'confirmation',
       desc: '',
       args: [],
     );
@@ -787,6 +787,16 @@ class S {
     return Intl.message(
       'Source code',
       name: 'source_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No error details available`
+  String get no_error_details {
+    return Intl.message(
+      'No error details available',
+      name: 'no_error_details',
       desc: '',
       args: [],
     );

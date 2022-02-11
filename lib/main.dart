@@ -4,7 +4,7 @@ import 'package:sticker_import/components/flutter/no_margin_rect_slider_track_sh
 import 'package:sticker_import/components/flutter/no_overscroll_behavior.dart';
 import 'package:sticker_import/components/flutter/theme_color.dart';
 import 'package:sticker_import/flows/start/start.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
 import 'services/settings/settings.dart';
@@ -31,13 +31,11 @@ class TginfoMoverApp extends StatelessWidget {
         colorScheme: ColorScheme.light(
           primary: Colors.white,
           onPrimary: Color(0xFFAC1B24),
-          primaryVariant: Colors.black12,
           secondary: Colors.white,
           onSecondary: Color(0xFFAC1B24),
-          secondaryVariant: Colors.black12,
         ),
       ).copyWith(
-        appBarTheme: AppBarTheme(backwardsCompatibility: false),
+        appBarTheme: AppBarTheme(),
         pageTransitionsTheme: PageTransitionsTheme(builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
         }),
@@ -115,13 +113,6 @@ class TginfoMoverApp extends StatelessWidget {
         pageTransitionsTheme: PageTransitionsTheme(builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
         }),
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: ThemeColor.swatchLight,
-          primaryColorDark: ThemeColor.swatchLight,
-          accentColor: ThemeColor.swatchLight,
-          brightness: Brightness.dark,
-        ),
-        accentColor: ThemeColor.swatchLight,
         sliderTheme: SliderThemeData(
           trackHeight: 3,
           trackShape: NoMarginRectSliderTrackShape(),
@@ -160,6 +151,12 @@ class TginfoMoverApp extends StatelessWidget {
             return Colors.white10;
           }),
         ),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: ThemeColor.swatchLight,
+          primaryColorDark: ThemeColor.swatchLight,
+          accentColor: ThemeColor.swatchLight,
+          brightness: Brightness.dark,
+        ).copyWith(secondary: ThemeColor.swatchLight),
       ),
       home: StartRoute(),
       localizationsDelegates: [
