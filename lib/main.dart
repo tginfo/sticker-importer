@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sticker_import/components/flutter/no_margin_rect_slider_track_shape.dart';
 import 'package:sticker_import/components/flutter/no_overscroll_behavior.dart';
@@ -11,6 +12,18 @@ import 'services/settings/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+
+  // ignore: unawaited_futures
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: [SystemUiOverlay.top],
+  );
+
   SettingsStorage.packageInfo = await PackageInfo.fromPlatform();
   runApp(TginfoMoverApp());
 }
@@ -35,7 +48,12 @@ class TginfoMoverApp extends StatelessWidget {
           onSecondary: Color(0xFFAC1B24),
         ),
       ).copyWith(
-        appBarTheme: AppBarTheme(),
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white.withOpacity(0.75),
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        ),
         pageTransitionsTheme: PageTransitionsTheme(builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
         }),
@@ -110,6 +128,12 @@ class TginfoMoverApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData.dark().copyWith(
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.grey[850]!.withOpacity(0.75),
+            statusBarIconBrightness: Brightness.light,
+          ),
+        ),
         pageTransitionsTheme: PageTransitionsTheme(builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
         }),

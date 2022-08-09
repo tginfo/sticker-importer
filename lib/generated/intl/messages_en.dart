@@ -20,7 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) =>
+  static String m0(error) => "Couldn\'t save logs: ${error}";
+
+  static String m1(path) => "Logs saved to ${path}";
+
+  static String m2(count) =>
       "${Intl.plural(count, one: 'sticker', other: 'stickers')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -47,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Customize before continuing"),
         "customize_your_pack_info": MessageLookupByLibrary.simpleMessage(
             "Choose the stickers you want to import and assign emojis to them, so the pack can be easily accessed in Telegram"),
+        "detailed_logging":
+            MessageLookupByLibrary.simpleMessage("Detailed logging"),
+        "detailed_logging_info":
+            MessageLookupByLibrary.simpleMessage("Consumes more RAM"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
         "donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
@@ -82,16 +90,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "link": MessageLookupByLibrary.simpleMessage("Link to the stickerpack"),
         "link_incorrect":
             MessageLookupByLibrary.simpleMessage("The link is incorrect"),
-        "link_not_pack": MessageLookupByLibrary.simpleMessage(
-            "The link is not a VK stickerpack"),
+        "link_not_pack_line": MessageLookupByLibrary.simpleMessage(
+            "The link is not a LINE stickerpack"),
+        "link_not_pack_vk": MessageLookupByLibrary.simpleMessage(
+            "The link is not a VK.com stickerpack"),
+        "logs_save_error": m0,
+        "logs_saved_to": m1,
         "no_error_details":
             MessageLookupByLibrary.simpleMessage("No error details available"),
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
-            "Not all animated stickers from VK are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
+            "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
             "Telegram is not installed on your device, so we couldn\'t export the pack"),
-        "of_stickers": m0,
+        "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
@@ -100,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Prepare your pack"),
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),
         "retrying": MessageLookupByLibrary.simpleMessage("Retrying..."),
+        "save_logs": MessageLookupByLibrary.simpleMessage("Save logs"),
         "select_all": MessageLookupByLibrary.simpleMessage("Select All"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Developer"),
@@ -126,10 +139,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "unit_mb": MessageLookupByLibrary.simpleMessage("MB"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
+        "vk_error_429": MessageLookupByLibrary.simpleMessage(
+            "VK.com returned Error 429: Too Many Requests. Try using a different connection (proxy, VPN, etc.)"),
         "warming_up": MessageLookupByLibrary.simpleMessage("Warming up..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome here"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
-            "We can help you to move your stickers from VK to Telegram smoothly"),
+            "We can help you to move your stickers from VK.com and LINE to Telegram smoothly"),
         "with_border": MessageLookupByLibrary.simpleMessage("With outline")
       };
 }

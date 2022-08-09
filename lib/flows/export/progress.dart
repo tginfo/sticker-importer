@@ -5,42 +5,30 @@ import 'package:flutter/services.dart';
 import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
-import 'package:sticker_import/export/controller.dart';
+import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/flows/export/stickers.dart';
 import 'package:sticker_import/generated/l10n.dart';
-import 'package:sticker_import/services/connection/account.dart';
+import 'package:sticker_import/utils/map.dart';
 
 class ExportProgressFlow extends StatefulWidget {
   ExportProgressFlow({
     Key? key,
-    required this.account,
-    required this.uri,
-    required this.isWithBorder,
+    required this.controller,
   }) : super(key: key);
 
-  final Account account;
-  final Uri uri;
-  final bool isWithBorder;
+  final ExportController controller;
 
   @override
-  _ExportProgressFlowState createState() => _ExportProgressFlowState();
+  ExportProgressFlowState createState() => ExportProgressFlowState();
 }
 
-class _ExportProgressFlowState extends State<ExportProgressFlow> {
-  ExportController? controller;
+class ExportProgressFlowState extends State<ExportProgressFlow> {
   StreamSubscription<Function>? notifier;
 
   @override
   void initState() {
-    controller = ExportController(
-      account: widget.account,
-      uri: widget.uri,
-      isWithBorder: widget.isWithBorder,
-      context: context,
-    );
-
-    controller!.init();
-    notifier = controller!.notifier.listen((event) {
+    widget.controller.init();
+    notifier = widget.controller.notifier.listen((event) {
       setState(() {
         event();
       });
@@ -61,13 +49,13 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    if (controller != null && controller!.state == ExportControllerState.done) {
+    if (widget.controller.state == ExportControllerState.done) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.of(context).push<dynamic>(
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) {
             return StickerChooserRoute(
-              controller: controller!,
+              controller: widget.controller,
             );
           },
         ),
@@ -89,7 +77,7 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
-                    controller!.stop();
+                    widget.controller.stop();
                   },
                   child: Text(S.of(context).stop),
                 ),
@@ -125,38 +113,35 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (controller != null &&
-                          (controller!.state == ExportControllerState.working ||
-                              controller!.state ==
-                                  ExportControllerState.warmingUp))
+                      if ((widget.controller.state ==
+                              ExportControllerState.working ||
+                          widget.controller.state ==
+                              ExportControllerState.warmingUp))
                         LargeText(S.of(context).export_working),
-                      if (controller != null &&
-                          (controller!.state == ExportControllerState.paused ||
-                              controller!.state ==
-                                  ExportControllerState.retrying))
+                      if ((widget.controller.state ==
+                              ExportControllerState.paused ||
+                          widget.controller.state ==
+                              ExportControllerState.retrying))
                         LargeText(S.of(context).export_paused),
-                      if (controller != null &&
-                          controller!.state == ExportControllerState.stopped)
+                      if (widget.controller.state ==
+                          ExportControllerState.stopped)
                         LargeText(S.of(context).export_stopped),
-                      if (controller != null &&
-                          controller!.state == ExportControllerState.error)
+                      if (widget.controller.state ==
+                          ExportControllerState.error)
                         LargeText(S.of(context).export_error),
-                      if (controller != null &&
-                          controller!.state == ExportControllerState.done)
+                      if (widget.controller.state == ExportControllerState.done)
                         LargeText(S.of(context).export_done),
                     ],
                   ),
-                  if (controller != null &&
-                      controller!.state != ExportControllerState.error &&
-                      controller!.state != ExportControllerState.done)
+                  if (widget.controller.state != ExportControllerState.error &&
+                      widget.controller.state != ExportControllerState.done)
                     BodyPadding(
                       child: Text(
                         S.of(context).export_config_info,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
-                  if (controller != null &&
-                      controller!.state == ExportControllerState.error)
+                  if (widget.controller.state == ExportControllerState.error)
                     BodyPadding(
                       child: Text(
                         S.of(context).export_error_description,
@@ -168,16 +153,19 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         LinearProgressIndicator(
-                          value: (controller == null ||
-                                  controller!.state ==
-                                      ExportControllerState.warmingUp ||
-                                  controller!.info == null
-                              ? (controller!.state ==
-                                      ExportControllerState.error
-                                  ? 0
-                                  : null)
-                              : controller!.processed /
-                                  controller!.stickerIds.length),
+                          value: (() {
+                            switch (widget.controller.state) {
+                              case ExportControllerState.warmingUp:
+                              case ExportControllerState.retrying:
+                                return null;
+                              default:
+                                return widget.controller.count != null &&
+                                        widget.controller.count != 0
+                                    ? widget.controller.processed /
+                                        widget.controller.count!
+                                    : 0.0;
+                            }
+                          })(),
                           backgroundColor: Theme.of(context).dividerColor,
                           valueColor: AlwaysStoppedAnimation<Color>(
                               Theme.of(context).brightness == Brightness.dark
@@ -187,21 +175,16 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                         SizedBox(
                           height: 10,
                         ),
-                        if (controller != null &&
-                            ([
-                              ExportControllerState.paused,
-                              ExportControllerState.stopped,
-                              ExportControllerState.working,
-                            ].contains(controller!.state)))
+                        if ([
+                          ExportControllerState.paused,
+                          ExportControllerState.stopped,
+                          ExportControllerState.working,
+                        ].contains(widget.controller.state))
                           Text(
-                            '${controller!.processed} / ${controller!.stickerIds.length} ' +
-                                S
-                                    .of(context)
-                                    .of_stickers(controller!.stickerIds.length),
+                            '${widget.controller.processed} / ${widget.controller.count} ${S.of(context).of_stickers(widget.controller.count!)}',
                           ),
-                        if (controller != null &&
-                            ([ExportControllerState.error]
-                                .contains(controller!.state)))
+                        if ([ExportControllerState.error]
+                            .contains(widget.controller.state))
                           Text(
                             S.of(context).error,
                             style: TextStyle(
@@ -211,116 +194,253 @@ class _ExportProgressFlowState extends State<ExportProgressFlow> {
                                   : Theme.of(context).primaryColor),
                             ),
                           ),
-                        if (controller != null &&
-                            ([ExportControllerState.warmingUp]
-                                .contains(controller!.state)))
+                        if ([ExportControllerState.warmingUp]
+                            .contains(widget.controller.state))
                           Text(S.of(context).warming_up),
-                        if (controller != null &&
-                            ([ExportControllerState.retrying]
-                                .contains(controller!.state)))
+                        if ([ExportControllerState.retrying]
+                            .contains(widget.controller.state))
                           Text(S.of(context).retrying),
                       ],
                     ),
                   ),
-                  if (controller != null)
-                    BodyPadding(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          if (![
-                            ExportControllerState.error,
-                            ExportControllerState.paused,
-                          ].contains(controller!.state))
-                            TextButton(
-                              onPressed: (controller!.state ==
-                                      ExportControllerState.done
-                                  ? null
-                                  : () {
-                                      Navigator.of(context).maybePop();
-                                    }),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.resolveWith<Color?>(
-                                  (Set<MaterialState> states) =>
-                                      states.contains(MaterialState.disabled)
-                                          ? Colors.grey
-                                          : null,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.stop_rounded),
-                                  SizedBox(width: 10),
-                                  Text(S.of(context).stop),
-                                ],
+                  BodyPadding(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (![
+                          ExportControllerState.error,
+                          ExportControllerState.paused,
+                        ].contains(widget.controller.state))
+                          TextButton(
+                            onPressed: (widget.controller.state ==
+                                    ExportControllerState.done
+                                ? null
+                                : () {
+                                    Navigator.of(context).maybePop();
+                                  }),
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.resolveWith<Color?>(
+                                (Set<MaterialState> states) =>
+                                    states.contains(MaterialState.disabled)
+                                        ? Colors.grey
+                                        : null,
                               ),
                             ),
-                          if ([
-                            ExportControllerState.paused,
-                          ].contains(controller!.state))
-                            TextButton(
-                              onPressed: () {
-                                controller!.init();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(Icons.play_arrow_rounded),
-                                  SizedBox(width: 10),
-                                  Text(S.of(context).resume),
-                                ],
-                              ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.stop_rounded),
+                                SizedBox(width: 10),
+                                Text(S.of(context).stop),
+                              ],
                             ),
-                          if ([
-                            ExportControllerState.error,
-                          ].contains(controller!.state))
-                            TextButton(
-                              onPressed: () {
-                                showModalBottomSheet<dynamic>(
-                                  context: context,
-                                  builder: (context) => ListView(
-                                    shrinkWrap: true,
-                                    children: [
-                                      ListTile(
-                                        title: Text(S.of(context).error),
-                                        subtitle: Text(
-                                          controller!.errorDetails ??
-                                              S.of(context).no_error_details,
-                                        ),
-                                        trailing: IconButton(
-                                          tooltip: S.of(context).copy,
-                                          onPressed: () {
-                                            Clipboard.setData(
-                                              ClipboardData(
-                                                  text: controller!
-                                                          .errorDetails ??
-                                                      ''),
-                                            );
-                                          },
-                                          icon: Icon(Icons.copy_rounded),
-                                        ),
-                                        contentPadding: EdgeInsets.all(15),
+                          ),
+                        if ([
+                          ExportControllerState.paused,
+                        ].contains(widget.controller.state))
+                          TextButton(
+                            onPressed: () {
+                              widget.controller.init();
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.play_arrow_rounded),
+                                SizedBox(width: 10),
+                                Text(S.of(context).resume),
+                              ],
+                            ),
+                          ),
+                        if ([
+                          ExportControllerState.error,
+                        ].contains(widget.controller.state))
+                          TextButton(
+                            onPressed: () {
+                              showModalBottomSheet<dynamic>(
+                                context: context,
+                                builder: (context) => ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    ListTile(
+                                      title: Text(S.of(context).error),
+                                      subtitle: Text(
+                                        widget.controller.errorDetails ??
+                                            S.of(context).no_error_details,
                                       ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(Icons.info_rounded),
-                                  SizedBox(width: 10),
-                                  Text(S.of(context).details),
-                                ],
-                              ),
-                            )
-                        ],
-                      ),
+                                      trailing: IconButton(
+                                        tooltip: S.of(context).copy,
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                                text: widget.controller
+                                                        .errorDetails ??
+                                                    ''),
+                                          );
+                                        },
+                                        icon: Icon(Icons.copy_rounded),
+                                      ),
+                                      contentPadding: EdgeInsets.all(15),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.info_rounded),
+                                SizedBox(width: 10),
+                                Text(S.of(context).details),
+                              ],
+                            ),
+                          )
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+Future<StickerStyle> chooseYourFighter(
+  BuildContext context,
+  List<StickerStyle> packs,
+) async {
+  var index = 0;
+
+  void changer(int ind) {
+    index = ind;
+  }
+
+  /* if (!contextWidgetState.mounted) {
+    return packs[0];
+  } */
+
+  final alert = AlertDialog(
+    contentPadding: EdgeInsets.only(bottom: 25, left: 25, right: 25),
+    content: Container(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height / 2,
+      ),
+      decoration: BoxDecoration(),
+      clipBehavior: Clip.antiAlias,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 25.0,
+            ),
+            Text(
+              S.of(context).sticker_styles,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(S.of(context).sticker_styles_info),
+            SizedBox(
+              height: 10.0,
+            ),
+            StickerStyleChooser(
+              styles: packs,
+              changer: changer,
+            ),
+          ],
+        ),
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop(packs[index]);
+        },
+        child: Text(S.of(context).continue_btn),
+      ),
+    ],
+  );
+
+  // show the dialog
+  return (await showDialog<StickerStyle>(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      )) ??
+      packs[0];
+}
+
+Future<bool> shouldUseAnimated(BuildContext context) async {
+  final alert = AlertDialog(
+    title: Text(S.of(context).animated_pack),
+    content: Text(
+        '${S.of(context).animated_pack_info}\n\n${S.of(context).not_all_animated}'),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop(false);
+        },
+        child: Text(S.of(context).still),
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).pop(true);
+        },
+        child: Text(S.of(context).animated),
+      )
+    ],
+  );
+
+  // show the dialog
+  return await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      ) ??
+      true;
+}
+
+class StickerStyleChooser extends StatefulWidget {
+  StickerStyleChooser({
+    Key? key,
+    required this.styles,
+    required this.changer,
+  }) : super(key: key);
+
+  final List<StickerStyle> styles;
+  final void Function(int index) changer;
+
+  @override
+  StickerStyleChooserState createState() => StickerStyleChooserState();
+}
+
+class StickerStyleChooserState extends State<StickerStyleChooser> {
+  int chosen = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: widget.styles.mapIndexed((style, index) {
+        return ListTile(
+          selected: chosen == index,
+          title: Text(style.title),
+          leading: style.image,
+          selectedTileColor: Theme.of(context).primaryColor,
+          contentPadding: EdgeInsets.all(2.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          onTap: () {
+            setState(() {
+              chosen = index;
+              widget.changer(index);
+            });
+          },
+        );
+      }).toList(),
     );
   }
 }

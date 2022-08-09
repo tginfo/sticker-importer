@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sticker_import/services/connection/constants.dart';
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:vkget/vkget.dart';
 import './connection.dart';
 import './proxy.dart';
@@ -22,7 +21,7 @@ class Account {
     if (kDebugMode) {
       client.onRequestStateChange = (trace) {
         if (trace.type == VKGetTraceRequestType.fetch) return;
-        log(trace.toString());
+        iLog(trace.toString());
       };
     }
 
@@ -72,9 +71,8 @@ class Account {
     return Account(
       vk,
       id,
-      name: (data['response'][0]['first_name'] as String) +
-          ' ' +
-          (data['response'][0]['last_name'] as String),
+      name:
+          '${data['response'][0]['first_name'] as String} ${data['response'][0]['last_name'] as String}',
       uid: (data['response'][0]['id'] as int),
     );
   }

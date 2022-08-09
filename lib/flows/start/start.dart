@@ -3,11 +3,13 @@ import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/components/ui/round_button.dart';
+import 'package:sticker_import/export/controllers/vk.dart';
 import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/settings/about.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/utils/check_updates.dart';
+import 'package:sticker_import/utils/debugging.dart';
 
 final _formKey = GlobalKey<FormState>();
 bool isWithBorder = true;
@@ -21,7 +23,7 @@ void goOn(BuildContext context, TextEditingController urlController) {
   v = v.trim();
 
   if (!v.startsWith('http://') && !v.startsWith('https://')) {
-    v = 'https://' + v;
+    v = 'https://$v';
   }
 
   var u = Uri.parse(v);
@@ -29,7 +31,7 @@ void goOn(BuildContext context, TextEditingController urlController) {
   u = u.replace(host: 'vk.com', scheme: 'https');
 
   final account = Account.from('', 0);
-  account.vk.onRequestStateChange = print;
+  account.vk.onRequestStateChange = iLog;
 
   urlController.clear();
 
@@ -37,9 +39,14 @@ void goOn(BuildContext context, TextEditingController urlController) {
     MaterialPageRoute<dynamic>(
       builder: (BuildContext context) {
         return ExportProgressFlow(
-          account: account,
-          uri: u,
-          isWithBorder: isWithBorder,
+          controller: VkExportController(
+            account: account,
+            uri: u,
+            isWithBorder: isWithBorder,
+            context: context,
+            onStyleChooser: (styles) => chooseYourFighter(context, styles),
+            onShouldUseAnimated: () => shouldUseAnimated(context),
+          ),
         );
       },
     ),
@@ -48,10 +55,10 @@ void goOn(BuildContext context, TextEditingController urlController) {
 
 class StartRoute extends StatefulWidget {
   @override
-  _StartRouteState createState() => _StartRouteState();
+  StartRouteState createState() => StartRouteState();
 }
 
-class _StartRouteState extends State<StartRoute> {
+class StartRouteState extends State<StartRoute> {
   final urlController = TextEditingController();
 
   @override
@@ -121,7 +128,7 @@ class _StartRouteState extends State<StartRoute> {
                               v = v.trim();
 
                               if (!v.startsWith('http://') &&
-                                  !v.startsWith('https://')) v = 'https://' + v;
+                                  !v.startsWith('https://')) v = 'https://$v';
 
                               var u = Uri.tryParse(v);
                               if (u == null) {
@@ -131,11 +138,29 @@ class _StartRouteState extends State<StartRoute> {
                               if (u.host == 'm.vk.com') {
                                 u = u.replace(host: 'vk.com', scheme: 'https');
                               }
-                              if (u.host != 'vk.com' ||
-                                  u.pathSegments.length != 2 ||
-                                  u.pathSegments[0] != 'stickers') {
-                                print(u.pathSegments);
-                                return S.of(context).link_not_pack;
+
+                              if (u.host != 'vk.com' &&
+                                  u.host != 'store.line.me') {
+                                return S.of(context).link_incorrect;
+                              }
+
+                              if (u.host == 'vk.com') {
+                                if (!(u.pathSegments.length == 2 &&
+                                    u.pathSegments[0] == 'stickers')) {
+                                  iLog(u.pathSegments);
+                                  return S.of(context).link_not_pack_vk;
+                                }
+                              }
+
+                              if (u.host == 'store.line.me') {
+                                if (u.pathSegments.length < 3 ||
+                                    !(u.pathSegments[0] == 'stickershop' ||
+                                        u.pathSegments[1] == 'product' ||
+                                        int.tryParse(u.pathSegments[2]) !=
+                                            null)) {
+                                  iLog(u.pathSegments);
+                                  return S.of(context).link_not_pack_line;
+                                }
                               }
 
                               return null;

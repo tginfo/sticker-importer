@@ -42,8 +42,11 @@ class EmojiPickerScreen extends StatelessWidget {
               : Theme.of(context).colorScheme.onPrimary),
           showRecentsTab: true,
           recentsLimit: 28,
-          noRecentsText: S.of(context).no_recents,
-          noRecentsStyle: Theme.of(context).textTheme.subtitle2!,
+          noRecents: Text(
+            S.of(context).no_recents,
+            style: Theme.of(context).textTheme.subtitle2!,
+            textAlign: TextAlign.center,
+          ),
           categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,
         ),

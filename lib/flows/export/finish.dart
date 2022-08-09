@@ -20,10 +20,10 @@ class ExportFinishRoute extends StatefulWidget {
   final bool isAnimated;
 
   @override
-  _ExportFinishRouteState createState() => _ExportFinishRouteState();
+  ExportFinishRouteState createState() => ExportFinishRouteState();
 }
 
-class _ExportFinishRouteState extends State<ExportFinishRoute> {
+class ExportFinishRouteState extends State<ExportFinishRoute> {
   @override
   void initState() {
     super.initState();
@@ -85,14 +85,14 @@ class _ExportFinishRouteState extends State<ExportFinishRoute> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          launch('tg://resolve?domain=tginfo');
+                          launchUrl(Uri.parse('tg://resolve?domain=tginfo'));
                         },
                         icon: Icon(Icons.arrow_forward_rounded),
                         label: Text(S.of(context).follow_tginfo),
                       ),
                       TextButton.icon(
                         onPressed: () {
-                          launch('https://donate.tginfo.me');
+                          launchUrl(Uri.parse('https://donate.tginfo.me'));
                         },
                         icon: Icon(Icons.volunteer_activism_rounded),
                         label: Text(S.of(context).donate),

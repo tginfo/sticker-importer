@@ -19,7 +19,7 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
-            // Note: this method is invoked on the main thread.
+            // This method is invoked on the main thread.
             call, result ->
             if (call.method == "sendDrKLOIntent") {
                 val paths: ArrayList<String>? = call.argument("paths")

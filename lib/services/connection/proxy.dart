@@ -1,3 +1,4 @@
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:vkget/vkget.dart';
 import 'vkget_flutter.dart';
 
@@ -8,21 +9,21 @@ extension VkGetProxy on VKGet {
     Duration? ping;
 
     try {
-      print('Checking VK access');
-      ping = await VKGetUtils.pingVK(client, timeout: Duration(seconds: 1));
-      print('VK ping succeeded in $ping. No proxy needed');
+      iLog('Checking VK access');
+      ping = await VKGetUtils.pingVK(client, timeout: Duration(seconds: 2));
+      iLog('VK ping succeeded in $ping. No proxy needed');
       return false;
     } catch (e) {
-      print('Getting VK proxies');
+      iLog('Getting VK proxies');
       final r = await VKGetUtilsFlutter.getProxyListAsAndroidDevice();
 
-      print('Loaded proxy list from Firebase');
+      iLog('Loaded proxy list from Firebase');
       VKGetUtils.trustify(r.certificates, client);
       proxies = r.proxy;
       Object? lastError;
       for (final proxy in r.proxy) {
         try {
-          print('Trying proxy $proxy');
+          iLog('Trying proxy $proxy');
           ping = await VKGetUtils.pingVK(client,
               proxy: proxy, timeout: Duration(seconds: 1));
           break;
@@ -32,10 +33,10 @@ extension VkGetProxy on VKGet {
       }
 
       if (ping == null) {
-        print("Couldn't find a working proxy");
+        iLog("Couldn't find a working proxy");
 
         if (!await VKGetUtils.checkPureInternetConnection()) {
-          print('No Internet detection');
+          iLog('No Internet detection');
           throw NoInternetConnectionError();
         }
 
@@ -43,7 +44,7 @@ extension VkGetProxy on VKGet {
         throw Exception('Unknown error');
       }
 
-      print('Activated VK proxy');
+      iLog('Activated VK proxy');
       return true;
     }
   }

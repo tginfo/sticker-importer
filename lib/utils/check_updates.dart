@@ -1,27 +1,32 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as p;
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/generated/l10n.dart';
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void checkUpdates(BuildContext context) async {
   final supportedAbis = (await DeviceInfoPlugin().androidInfo).supportedAbis;
 
-  final res = await http
-      .get(Uri.parse('https://api.github.com/repositories/379931593/releases'));
+  final res = await (await HttpClient().getUrl(
+    Uri.parse('https://api.github.com/repositories/379931593/releases'),
+  ))
+      .close();
 
-  final j = jsonDecode(res.body) as List<dynamic>;
+  final j = (await res
+      .transform<String>(utf8.decoder)
+      .transform<Object?>(json.decoder)
+      .first) as List<dynamic>;
 
   Map<String, dynamic>? targetRelease;
   Map<String, dynamic>? targetFile;
   Map<String, dynamic>? fatTargetFile;
   final build = int.parse((await PackageInfo.fromPlatform()).buildNumber);
-  print('My build is $build');
+  iLog('My build is $build');
 
   for (final release in j) {
     if (release['prerelease'] == true) continue;
@@ -44,14 +49,14 @@ void checkUpdates(BuildContext context) async {
         if (fs != '.$abi.apk') continue;
 
         targetFile = asset;
-        print('Found matching package for ABI $abi');
+        iLog('Found matching package for ABI $abi');
         break abiSearch;
       }
     }
 
     if (targetFile == null && fatTargetFile != null) {
       targetFile = fatTargetFile;
-      print('Using a fat APK');
+      iLog('Using a fat APK');
     }
 
     if (targetFile != null) {
@@ -60,11 +65,11 @@ void checkUpdates(BuildContext context) async {
     }
   }
 
-  print(supportedAbis);
+  iLog(supportedAbis);
 
   if (targetRelease == null || targetFile == null) {
-    print('No updates found: ' +
-        (targetRelease == null ? 'No new package' : 'Asset not found'));
+    iLog(
+        'No updates found: ${targetRelease == null ? 'No new package' : 'Asset not found'}');
     return;
   }
 
@@ -75,7 +80,7 @@ void checkUpdates(BuildContext context) async {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: WidgetsBinding.instance!.window.padding.top),
+          SizedBox(height: WidgetsBinding.instance.window.padding.top),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: LargeText(S.of(context).update),
@@ -95,14 +100,16 @@ void checkUpdates(BuildContext context) async {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    launch('https://apps.tginfo.me/sticker-import/');
+                    launchUrl(
+                        Uri.parse('https://apps.tginfo.me/sticker-import/'));
                   },
                   child: Text(S.of(context).open_in_browser),
                 ),
                 SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () {
-                    launch(targetFile!['browser_download_url'] as String);
+                    launchUrl(Uri.parse(
+                        targetFile!['browser_download_url'] as String));
                   },
                   icon: Icon(Icons.download),
                   label: Text(S.of(context).download),

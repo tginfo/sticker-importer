@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `We can help you to move your stickers from VK to Telegram smoothly`
+  /// `We can help you to move your stickers from VK.com and LINE to Telegram smoothly`
   String get welcome_screen_description {
     return Intl.message(
-      'We can help you to move your stickers from VK to Telegram smoothly',
+      'We can help you to move your stickers from VK.com and LINE to Telegram smoothly',
       name: 'welcome_screen_description',
       desc: '',
       args: [],
@@ -492,11 +492,21 @@ class S {
     );
   }
 
-  /// `The link is not a VK stickerpack`
-  String get link_not_pack {
+  /// `The link is not a VK.com stickerpack`
+  String get link_not_pack_vk {
     return Intl.message(
-      'The link is not a VK stickerpack',
-      name: 'link_not_pack',
+      'The link is not a VK.com stickerpack',
+      name: 'link_not_pack_vk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The link is not a LINE stickerpack`
+  String get link_not_pack_line {
+    return Intl.message(
+      'The link is not a LINE stickerpack',
+      name: 'link_not_pack_line',
       desc: '',
       args: [],
     );
@@ -722,10 +732,10 @@ class S {
     );
   }
 
-  /// `Not all animated stickers from VK are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all`
+  /// `Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all`
   String get not_all_animated {
     return Intl.message(
-      'Not all animated stickers from VK are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all',
+      'Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all',
       name: 'not_all_animated',
       desc: '',
       args: [],
@@ -797,6 +807,66 @@ class S {
     return Intl.message(
       'No error details available',
       name: 'no_error_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detailed logging`
+  String get detailed_logging {
+    return Intl.message(
+      'Detailed logging',
+      name: 'detailed_logging',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consumes more RAM`
+  String get detailed_logging_info {
+    return Intl.message(
+      'Consumes more RAM',
+      name: 'detailed_logging_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save logs`
+  String get save_logs {
+    return Intl.message(
+      'Save logs',
+      name: 'save_logs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logs saved to {path}`
+  String logs_saved_to(Object path) {
+    return Intl.message(
+      'Logs saved to $path',
+      name: 'logs_saved_to',
+      desc: '',
+      args: [path],
+    );
+  }
+
+  /// `Couldn't save logs: {error}`
+  String logs_save_error(Object error) {
+    return Intl.message(
+      'Couldn\'t save logs: $error',
+      name: 'logs_save_error',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `VK.com returned Error 429: Too Many Requests. Try using a different connection (proxy, VPN, etc.)`
+  String get vk_error_429 {
+    return Intl.message(
+      'VK.com returned Error 429: Too Many Requests. Try using a different connection (proxy, VPN, etc.)',
+      name: 'vk_error_429',
       desc: '',
       args: [],
     );

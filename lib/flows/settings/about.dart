@@ -5,6 +5,7 @@ import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/settings/settings.dart';
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'licenses.dart';
@@ -30,9 +31,7 @@ class AboutRoute extends StatelessWidget {
               LargeText(S.of(context).about_program),
               BodyPadding(
                 child: Text(
-                  S.of(context).version +
-                      ' ' +
-                      (SettingsStorage.packageInfo?.version ?? ''),
+                  '${S.of(context).version} ${SettingsStorage.packageInfo?.version ?? ''}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
@@ -51,7 +50,8 @@ class AboutRoute extends StatelessWidget {
                     title: Text(S.of(context).telegram_info),
                     subtitle: Text(S.of(context).telegram_info_desc),
                     onTap: () {
-                      launch(S.of(context).tginfo_link);
+                      launchUrl(Uri.tryParse(S.of(context).tginfo_link) ??
+                          Uri.parse('https://t.me/tginfo'));
                     },
                   ),
                   ListTile(
@@ -93,7 +93,85 @@ class AboutRoute extends StatelessWidget {
                     title: Text(S.of(context).github),
                     subtitle: Text(S.of(context).source_code),
                     onTap: () {
-                      launch('https://github.com/tginfo/sticker-importer');
+                      launchUrl(Uri.parse(
+                          'https://github.com/tginfo/sticker-importer'));
+                    },
+                  ),
+                  Divider(),
+                  StatefulBuilder(builder: (BuildContext context, setState) {
+                    return SwitchListTile(
+                        title: Text(S.of(context).detailed_logging),
+                        subtitle: Text(S.of(context).detailed_logging_info),
+                        secondary: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.data_exploration_rounded,
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Theme.of(context).primaryColor),
+                          ),
+                        ),
+                        value: iLogDoDetailedLogging,
+                        onChanged: (n) {
+                          setState(() {
+                            iLogDoDetailedLogging = n;
+                          });
+                        });
+                  }),
+                  ListTile(
+                    leading: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(
+                        Icons.bug_report_rounded,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Theme.of(context).primaryColor),
+                      ),
+                    ),
+                    title: Text(S.of(context).save_logs),
+                    onTap: () async {
+                      try {
+                        final r = await saveLogs();
+
+                        // ignore: unawaited_futures
+                        showDialog<dynamic>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(S.of(context).done),
+                              content: Text(S.of(context).logs_saved_to(r)),
+                              actions: [
+                                TextButton(
+                                  child: Text(S.of(context).ok),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } catch (e) {
+                        // ignore: unawaited_futures
+                        showDialog<dynamic>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(S.of(context).error),
+                              content: Text(S.of(context).logs_save_error(e)),
+                              actions: [
+                                TextButton(
+                                  child: Text(S.of(context).ok),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                   ),
                   Divider(),

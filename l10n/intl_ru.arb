@@ -2,7 +2,7 @@
     "@@locale": "ru",
     "tginfo_sticker_importer": "Telegram Info Sticker Importer",
     "welcome": "Добро пожаловать",
-    "welcome_screen_description": "Давайте перенесём ваши стикеры из ВКонтакте в Telegram",
+    "welcome_screen_description": "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram",
     "about_program": "О программе",
     "version": "Версия",
     "telegram_info": "Telegram Info",
@@ -44,7 +44,8 @@
     "downloaded_n": "Загружено",
     "out_of": "из",
     "link_incorrect": "Ссылка некорректна",
-    "link_not_pack": "Ссылка не является стикерпаком ВКонтакте",
+    "link_not_pack_vk": "Ссылка не является стикерпаком ВКонтакте",
+    "link_not_pack_line": "Ссылка не является стикерпаком LINE",
     "check_the_link": "Проверьте правильность ссылки",
     "prepare_pack": "Подготовьте набор",
     "customize_your_pack": "Настройте под себя",
@@ -74,5 +75,11 @@
     "continue_btn": "Продолжить",
     "github": "GitHub",
     "source_code": "Исходный код",
-    "no_error_details": "Дополнительные свидетельства об этой ошибке отсутствуют"
+    "no_error_details": "Нет дополнительных сведений об этой ошибке",
+    "detailed_logging": "Подробное логирование",
+    "detailed_logging_info": "Потребляет много ОЗУ",
+    "save_logs": "Сохранить логи",
+    "logs_saved_to": "Логи сохранены в {path}",
+    "logs_save_error": "Ошибка сохранения логов: {error}",
+    "vk_error_429": "VK вернул ошибку 429: Превышен лимит запросов. Попробуйте использовать другое подключение (например, VPN, прокси и т.п.)"
 }

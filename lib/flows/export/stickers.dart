@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:sticker_import/export/controller.dart';
+import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/flows/export/emoji_chooser.dart';
 import 'package:sticker_import/flows/export/finish.dart';
 import 'package:sticker_import/generated/l10n.dart';
@@ -13,17 +13,17 @@ class StickerChooserRoute extends StatefulWidget {
   final ExportController controller;
 
   @override
-  _StickerChooserRouteState createState() => _StickerChooserRouteState();
+  StickerChooserRouteState createState() => StickerChooserRouteState();
 }
 
-class _StickerChooserRouteState extends State<StickerChooserRoute> {
+class StickerChooserRouteState extends State<StickerChooserRoute> {
   final enabled = <bool>[];
   final emoji = <String>[];
 
   @override
   void initState() {
     for (final file in widget.controller.result!) {
-      imageCache?.evict(FileImage(File(file)));
+      imageCache.evict(FileImage(File(file)));
     }
 
     enabled.addAll(List.filled(widget.controller.result!.length, true));
@@ -101,7 +101,7 @@ class _StickerChooserRouteState extends State<StickerChooserRoute> {
               title: Text(S.of(context).customize_your_pack),
               subtitle: Text(S.of(context).customize_your_pack_info +
                   (widget.controller.isAnimated
-                      ? '\n\n' + S.of(context).not_all_animated
+                      ? '\n\n${S.of(context).not_all_animated}'
                       : '')),
             ),
           ),

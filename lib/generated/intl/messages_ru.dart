@@ -20,7 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(count) =>
+  static String m0(error) => "Ошибка сохранения логов: ${error}";
+
+  static String m1(path) => "Логи сохранены в ${path}";
+
+  static String m2(count) =>
       "${Intl.plural(count, zero: 'стикеров', one: 'стикер', two: 'стикера', few: 'стикеров', many: 'стикеров', other: 'стикеров')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -47,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),
         "customize_your_pack_info": MessageLookupByLibrary.simpleMessage(
             "Выберите, какие стикеры Вы желаете импортировать и присвойте им соответствующие эмодзи для быстрого доступа"),
+        "detailed_logging":
+            MessageLookupByLibrary.simpleMessage("Подробное логирование"),
+        "detailed_logging_info":
+            MessageLookupByLibrary.simpleMessage("Потребляет много ОЗУ"),
         "details": MessageLookupByLibrary.simpleMessage("Подробности"),
         "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
         "done": MessageLookupByLibrary.simpleMessage("Готово"),
@@ -82,16 +90,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "link": MessageLookupByLibrary.simpleMessage("Ссылка на стикерпак"),
         "link_incorrect":
             MessageLookupByLibrary.simpleMessage("Ссылка некорректна"),
-        "link_not_pack": MessageLookupByLibrary.simpleMessage(
+        "link_not_pack_line": MessageLookupByLibrary.simpleMessage(
+            "Ссылка не является стикерпаком LINE"),
+        "link_not_pack_vk": MessageLookupByLibrary.simpleMessage(
             "Ссылка не является стикерпаком ВКонтакте"),
+        "logs_save_error": m0,
+        "logs_saved_to": m1,
         "no_error_details": MessageLookupByLibrary.simpleMessage(
-            "Дополнительные свидетельства об этой ошибке отсутствуют"),
+            "Нет дополнительных сведений об этой ошибке"),
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
             "Telegram не установлен на Вашем устройстве, поэтому экспорт не удался"),
-        "of_stickers": m0,
+        "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open_in_browser":
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
@@ -100,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Подготовьте набор"),
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "retrying": MessageLookupByLibrary.simpleMessage("Пробуем ещё раз..."),
+        "save_logs": MessageLookupByLibrary.simpleMessage("Сохранить логи"),
         "select_all": MessageLookupByLibrary.simpleMessage("Выбрать всё"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Разработчик"),
@@ -125,10 +138,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "unit_mb": MessageLookupByLibrary.simpleMessage("MB"),
         "update": MessageLookupByLibrary.simpleMessage("Обновление"),
         "version": MessageLookupByLibrary.simpleMessage("Версия"),
+        "vk_error_429": MessageLookupByLibrary.simpleMessage(
+            "VK вернул ошибку 429: Превышен лимит запросов. Попробуйте использовать другое подключение (например, VPN, прокси и т.п.)"),
         "warming_up": MessageLookupByLibrary.simpleMessage("Подготовка..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
-            "Давайте перенесём ваши стикеры из ВКонтакте в Telegram"),
+            "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram"),
         "with_border": MessageLookupByLibrary.simpleMessage("С обводкой")
       };
 }
