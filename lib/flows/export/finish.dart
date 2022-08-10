@@ -4,7 +4,7 @@ import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/generated/l10n.dart';
-import 'package:sticker_import/services/settings/settings.dart';
+import 'package:sticker_import/services/native/method_channels.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExportFinishRoute extends StatefulWidget {
@@ -28,13 +28,13 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
   void initState() {
     super.initState();
 
-    SettingsStorage.intentChannel.invokeMethod<dynamic>(
+    MethodChannelStore.intentChannel.invokeMethod<dynamic>(
       'sendDrKLOIntent',
       <String, dynamic>{
         'paths': widget.paths,
         'emoji': widget.emojis,
         'isAnimated': widget.isAnimated,
-        'package': SettingsStorage.packageInfo!.packageName,
+        'package': MethodChannelStore.packageInfo!.packageName,
       },
     ).onError((e, stackTrace) {
       if (e is PlatformException &&

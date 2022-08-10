@@ -4,7 +4,7 @@ import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/generated/l10n.dart';
-import 'package:sticker_import/services/settings/settings.dart';
+import 'package:sticker_import/services/native/method_channels.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,7 +31,7 @@ class AboutRoute extends StatelessWidget {
               LargeText(S.of(context).about_program),
               BodyPadding(
                 child: Text(
-                  '${S.of(context).version} ${SettingsStorage.packageInfo?.version ?? ''}',
+                  '${S.of(context).version} ${MethodChannelStore.packageInfo?.version ?? ''}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),

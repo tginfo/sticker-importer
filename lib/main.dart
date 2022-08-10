@@ -8,7 +8,7 @@ import 'package:sticker_import/flows/start/start.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
-import 'services/settings/settings.dart';
+import 'services/native/method_channels.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ void main() async {
     overlays: [SystemUiOverlay.top],
   );
 
-  SettingsStorage.packageInfo = await PackageInfo.fromPlatform();
+  MethodChannelStore.packageInfo = await PackageInfo.fromPlatform();
   runApp(TginfoMoverApp());
 }
 
