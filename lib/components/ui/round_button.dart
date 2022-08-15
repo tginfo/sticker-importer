@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class IconRoundButton extends StatelessWidget {
-  IconRoundButton({this.onPressed, required this.icon, required this.child});
+  const IconRoundButton({
+    this.onPressed,
+    required this.icon,
+    required this.child,
+    super.key,
+  });
 
   final void Function()? onPressed;
   final String child;
@@ -27,9 +32,9 @@ class IconRoundButton extends StatelessWidget {
             ),
           ),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           ),
-          minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 60.0)),
+          minimumSize: MaterialStateProperty.all<Size>(const Size(150.0, 60.0)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

@@ -14,6 +14,7 @@ void iLog(Object? message, {bool large = true}) {
   if (message is String) {
     log(message);
   } else {
+    // ignore: avoid_print
     print(message.toString());
   }
   if (iLogDoDetailedLogging) _logs.writeln(message);

@@ -8,7 +8,7 @@ import 'package:sticker_import/services/native/method_channels.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExportFinishRoute extends StatefulWidget {
-  ExportFinishRoute({
+  const ExportFinishRoute({
     Key? key,
     required this.paths,
     required this.emojis,
@@ -52,17 +52,17 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
         elevation: 0,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Center(
           child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 32.0),
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 32.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: [
+                  children: const [
                     LogoAsset(),
                   ],
                 ),
@@ -85,16 +85,22 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          launchUrl(Uri.parse('tg://resolve?domain=tginfo'));
+                          launchUrl(
+                            Uri.parse('tg://resolve?domain=tginfo'),
+                            mode: LaunchMode.externalApplication,
+                          );
                         },
-                        icon: Icon(Icons.arrow_forward_rounded),
+                        icon: const Icon(Icons.arrow_forward_rounded),
                         label: Text(S.of(context).follow_tginfo),
                       ),
                       TextButton.icon(
                         onPressed: () {
-                          launchUrl(Uri.parse('https://donate.tginfo.me'));
+                          launchUrl(
+                            Uri.parse('https://donate.tginfo.me'),
+                            mode: LaunchMode.externalApplication,
+                          );
                         },
-                        icon: Icon(Icons.volunteer_activism_rounded),
+                        icon: const Icon(Icons.volunteer_activism_rounded),
                         label: Text(S.of(context).donate),
                       )
                     ],

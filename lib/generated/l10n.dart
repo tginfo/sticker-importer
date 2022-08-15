@@ -60,20 +60,20 @@ class S {
     );
   }
 
-  /// `Welcome here`
+  /// `Welcome`
   String get welcome {
     return Intl.message(
-      'Welcome here',
+      'Welcome',
       name: 'welcome',
       desc: '',
       args: [],
     );
   }
 
-  /// `We can help you to move your stickers from VK.com and LINE to Telegram smoothly`
+  /// `We can help you to move your stickers from VK.com and LINE to Telegram`
   String get welcome_screen_description {
     return Intl.message(
-      'We can help you to move your stickers from VK.com and LINE to Telegram smoothly',
+      'We can help you to move your stickers from VK.com and LINE to Telegram',
       name: 'welcome_screen_description',
       desc: '',
       args: [],
@@ -150,21 +150,31 @@ class S {
     );
   }
 
-  /// `AntonioMarreti`
-  String get antonio_marreti {
+  /// `Leave feedback`
+  String get feedback {
     return Intl.message(
-      'AntonioMarreti',
-      name: 'antonio_marreti',
+      'Leave feedback',
+      name: 'feedback',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lead editor of @tginfo`
-  String get antonio_marreti_desc {
+  /// `If you have any questions or suggestions, please contact us`
+  String get feedback_desc {
     return Intl.message(
-      'Lead editor of @tginfo',
-      name: 'antonio_marreti_desc',
+      'If you have any questions or suggestions, please contact us',
+      name: 'feedback_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://t.me/infowritebot?start=stickerimporter`
+  String get feedback_url {
+    return Intl.message(
+      'https://t.me/infowritebot?start=stickerimporter',
+      name: 'feedback_url',
       desc: '',
       args: [],
     );
@@ -867,6 +877,306 @@ class S {
     return Intl.message(
       'VK.com returned Error 429: Too Many Requests. Try using a different connection (proxy, VPN, etc.)',
       name: 'vk_error_429',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK.com Login`
+  String get vk_login {
+    return Intl.message(
+      'VK.com Login',
+      name: 'vk_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get sign_in {
+    return Intl.message(
+      'Sign in',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login or phone number`
+  String get login {
+    return Intl.message(
+      'Login or phone number',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message(
+      'Loading',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill all the fields`
+  String get fill_all_fields {
+    return Intl.message(
+      'Fill all the fields',
+      name: 'fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the picture to continue`
+  String get enter_code_from_img {
+    return Intl.message(
+      'Enter code from the picture to continue',
+      name: 'enter_code_from_img',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the SMS sent to your phone`
+  String get enter_code_from_sms {
+    return Intl.message(
+      'Enter code from the SMS sent to your phone',
+      name: 'enter_code_from_sms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the message sent to authentication app`
+  String get enter_code_from_app {
+    return Intl.message(
+      'Enter code from the message sent to authentication app',
+      name: 'enter_code_from_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You request codes too often`
+  String get twofa_codes_too_often {
+    return Intl.message(
+      'You request codes too often',
+      name: 'twofa_codes_too_often',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New code sent`
+  String get twofa_code_sent {
+    return Intl.message(
+      'New code sent',
+      name: 'twofa_code_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SMS`
+  String get sms {
+    return Intl.message(
+      'SMS',
+      name: 'sms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Call`
+  String get call {
+    return Intl.message(
+      'Call',
+      name: 'call',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required`
+  String get field_required {
+    return Intl.message(
+      'Required',
+      name: 'field_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internet error`
+  String get internet_error_title {
+    return Intl.message(
+      'Internet error',
+      name: 'internet_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request failed. Check your Internet connection and try again`
+  String get internet_error_info {
+    return Intl.message(
+      'Request failed. Check your Internet connection and try again',
+      name: 'internet_error_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get t_continue {
+    return Intl.message(
+      'Continue',
+      name: 't_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get code {
+    return Intl.message(
+      'Code',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By Link`
+  String get by_link {
+    return Intl.message(
+      'By Link',
+      name: 'by_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK.com Account`
+  String get vk_account {
+    return Intl.message(
+      'VK.com Account',
+      name: 'vk_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get delete_account_confirm {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'delete_account_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add account`
+  String get add_account {
+    return Intl.message(
+      'Add account',
+      name: 'add_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logged in`
+  String get logged_in {
+    return Intl.message(
+      'Logged in',
+      name: 'logged_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get access to your sticker packs and VK's sticker store`
+  String get vk_login_access {
+    return Intl.message(
+      'Get access to your sticker packs and VK\'s sticker store',
+      name: 'vk_login_access',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK Sticker Store`
+  String get vk_sticker_store {
+    return Intl.message(
+      'VK Sticker Store',
+      name: 'vk_sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://m.vk.com/stickers?tab=popular`
+  String get vk_sticker_store_url {
+    return Intl.message(
+      'https://m.vk.com/stickers?tab=popular',
+      name: 'vk_sticker_store_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heads up!`
+  String get vk_id_setting_title {
+    return Intl.message(
+      'Heads up!',
+      name: 'vk_id_setting_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disable "Protection from suspicious apps" in your VK ID settings to be able to use the feature`
+  String get vk_id_setting_info {
+    return Intl.message(
+      'Disable "Protection from suspicious apps" in your VK ID settings to be able to use the feature',
+      name: 'vk_id_setting_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://id.vk.com/account/#/security`
+  String get vk_id_security_link {
+    return Intl.message(
+      'https://id.vk.com/account/#/security',
+      name: 'vk_id_security_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to VK ID`
+  String get go_to_vk_id {
+    return Intl.message(
+      'Go to VK ID',
+      name: 'go_to_vk_id',
       desc: '',
       args: [],
     );

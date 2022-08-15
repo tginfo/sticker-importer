@@ -84,7 +84,11 @@ class VkExportController extends ExportController {
       await account.fire();
 
       try {
-        id = await stickerUrlToId(account.vk, uri);
+        if (uri.queryParameters.containsKey('stickers_id')) {
+          id = int.tryParse(uri.queryParameters['stickers_id']!);
+        }
+
+        id ??= await stickerUrlToId(account.vk, uri);
       } catch (e) {
         if (e == HttpStatus.tooManyRequests) {
           _setState(() {

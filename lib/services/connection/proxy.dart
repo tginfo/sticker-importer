@@ -10,7 +10,7 @@ extension VkGetProxy on VKGet {
 
     try {
       iLog('Checking VK access');
-      ping = await VKGetUtils.pingVK(client, timeout: Duration(seconds: 2));
+      ping = await VKGetUtils.pingVK(client, timeout: const Duration(seconds: 2));
       iLog('VK ping succeeded in $ping. No proxy needed');
       return false;
     } catch (e) {
@@ -25,7 +25,7 @@ extension VkGetProxy on VKGet {
         try {
           iLog('Trying proxy $proxy');
           ping = await VKGetUtils.pingVK(client,
-              proxy: proxy, timeout: Duration(seconds: 1));
+              proxy: proxy, timeout: const Duration(seconds: 1));
           break;
         } catch (e) {
           lastError = e;

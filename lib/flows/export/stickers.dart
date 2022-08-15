@@ -53,7 +53,7 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                 );
               });
             },
-            icon: Icon(Icons.select_all_rounded),
+            icon: const Icon(Icons.select_all_rounded),
           ),
           IconButton(
             tooltip: S.of(context).done,
@@ -84,19 +84,19 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                 ),
               );
             },
-            icon: Icon(Icons.done_rounded),
+            icon: const Icon(Icons.done_rounded),
           ),
         ],
       ),
       body: ListView(
         children: [
           Card(
-            margin: EdgeInsets.all(15.0),
+            margin: const EdgeInsets.all(15.0),
             child: ListTile(
-              contentPadding: EdgeInsets.all(10.0),
+              contentPadding: const EdgeInsets.all(10.0),
               leading: CircleAvatar(
                 backgroundColor: Theme.of(context).primaryColor,
-                child: Icon(Icons.info_rounded),
+                child: const Icon(Icons.info_rounded),
               ),
               title: Text(S.of(context).customize_your_pack),
               subtitle: Text(S.of(context).customize_your_pack_info +
@@ -107,14 +107,14 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
           ),
           GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.controller.result!.length,
             gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
             itemBuilder: (context, n) {
               return AnimatedOpacity(
                 opacity: (enabled[n] ? 1 : .6),
-                duration: Duration(milliseconds: 250),
+                duration: const Duration(milliseconds: 250),
                 child: Semantics(
                   checked: enabled[n],
                   hint: S.of(context).enable_sticker,
@@ -151,7 +151,7 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                       await Navigator.of(context).push<String>(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return EmojiPickerScreen();
+                                        return const EmojiPickerScreen();
                                       },
                                     ),
                                   );
@@ -161,10 +161,10 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                   });
                                 },
                                 icon: (emoji[n].isEmpty
-                                    ? Icon(Icons.face_rounded)
+                                    ? const Icon(Icons.face_rounded)
                                     : Text(
                                         emoji[n],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 24,
                                           height: 1.1,
                                         ),

@@ -1,88 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:sticker_import/components/flutter/input_theme.dart';
 import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/components/ui/round_button.dart';
 import 'package:sticker_import/export/controllers/vk.dart';
 import 'package:sticker_import/flows/export/progress.dart';
-import 'package:sticker_import/flows/settings/about.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
-import 'package:sticker_import/utils/check_updates.dart';
 import 'package:sticker_import/utils/debugging.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-final _formKey = GlobalKey<FormState>();
-bool isWithBorder = true;
+class ImportByLinkRoute extends StatefulWidget {
+  const ImportByLinkRoute({Key? key}) : super(key: key);
 
-void goOn(BuildContext context, TextEditingController urlController) {
-  if (!_formKey.currentState!.validate()) {
-    return;
-  }
-
-  var v = urlController.value.text;
-  v = v.trim();
-
-  if (!v.startsWith('http://') && !v.startsWith('https://')) {
-    v = 'https://$v';
-  }
-
-  var u = Uri.parse(v);
-
-  u = u.replace(host: 'vk.com', scheme: 'https');
-
-  final account = Account.from('', 0);
-  account.vk.onRequestStateChange = iLog;
-
-  urlController.clear();
-
-  Navigator.of(context).push<dynamic>(
-    MaterialPageRoute<dynamic>(
-      builder: (BuildContext context) {
-        return ExportProgressFlow(
-          controller: VkExportController(
-            account: account,
-            uri: u,
-            isWithBorder: isWithBorder,
-            context: context,
-            onStyleChooser: (styles) => chooseYourFighter(context, styles),
-            onShouldUseAnimated: () => shouldUseAnimated(context),
-          ),
-        );
-      },
-    ),
-  );
-}
-
-class StartRoute extends StatefulWidget {
   @override
-  StartRouteState createState() => StartRouteState();
+  ImportByLinkRouteState createState() => ImportByLinkRouteState();
 }
 
-class StartRouteState extends State<StartRoute> {
+class ImportByLinkRouteState extends State<ImportByLinkRoute> {
   final urlController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool isWithBorder = true;
 
-  @override
-  void initState() {
-    super.initState();
+  void goOn(BuildContext context, TextEditingController urlController) {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
-    checkUpdates(context);
+    var v = urlController.value.text;
+    v = v.trim();
+
+    if (!v.startsWith('http://') && !v.startsWith('https://')) {
+      v = 'https://$v';
+    }
+
+    var u = Uri.parse(v);
+
+    u = u.replace(host: 'vk.com', scheme: 'https');
+
+    final account = Account.from('', 0);
+    account.vk.onRequestStateChange = iLog;
+
+    urlController.clear();
+
+    Navigator.of(context).push<dynamic>(
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) {
+          return ExportProgressFlow(
+            controller: VkExportController(
+              account: account,
+              uri: u,
+              isWithBorder: isWithBorder,
+              context: context,
+              onStyleChooser: (styles) => chooseYourFighter(context, styles),
+              onShouldUseAnimated: () => shouldUseAnimated(context),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Center(
           child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 32.0),
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 32.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: [
+                  children: const [
                     LogoAsset(),
                   ],
                 ),
@@ -98,21 +92,14 @@ class StartRouteState extends State<StartRoute> {
                     key: _formKey,
                     child: ListView(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        Theme(
-                          data:
-                              (Theme.of(context).brightness == Brightness.light
-                                  ? Theme.of(context).copyWith(
-                                      colorScheme: ColorScheme.light(
-                                      primary: Color(0xFFAC1B24),
-                                    ))
-                                  : Theme.of(context)),
+                        InputTheme(
                           child: TextFormField(
                             controller: urlController,
                             decoration: InputDecoration(
                               labelText: S.of(context).link,
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                             ),
                             textInputAction: TextInputAction.go,
                             keyboardType: TextInputType.url,
@@ -124,6 +111,8 @@ class StartRouteState extends State<StartRoute> {
                               if (v == null) {
                                 return S.of(context).link_incorrect;
                               }
+
+                              iLog('Input url: $v');
 
                               v = v.trim();
 
@@ -146,8 +135,10 @@ class StartRouteState extends State<StartRoute> {
 
                               if (u.host == 'vk.com') {
                                 if (!(u.pathSegments.length == 2 &&
-                                    u.pathSegments[0] == 'stickers')) {
-                                  iLog(u.pathSegments);
+                                        u.pathSegments[0] == 'stickers') &&
+                                    !(u.pathSegments[0] == 'stickers' &&
+                                        u.queryParameters
+                                            .containsKey('stickers_id'))) {
                                   return S.of(context).link_not_pack_vk;
                                 }
                               }
@@ -158,7 +149,6 @@ class StartRouteState extends State<StartRoute> {
                                         u.pathSegments[1] == 'product' ||
                                         int.tryParse(u.pathSegments[2]) !=
                                             null)) {
-                                  iLog(u.pathSegments);
                                   return S.of(context).link_not_pack_line;
                                 }
                               }
@@ -167,7 +157,7 @@ class StartRouteState extends State<StartRoute> {
                             },
                           ),
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         SwitchListTile(
                           value: isWithBorder,
                           shape: RoundedRectangleBorder(
@@ -179,7 +169,7 @@ class StartRouteState extends State<StartRoute> {
                             });
                           },
                         ),
-                        SizedBox(height: 30.0),
+                        const SizedBox(height: 30.0),
                         Column(
                           children: [
                             IconRoundButton(
@@ -202,15 +192,14 @@ class StartRouteState extends State<StartRoute> {
                       // Finish buttons
                       OutlinedButton(
                         onPressed: () {
-                          Navigator.of(context).push<dynamic>(
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) {
-                                return AboutRoute();
-                              },
+                          launchUrl(
+                            Uri.parse(
+                              S.of(context).vk_sticker_store_url,
                             ),
+                            mode: LaunchMode.externalApplication,
                           );
                         },
-                        child: Text(S.of(context).about_program),
+                        child: Text(S.of(context).vk_sticker_store),
                       ),
                     ],
                   ),

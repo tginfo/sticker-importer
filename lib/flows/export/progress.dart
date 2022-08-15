@@ -11,7 +11,7 @@ import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/utils/map.dart';
 
 class ExportProgressFlow extends StatefulWidget {
-  ExportProgressFlow({
+  const ExportProgressFlow({
     Key? key,
     required this.controller,
   }) : super(key: key);
@@ -99,14 +99,14 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
         body: Form(
           child: Center(
             child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              padding: EdgeInsets.all(32.0),
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(32.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: [
+                    children: const [
                       LogoAsset(),
                     ],
                   ),
@@ -172,7 +172,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                                   ? Theme.of(context).colorScheme.secondary
                                   : Theme.of(context).primaryColor),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         if ([
@@ -229,8 +229,8 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.stop_rounded),
-                                SizedBox(width: 10),
+                                const Icon(Icons.stop_rounded),
+                                const SizedBox(width: 10),
                                 Text(S.of(context).stop),
                               ],
                             ),
@@ -244,8 +244,8 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.play_arrow_rounded),
-                                SizedBox(width: 10),
+                                const Icon(Icons.play_arrow_rounded),
+                                const SizedBox(width: 10),
                                 Text(S.of(context).resume),
                               ],
                             ),
@@ -276,9 +276,9 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                                                     ''),
                                           );
                                         },
-                                        icon: Icon(Icons.copy_rounded),
+                                        icon: const Icon(Icons.copy_rounded),
                                       ),
-                                      contentPadding: EdgeInsets.all(15),
+                                      contentPadding: const EdgeInsets.all(15),
                                     ),
                                   ],
                                 ),
@@ -286,8 +286,8 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.info_rounded),
-                                SizedBox(width: 10),
+                                const Icon(Icons.info_rounded),
+                                const SizedBox(width: 10),
                                 Text(S.of(context).details),
                               ],
                             ),
@@ -320,29 +320,29 @@ Future<StickerStyle> chooseYourFighter(
   } */
 
   final alert = AlertDialog(
-    contentPadding: EdgeInsets.only(bottom: 25, left: 25, right: 25),
+    contentPadding: const EdgeInsets.only(bottom: 25, left: 25, right: 25),
     content: Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height / 2,
       ),
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 25.0,
             ),
             Text(
               S.of(context).sticker_styles,
               style: Theme.of(context).textTheme.headline6,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Text(S.of(context).sticker_styles_info),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             StickerStyleChooser(
@@ -405,7 +405,7 @@ Future<bool> shouldUseAnimated(BuildContext context) async {
 }
 
 class StickerStyleChooser extends StatefulWidget {
-  StickerStyleChooser({
+  const StickerStyleChooser({
     Key? key,
     required this.styles,
     required this.changer,
@@ -430,7 +430,7 @@ class StickerStyleChooserState extends State<StickerStyleChooser> {
           title: Text(style.title),
           leading: style.image,
           selectedTileColor: Theme.of(context).primaryColor,
-          contentPadding: EdgeInsets.all(2.0),
+          contentPadding: const EdgeInsets.all(2.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           onTap: () {

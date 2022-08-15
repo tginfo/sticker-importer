@@ -82,36 +82,40 @@ void checkUpdates(BuildContext context) async {
         children: [
           SizedBox(height: WidgetsBinding.instance.window.padding.top),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: LargeText(S.of(context).update),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(targetRelease!['body'] as String),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
                   onPressed: () {
                     launchUrl(
-                        Uri.parse('https://apps.tginfo.me/sticker-import/'));
+                      Uri.parse('https://apps.tginfo.me/sticker-import/'),
+                      mode: LaunchMode.externalApplication,
+                    );
                   },
                   child: Text(S.of(context).open_in_browser),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () {
-                    launchUrl(Uri.parse(
-                        targetFile!['browser_download_url'] as String));
+                    launchUrl(
+                      Uri.parse(targetFile!['browser_download_url'] as String),
+                      mode: LaunchMode.externalApplication,
+                    );
                   },
-                  icon: Icon(Icons.download),
+                  icon: const Icon(Icons.download),
                   label: Text(S.of(context).download),
                 ),
               ],
