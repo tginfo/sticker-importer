@@ -5,6 +5,7 @@ import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/native/method_channels.dart';
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExportFinishRoute extends StatefulWidget {
@@ -37,6 +38,7 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
         'package': MethodChannelStore.packageInfo!.packageName,
       },
     ).onError((e, stackTrace) {
+      iLog(e);
       if (e is PlatformException &&
           e.message != null &&
           e.message!.contains('No Activity found to handle Intent')) {

@@ -8,6 +8,7 @@ import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/flows/export/stickers.dart';
 import 'package:sticker_import/generated/l10n.dart';
+import 'package:sticker_import/utils/debugging.dart';
 import 'package:sticker_import/utils/map.dart';
 
 class ExportProgressFlow extends StatefulWidget {
@@ -27,12 +28,17 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
 
   @override
   void initState() {
-    widget.controller.init();
-    notifier = widget.controller.notifier.listen((event) {
-      setState(() {
-        event();
+    try {
+      widget.controller.init();
+      notifier = widget.controller.notifier.listen((event) {
+        setState(() {
+          event();
+        });
       });
-    });
+    } catch (e) {
+      iLog(e);
+      rethrow;
+    }
 
     super.initState();
   }
@@ -48,6 +54,10 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
+
+    if (widget.controller.state == ExportControllerState.error) {
+      iLog(widget.controller.errorDetails ?? 'No error details');
+    }
 
     if (widget.controller.state == ExportControllerState.done) {
       Navigator.of(context).popUntil((route) => route.isFirst);

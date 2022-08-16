@@ -6,6 +6,7 @@ import 'package:sticker_import/flows/start/nav.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/user_list.dart';
+import 'package:sticker_import/utils/loading_popup.dart';
 
 import 'login/login.dart';
 
@@ -54,20 +55,7 @@ class _CardListRouteState extends State<CardListRoute> {
 
                             if (e.fired == null) {
                               // ignore: unawaited_futures
-                              showDialog<void>(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                      content: Row(
-                                    children: [
-                                      const CircularProgressIndicator(),
-                                      const SizedBox(width: 20.0),
-                                      Text(S.of(context).loading),
-                                    ],
-                                  ));
-                                },
-                              );
+                              showLoadingPopup(context);
 
                               await e.fire();
                               if (!mounted) return;

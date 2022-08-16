@@ -21,6 +21,11 @@ class Account {
     if (kDebugMode) {
       client.onRequestStateChange = (trace) {
         if (trace.type == VKGetTraceRequestType.fetch) return;
+        iLog(trace.toStringRepresentation(censored: false));
+      };
+    } else {
+      client.onRequestStateChange = (trace) {
+        if (trace.type == VKGetTraceRequestType.fetch) return;
         iLog(trace.toString());
       };
     }
