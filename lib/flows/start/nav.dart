@@ -37,7 +37,9 @@ class StartRouteState extends State<StartRoute> {
     _selectedIndex = widget.tab.index;
     super.initState();
 
-    checkUpdates(context);
+    if (widget.tab == StartRouteScreen.start) {
+      checkUpdates(context);
+    }
   }
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_import/components/flutter/input_theme.dart';
+import 'package:sticker_import/components/icons/custom_icons_icons.dart';
 import 'package:sticker_import/components/ui/round_button.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -118,7 +118,8 @@ class _LoginRouteState extends State<LoginRoute> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).vk_login),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: Padding(
@@ -127,32 +128,32 @@ class _LoginRouteState extends State<LoginRoute> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                InputTheme(
-                  child: TextFormField(
-                    controller: loginController,
-                    autofocus: true,
-                    autofillHints: const [AutofillHints.username],
-                    decoration: InputDecoration(
-                      labelText: S.of(context).login,
-                      border: const OutlineInputBorder(),
-                    ),
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () => node.nextFocus(),
+                const Icon(CustomIcons.vk, size: 64, color: Color(0x7D929292)),
+                const SizedBox(height: 64.0),
+                TextFormField(
+                  controller: loginController,
+                  autofocus: true,
+                  autofillHints: const [AutofillHints.username],
+                  decoration: InputDecoration(
+                    labelText: S.of(context).login,
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.person),
                   ),
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () => node.nextFocus(),
                 ),
                 const SizedBox(height: 20.0),
-                InputTheme(
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    autofillHints: const [AutofillHints.password],
-                    decoration: InputDecoration(
-                      labelText: S.of(context).password,
-                      border: const OutlineInputBorder(),
-                    ),
-                    textInputAction: TextInputAction.go,
-                    onEditingComplete: authFunc,
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  autofillHints: const [AutofillHints.password],
+                  decoration: InputDecoration(
+                    labelText: S.of(context).password,
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.lock),
                   ),
+                  textInputAction: TextInputAction.go,
+                  onEditingComplete: authFunc,
                 ),
                 const SizedBox(height: 30.0),
                 Column(

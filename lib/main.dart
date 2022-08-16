@@ -42,6 +42,17 @@ class TginfoMoverApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeData.from(
+      colorScheme: const ColorScheme.light(
+        primary: Colors.white,
+        onPrimary: Color(0xFFAC1B24),
+        secondary: Colors.white,
+        onSecondary: Color(0xFFAC1B24),
+      ),
+    );
+
+    final darkTheme = ThemeData.dark();
+
     return MaterialApp(
       title: 'Sticker Importer',
       debugShowCheckedModeBanner: false,
@@ -51,14 +62,7 @@ class TginfoMoverApp extends StatelessWidget {
           child: child!,
         );
       },
-      theme: ThemeData.from(
-        colorScheme: const ColorScheme.light(
-          primary: Colors.white,
-          onPrimary: Color(0xFFAC1B24),
-          secondary: Colors.white,
-          onSecondary: Color(0xFFAC1B24),
-        ),
-      ).copyWith(
+      theme: theme.copyWith(
         appBarTheme: AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.white.withOpacity(0.75),
@@ -139,9 +143,36 @@ class TginfoMoverApp extends StatelessWidget {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Color(0xFFAC1B24),
         ),
+        inputDecorationTheme: theme.inputDecorationTheme.copyWith(
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xFFAC1B24),
+              width: 2,
+            ),
+          ),
+          floatingLabelStyle: MaterialStateTextStyle.resolveWith((states) {
+            if (states.contains(MaterialState.focused)) {
+              return theme.textTheme.caption!.copyWith(
+                color: const Color(0xFFAC1B24),
+              );
+            }
+
+            return theme.textTheme.subtitle1!;
+          }),
+          iconColor: MaterialStateColor.resolveWith((states) {
+            if (states.contains(MaterialState.focused)) {
+              return const Color(0xFFAC1B24);
+            }
+
+            return Colors.black45;
+          }),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Color(0xFFAC1B24),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      darkTheme: ThemeData.dark().copyWith(
+      darkTheme: darkTheme.copyWith(
         appBarTheme: AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.grey[850]!.withOpacity(0.75),
@@ -188,6 +219,9 @@ class TginfoMoverApp extends StatelessWidget {
             }
             return Colors.white10;
           }),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Color(0xFFd68d92),
         ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: ThemeColor.swatchLight,

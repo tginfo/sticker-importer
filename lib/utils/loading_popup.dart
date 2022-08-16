@@ -9,11 +9,7 @@ Future<void> showLoadingPopup(BuildContext context) {
       return AlertDialog(
           content: Row(
         children: [
-          CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              Theme.of(context).primaryColor,
-            ),
-          ),
+          const CircularProgressIndicator(),
           const SizedBox(width: 20.0),
           Text(S.of(context).loading),
         ],

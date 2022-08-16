@@ -111,5 +111,8 @@
     "vk_id_setting_title": "Обратите внимание",
     "vk_id_setting_info": "Отключите \"Защиту от подозрительных приложений\" в настройках VK ID, чтобы использовать эту функцию",
     "vk_id_security_link": "https://id.vk.com/account/#/security",
-    "go_to_vk_id": "Перейти в VK ID"
+    "go_to_vk_id": "Перейти в VK ID",
+    "twofa_failed": "Ошибка двухфакторной аутентификации",
+    "try_sending_request_again": "Попробуйте отправить запрос еще раз",
+    "captcha_fail": "Не удалось подтвердить, что вы не робот"
 }

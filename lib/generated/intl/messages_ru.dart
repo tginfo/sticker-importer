@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "call": MessageLookupByLibrary.simpleMessage("Звонок"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
         "captcha": MessageLookupByLibrary.simpleMessage("Подтверждение"),
+        "captcha_fail": MessageLookupByLibrary.simpleMessage(
+            "Не удалось подтвердить, что вы не робот"),
         "check_the_link": MessageLookupByLibrary.simpleMessage(
             "Проверьте правильность ссылки"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Выбор эмодзи"),
@@ -160,10 +162,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfo"),
         "tginfo_sticker_importer": MessageLookupByLibrary.simpleMessage(
             "Telegram Info Sticker Importer"),
+        "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
+            "Попробуйте отправить запрос еще раз"),
         "twofa_code_sent":
             MessageLookupByLibrary.simpleMessage("Новый код отправлен"),
         "twofa_codes_too_often": MessageLookupByLibrary.simpleMessage(
             "Вы запрашиваете коды слишком часто"),
+        "twofa_failed": MessageLookupByLibrary.simpleMessage(
+            "Ошибка двухфакторной аутентификации"),
         "unit_b": MessageLookupByLibrary.simpleMessage("B"),
         "unit_gb": MessageLookupByLibrary.simpleMessage("GB"),
         "unit_kb": MessageLookupByLibrary.simpleMessage("KB"),

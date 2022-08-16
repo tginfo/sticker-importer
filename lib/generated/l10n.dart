@@ -1181,6 +1181,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Two-factor authentication failed`
+  String get twofa_failed {
+    return Intl.message(
+      'Two-factor authentication failed',
+      name: 'twofa_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try sending the request again`
+  String get try_sending_request_again {
+    return Intl.message(
+      'Try sending the request again',
+      name: 'try_sending_request_again',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't pass Captcha`
+  String get captcha_fail {
+    return Intl.message(
+      'Couldn\'t pass Captcha',
+      name: 'captcha_fail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "call": MessageLookupByLibrary.simpleMessage("Call"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "captcha": MessageLookupByLibrary.simpleMessage("Captcha"),
+        "captcha_fail":
+            MessageLookupByLibrary.simpleMessage("Couldn\'t pass Captcha"),
         "check_the_link":
             MessageLookupByLibrary.simpleMessage("Check the link"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Choose Emoji"),
@@ -161,10 +163,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfoen"),
         "tginfo_sticker_importer": MessageLookupByLibrary.simpleMessage(
             "Telegram Info Sticker Importer"),
+        "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
+            "Try sending the request again"),
         "twofa_code_sent":
             MessageLookupByLibrary.simpleMessage("New code sent"),
         "twofa_codes_too_often":
             MessageLookupByLibrary.simpleMessage("You request codes too often"),
+        "twofa_failed": MessageLookupByLibrary.simpleMessage(
+            "Two-factor authentication failed"),
         "unit_b": MessageLookupByLibrary.simpleMessage("B"),
         "unit_gb": MessageLookupByLibrary.simpleMessage("GB"),
         "unit_kb": MessageLookupByLibrary.simpleMessage("KB"),

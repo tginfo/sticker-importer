@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:idb_sqflite/idb_sqflite.dart';
-import 'package:sticker_import/components/flutter/input_theme.dart';
 import 'package:sticker_import/components/ui/toast.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -110,6 +109,7 @@ class UserList {
     }; */
 
     account.vk.onCaptcha = (r) async {
+      final lang = S.of(context);
       final String imgUrl = r.asJson!['captcha_img'] as String;
 
       final response = await showDialog<String?>(
@@ -142,11 +142,7 @@ class UserList {
                     }(),
                     builder: (BuildContext context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).primaryColor,
-                          ),
-                        );
+                        return const CircularProgressIndicator();
                       }
 
                       if (snapshot.hasError) {
@@ -158,20 +154,19 @@ class UserList {
                     },
                   ),
                   const SizedBox(height: 20.0),
-                  InputTheme(
-                    child: TextFormField(
-                      autofocus: true,
-                      controller: captchaController,
-                      decoration: InputDecoration(
-                        labelText: S.of(context).captcha,
-                        border: const OutlineInputBorder(),
-                      ),
-                      textInputAction:
-                          (Theme.of(context).platform == TargetPlatform.iOS
-                              ? TextInputAction.continueAction
-                              : TextInputAction.go),
-                      onEditingComplete: goOn,
+                  TextFormField(
+                    autofocus: true,
+                    controller: captchaController,
+                    decoration: InputDecoration(
+                      labelText: S.of(context).captcha,
+                      border: const OutlineInputBorder(),
+                      icon: const Icon(Icons.security_rounded),
                     ),
+                    textInputAction:
+                        (Theme.of(context).platform == TargetPlatform.iOS
+                            ? TextInputAction.continueAction
+                            : TextInputAction.go),
+                    onEditingComplete: goOn,
                   ),
                 ],
               ),
@@ -195,12 +190,13 @@ class UserList {
         },
       );
 
-      if (response == null) throw Exception('Captcha expected');
+      if (response == null) throw lang.captcha_fail;
 
       return response;
     };
 
     account.vk.onNeedValidation = (r) async {
+      final lang = S.of(context);
       final e = r.asJson as Map<String, dynamic>;
 
       var twofaValidation = false;
@@ -214,7 +210,7 @@ class UserList {
 
       if (!twofaValidation) {
         await launchUrl(Uri.parse(e['redirect_uri'] as String));
-        throw "Can't work with URL validation";
+        throw lang.try_sending_request_again;
       }
 
       final result = await showDialog<String?>(
@@ -238,27 +234,27 @@ class UserList {
                         : S.of(context).enter_code_from_app,
                   ),
                   const SizedBox(height: 20.0),
-                  InputTheme(
-                    child: TextFormField(
-                      autofocus: true,
-                      controller: twofaController,
-                      keyboardType: TextInputType.number,
-                      autofillHints: const [AutofillHints.oneTimeCode],
-                      decoration: InputDecoration(
-                        labelText: S.of(context).code,
-                        border: const OutlineInputBorder(),
-                      ),
-                      textInputAction:
-                          (Theme.of(context).platform == TargetPlatform.iOS
-                              ? TextInputAction.continueAction
-                              : TextInputAction.go),
-                      onEditingComplete: goOn,
+                  TextFormField(
+                    autofocus: true,
+                    controller: twofaController,
+                    keyboardType: TextInputType.number,
+                    autofillHints: const [AutofillHints.oneTimeCode],
+                    decoration: InputDecoration(
+                      labelText: S.of(context).code,
+                      border: const OutlineInputBorder(),
+                      icon: const Icon(Icons.pin),
                     ),
+                    textInputAction:
+                        (Theme.of(context).platform == TargetPlatform.iOS
+                            ? TextInputAction.continueAction
+                            : TextInputAction.go),
+                    onEditingComplete: goOn,
                   ),
                 ],
               ),
             ),
             actions: [
+              SmsButton2Fa(account.vk, e),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(null);
@@ -267,12 +263,10 @@ class UserList {
                   S.of(context).cancel,
                 ),
               ),
-              SmsButton2Fa(account.vk, e),
               TextButton(
                 onPressed: goOn,
                 child: Text(
                   S.of(context).ok,
-                  textAlign: TextAlign.end,
                 ),
               ),
             ],
@@ -280,7 +274,7 @@ class UserList {
         },
       );
 
-      if (result == null) return VKGetValidationResult(false);
+      if (result == null) throw lang.twofa_failed;
       return VKGetValidationResult(true, code: result);
     };
 

@@ -112,5 +112,8 @@
     "vk_id_setting_title": "Heads up!",
     "vk_id_setting_info": "Disable \"Protection from suspicious apps\" in your VK ID settings to be able to use the feature",
     "vk_id_security_link": "https://id.vk.com/account/#/security",
-    "go_to_vk_id": "Go to VK ID"
+    "go_to_vk_id": "Go to VK ID",
+    "twofa_failed": "Two-factor authentication failed",
+    "try_sending_request_again": "Try sending the request again",
+    "captcha_fail": "Couldn't pass Captcha"
 }

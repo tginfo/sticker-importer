@@ -21,12 +21,8 @@ class LicensesRoute extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<LicenseEntry>> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
-                ),
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
 
