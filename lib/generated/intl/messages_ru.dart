@@ -160,8 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "telegram_info_desc": MessageLookupByLibrary.simpleMessage("Наш канал"),
         "tginfo_link":
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfo"),
-        "tginfo_sticker_importer": MessageLookupByLibrary.simpleMessage(
-            "Telegram Info Sticker Importer"),
+        "tginfo_sticker_importer":
+            MessageLookupByLibrary.simpleMessage("Sticker Importer"),
         "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
             "Попробуйте отправить запрос еще раз"),
         "twofa_code_sent":

@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Telegram Info Sticker Importer`
+  /// `Sticker Importer`
   String get tginfo_sticker_importer {
     return Intl.message(
-      'Telegram Info Sticker Importer',
+      'Sticker Importer',
       name: 'tginfo_sticker_importer',
       desc: '',
       args: [],

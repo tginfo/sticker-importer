@@ -32,20 +32,19 @@ class AboutRoute extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ), */
-              // TODO: Add VK sticker store link
               BodyPadding(
                 child: Column(children: [
                   ListTile(
                     leading: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Icon(
-                        Icons.label,
+                        CustomIcons.sticker_import,
                         color: (Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Theme.of(context).primaryColor),
                       ),
                     ),
-                    title: Text(S.of(context).version),
+                    title: Text(S.of(context).tginfo_sticker_importer),
                     subtitle: Text(
                       MethodChannelStore.packageInfo?.version ?? '',
                     ),
