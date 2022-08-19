@@ -160,7 +160,7 @@ class UserList {
                     decoration: InputDecoration(
                       labelText: S.of(context).captcha,
                       border: const OutlineInputBorder(),
-                      icon: const Icon(Icons.security_rounded),
+                      prefixIcon: const Icon(Icons.security_rounded),
                     ),
                     textInputAction:
                         (Theme.of(context).platform == TargetPlatform.iOS
