@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:sticker_import/services/connection/constants.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:vkget/vkget.dart';
@@ -10,10 +9,11 @@ class Account {
   Account(this.vk, this.id, {this.name = '', this.uid = 0});
 
   factory Account.from(String token, int id,
-      {BuildContext? context, String name = '', int uid = 0}) {
+      {String? language, String name = '', int uid = 0}) {
     final client = VKGet(
       AuthConstants.apiVersion,
       token,
+      language: language,
       domain: VkConnection.apiDomain.toString(),
       oauthDomain: VkConnection.oauthDomain.toString(),
     );
@@ -57,7 +57,9 @@ class Account {
 
   DateTime? get fired => _fired;
 
-  Future<void> fire() async {
+  Future<void> fire({String? language}) async {
+    if (language != null) vk.language = language;
+
     if (await vk.initConnection()) {
       automaticProxy = true;
     } else {

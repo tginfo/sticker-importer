@@ -85,7 +85,8 @@ class _LoginRouteState extends State<LoginRoute> {
         rethrow;
       }
 
-      await UserList.update();
+      if (!mounted) return;
+      await UserList.update(language: S.of(context).code);
       for (final acc in UserList.data) {
         if (acc.uid == authResult.uid) {
           await UserList.dbRemove(acc.id);
@@ -93,7 +94,9 @@ class _LoginRouteState extends State<LoginRoute> {
       }
 
       final curId = await UserList.dbRecord(authResult);
-      await UserList.update();
+
+      if (!mounted) return;
+      await UserList.update(language: S.of(context).code);
 
       if (!mounted) return;
       UserList.setCurrent(

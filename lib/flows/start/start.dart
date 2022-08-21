@@ -38,7 +38,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
 
     u = u.replace(host: 'vk.com', scheme: 'https');
 
-    final account = Account.from('', 0);
+    final account = Account.from('', 0, language: S.of(context).code);
     account.vk.onRequestStateChange = iLog;
 
     urlController.clear();

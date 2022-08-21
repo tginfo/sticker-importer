@@ -58,7 +58,7 @@ class UserList {
 
   static List<Account> data = [];
 
-  static Future<void> update() async {
+  static Future<void> update({String? language}) async {
     data.clear();
 
     await for (final account
@@ -68,6 +68,7 @@ class UserList {
       final user = Account.from(
         userData['token'] as String,
         account.key as int,
+        language: language,
         name: userData['name'] as String,
         uid: userData['uid'] as int,
       );

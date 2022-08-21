@@ -13,6 +13,11 @@ Move stickers from VK and LINE to Telegram
 
 3. [Prepare signing keys](#prepare-signing-keys)
 4. Grab all dependencies by `flutter pub get`
+
+> **Optional: Update emoji metadata**
+>
+> Run `dart run bin/emoji_metadata.dart`
+
 5. Run `flutter build apk --release`
 6. Grab the files from `/build/app/outputs/apk/release`
 

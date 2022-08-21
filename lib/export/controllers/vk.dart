@@ -81,7 +81,7 @@ class VkExportController extends ExportController {
         state = ExportControllerState.warmingUp;
       });
 
-      await account.fire();
+      await account.fire(language: S.of(context).code);
 
       try {
         if (uri.queryParameters.containsKey('stickers_id')) {

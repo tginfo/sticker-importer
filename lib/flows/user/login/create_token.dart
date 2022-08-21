@@ -11,13 +11,14 @@ Future<Account?> createToken(
   String password,
 ) async {
   try {
-    UserList.setCurrent(Account.from('', 0), context);
+    final locale = S.of(context).code;
+    UserList.setCurrent(Account.from('', 0, language: locale), context);
 
-    await UserList.current!.fire();
+    await UserList.current!.fire(language: locale);
 
     final token = await loginFlow(username, password);
-    final account = Account.from(token, 0);
-    await account.fire();
+    final account = Account.from(token, 0, language: locale);
+    await account.fire(language: locale);
     final r = await account.refresh();
     return r;
   } catch (e) {

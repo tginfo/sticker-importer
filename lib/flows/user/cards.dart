@@ -57,7 +57,7 @@ class _CardListRouteState extends State<CardListRoute> {
                               // ignore: unawaited_futures
                               showLoadingPopup(context);
 
-                              await e.fire();
+                              await e.fire(language: S.of(context).code);
                               if (!mounted) return;
                               Navigator.of(context).pop();
                             }
@@ -115,8 +115,11 @@ class _CardListRouteState extends State<CardListRoute> {
                               );
                               if (result != true) return;
 
+                              if (!mounted) return;
+                              final locale = S.of(context).code;
+
                               await UserList.dbRemove(e.id);
-                              await UserList.update();
+                              await UserList.update(language: locale);
 
                               if (!mounted) return;
                               Navigator.of(context).pop();

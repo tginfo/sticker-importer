@@ -44,12 +44,12 @@ packages:
     source: hosted
     version: "4.5.2"
   characters:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   checked_yaml:
     dependency: transitive
     description:
@@ -70,7 +70,7 @@ packages:
       name: clock
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   collection:
     dependency: transitive
     description:
@@ -168,7 +168,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.2"
+    version: "6.1.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -206,7 +206,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.3"
+    version: "1.1.4"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -316,14 +316,14 @@ packages:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.2.0"
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0"
   package_config:
     dependency: transitive
     description:
@@ -379,7 +379,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.2"
   path_drawing:
     dependency: transitive
     description:
@@ -671,13 +671,13 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   vkget:
     dependency: "direct main"
     description:
       path: vkget
       ref: HEAD
-      resolved-ref: "22657fa8a1423f1d991909626f13d31a38729de5"
+      resolved-ref: f05717a63530677ca88f082bf74ea2064b64cd23
       url: "https://github.com/Sominemo/VkGet.git"
     source: git
     version: "0.0.4"

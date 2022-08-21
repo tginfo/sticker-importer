@@ -6,7 +6,7 @@ analyzer:
   language:
     strict-raw-types: true
   exclude:
-    - lib/generated
+    - lib/generated/**
     - lib/generated_plugin_registrant.dart
 linter:
   rules:
