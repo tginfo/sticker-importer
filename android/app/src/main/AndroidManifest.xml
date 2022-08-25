@@ -12,7 +12,8 @@
     </queries>
    <application
         android:label="Sticker Import"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:localeConfig="@xml/locales_config">
        <provider
            android:name="androidx.core.content.FileProvider"
            android:authorities="me.tginfo.fileprovider"
@@ -49,6 +50,15 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+                <meta-data
+                    android:name="autoStoreLocales"
+                    android:value="true" />
+        </service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
