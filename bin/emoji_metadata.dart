@@ -15,6 +15,8 @@ Future<int> main() async {
     'ru',
   ];
 
+  final fallbackLocale = locales[0];
+
   final data = <String, dynamic>{};
 
   for (final locale in locales) {
@@ -35,7 +37,7 @@ Future<int> main() async {
 
   final file = File('${dirname(Platform.script.path)}/$path');
   final handle = await file.open(mode: FileMode.write);
-  await file.writeAsString(toEmojiAtlas(data), flush: true);
+  await file.writeAsString(toEmojiAtlas(data, fallbackLocale), flush: true);
   await handle.close();
   print('Done.');
   return 0;
@@ -65,13 +67,14 @@ ${(keyword['e'] as String).split(' ').map((String emoji) => '    ${toStringLiter
 )''';
 }
 
-String toEmojiAtlas(Map<String, dynamic> data) {
+String toEmojiAtlas(Map<String, dynamic> data, String fallbackLocale) {
   final emojiList = (data['en']['s']['emojiGroupedList'] as List)
       .cast<Map<String, dynamic>>();
 
   return '''import 'package:sticker_import/components/types/emoji.dart';
 
 const kEmojiAtlas = EmojiAtlas(
+  fallbackLocale: '$fallbackLocale',
   categories: {
 ${emojiList.map((emoji) => "    r${json.encoder.convert((emoji['t'] as String).replaceAll('&amp;', '&'))}: ${toCategoryClass((emoji['e'] as String).split(' '))}").join(', \n')}
   },

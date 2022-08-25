@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `en`
+  String get code {
+    return Intl.message(
+      'en',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sticker Importer`
   String get tginfo_sticker_importer {
     return Intl.message(
@@ -1053,10 +1063,10 @@ class S {
   }
 
   /// `Code`
-  String get code {
+  String get auth_code {
     return Intl.message(
       'Code',
-      name: 'code',
+      name: 'auth_code',
       desc: '',
       args: [],
     );
@@ -1207,6 +1217,166 @@ class S {
     return Intl.message(
       'Couldn\'t pass Captcha',
       name: 'captcha_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker Store`
+  String get sticker_store {
+    return Intl.message(
+      'Sticker Store',
+      name: 'sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search stickers`
+  String get search_stickers {
+    return Intl.message(
+      'Search stickers',
+      name: 'search_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My avatar`
+  String get my_avatar {
+    return Intl.message(
+      'My avatar',
+      name: 'my_avatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active stickers`
+  String get active_stickers {
+    return Intl.message(
+      'Active stickers',
+      name: 'active_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent emoji`
+  String get recent_emoji {
+    return Intl.message(
+      'Recent emoji',
+      name: 'recent_emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No recent emoji`
+  String get no_recent_emoji {
+    return Intl.message(
+      'No recent emoji',
+      name: 'no_recent_emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smileys & People`
+  String get smileys_and_people {
+    return Intl.message(
+      'Smileys & People',
+      name: 'smileys_and_people',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Animals & Nature`
+  String get animals_and_nature {
+    return Intl.message(
+      'Animals & Nature',
+      name: 'animals_and_nature',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Food & Drink`
+  String get food_and_drink {
+    return Intl.message(
+      'Food & Drink',
+      name: 'food_and_drink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activity`
+  String get activity {
+    return Intl.message(
+      'Activity',
+      name: 'activity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel & Places`
+  String get travel_and_places {
+    return Intl.message(
+      'Travel & Places',
+      name: 'travel_and_places',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Objects`
+  String get objects {
+    return Intl.message(
+      'Objects',
+      name: 'objects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Symbols`
+  String get symbols {
+    return Intl.message(
+      'Symbols',
+      name: 'symbols',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flags`
+  String get flags {
+    return Intl.message(
+      'Flags',
+      name: 'flags',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No emojis matching your search were found`
+  String get no_emoji_matches {
+    return Intl.message(
+      'No emojis matching your search were found',
+      name: 'no_emoji_matches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type to search`
+  String get emoji_type_to_search {
+    return Intl.message(
+      'Type to search',
+      name: 'emoji_type_to_search',
       desc: '',
       args: [],
     );

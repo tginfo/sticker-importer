@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:sticker_import/export/controllers/model.dart';
-import 'package:sticker_import/flows/export/emoji_chooser.dart';
+import 'package:sticker_import/components/ui/emoji/route.dart';
 import 'package:sticker_import/flows/export/finish.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
@@ -109,8 +109,8 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.controller.result!.length,
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4),
             itemBuilder: (context, n) {
               return AnimatedOpacity(
                 opacity: (enabled[n] ? 1 : .6),
@@ -157,7 +157,8 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                   );
 
                                   setState(() {
-                                    emoji[n] = m ?? '';
+                                    if (m == null) return;
+                                    emoji[n] = m;
                                   });
                                 },
                                 icon: (emoji[n].isEmpty
@@ -165,8 +166,9 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                     : Text(
                                         emoji[n],
                                         style: const TextStyle(
-                                          fontSize: 24,
-                                          height: 1.1,
+                                          fontSize: 21,
+                                          height: 1,
+                                          fontFamily: 'AppleColorEmoji',
                                         ),
                                         overflow: TextOverflow.visible,
                                         textAlign: TextAlign.center,

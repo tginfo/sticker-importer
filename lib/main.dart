@@ -235,11 +235,19 @@ class TginfoMoverApp extends StatelessWidget {
           accentColor: ThemeColor.swatchLight,
           brightness: Brightness.dark,
         ).copyWith(secondary: ThemeColor.swatchLight),
+        tabBarTheme: const TabBarTheme(
+          indicator: UnderlineTabIndicator(
+            borderSide: BorderSide(
+              color: Color(0xFFd68d92),
+              width: 2,
+            ),
+          ),
+        ),
       ),
       home: const StartRoute(),
       localizationsDelegates: const [
         S.delegate,
-        GlobalMaterialLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
       ],
       supportedLocales: S.delegate.supportedLocales,
     );

@@ -1,5 +1,6 @@
 {
     "@@locale": "en",
+    "code": "en",
     "tginfo_sticker_importer": "Sticker Importer",
     "welcome": "Welcome",
     "welcome_screen_description": "We can help you to move your stickers from VK.com and LINE to Telegram",
@@ -100,7 +101,7 @@
     "internet_error_title": "Internet error",
     "internet_error_info": "Request failed. Check your Internet connection and try again",
     "t_continue": "Continue",
-    "code": "Code",
+    "auth_code": "Code",
     "by_link": "By Link",
     "vk_account": "VK.com Account",
     "delete_account_confirm": "Are you sure you want to log out?",
@@ -115,5 +116,21 @@
     "go_to_vk_id": "Go to VK ID",
     "twofa_failed": "Two-factor authentication failed",
     "try_sending_request_again": "Try sending the request again",
-    "captcha_fail": "Couldn't pass Captcha"
+    "captcha_fail": "Couldn't pass Captcha",
+    "sticker_store": "Sticker Store",
+    "search_stickers": "Search stickers",
+    "my_avatar": "My avatar",
+    "active_stickers": "Active stickers",
+    "recent_emoji": "Recent emoji",
+    "no_recent_emoji": "No recent emoji",
+    "smileys_and_people": "Smileys & People",
+    "animals_and_nature": "Animals & Nature",
+    "food_and_drink": "Food & Drink",
+    "activity": "Activity",
+    "travel_and_places": "Travel & Places",
+    "objects": "Objects",
+    "symbols": "Symbols",
+    "flags": "Flags",
+    "no_emoji_matches": "No emojis matching your search were found",
+    "emoji_type_to_search": "Type to search"
 }

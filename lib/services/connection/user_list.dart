@@ -241,7 +241,7 @@ class UserList {
                     keyboardType: TextInputType.number,
                     autofillHints: const [AutofillHints.oneTimeCode],
                     decoration: InputDecoration(
-                      labelText: S.of(context).code,
+                      labelText: S.of(context).auth_code,
                       border: const OutlineInputBorder(),
                       icon: const Icon(Icons.pin),
                     ),

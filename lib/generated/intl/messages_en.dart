@@ -30,12 +30,18 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("About"),
+        "active_stickers":
+            MessageLookupByLibrary.simpleMessage("Active stickers"),
+        "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
+        "animals_and_nature":
+            MessageLookupByLibrary.simpleMessage("Animals & Nature"),
         "animated": MessageLookupByLibrary.simpleMessage("Animated"),
         "animated_pack":
             MessageLookupByLibrary.simpleMessage("Animated Stickers"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "This sticker pack is animated. Do you want to export it animated, or keep the stickers as still images?"),
+        "auth_code": MessageLookupByLibrary.simpleMessage("Code"),
         "by_link": MessageLookupByLibrary.simpleMessage("By Link"),
         "call": MessageLookupByLibrary.simpleMessage("Call"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -45,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "check_the_link":
             MessageLookupByLibrary.simpleMessage("Check the link"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Choose Emoji"),
-        "code": MessageLookupByLibrary.simpleMessage("Code"),
+        "code": MessageLookupByLibrary.simpleMessage("en"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Continue"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
@@ -69,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Telegram Info is a non-commercial project which exists thanks to your support. Our mission is helping spreading the knowledge about Telegram, making it more open and accessible this way."),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloaded_n": MessageLookupByLibrary.simpleMessage("Downloaded"),
+        "emoji_type_to_search":
+            MessageLookupByLibrary.simpleMessage("Type to search"),
         "enable_sticker":
             MessageLookupByLibrary.simpleMessage("Enable Sticker"),
         "enter_code_from_app": MessageLookupByLibrary.simpleMessage(
@@ -98,8 +106,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "field_required": MessageLookupByLibrary.simpleMessage("Required"),
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Fill all the fields"),
+        "flags": MessageLookupByLibrary.simpleMessage("Flags"),
         "follow_tginfo":
             MessageLookupByLibrary.simpleMessage("Subscribe @tginfo"),
+        "food_and_drink": MessageLookupByLibrary.simpleMessage("Food & Drink"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Go to VK ID"),
@@ -122,13 +132,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login or phone number"),
         "logs_save_error": m0,
         "logs_saved_to": m1,
+        "my_avatar": MessageLookupByLibrary.simpleMessage("My avatar"),
+        "no_emoji_matches": MessageLookupByLibrary.simpleMessage(
+            "No emojis matching your search were found"),
         "no_error_details":
             MessageLookupByLibrary.simpleMessage("No error details available"),
+        "no_recent_emoji":
+            MessageLookupByLibrary.simpleMessage("No recent emoji"),
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
             "Telegram is not installed on your device, so we couldn\'t export the pack"),
+        "objects": MessageLookupByLibrary.simpleMessage("Objects"),
         "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open_in_browser":
@@ -137,16 +153,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Prepare your pack"),
+        "recent_emoji": MessageLookupByLibrary.simpleMessage("Recent emoji"),
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),
         "retrying": MessageLookupByLibrary.simpleMessage("Retrying..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Save logs"),
+        "search_stickers":
+            MessageLookupByLibrary.simpleMessage("Search stickers"),
         "select_all": MessageLookupByLibrary.simpleMessage("Select All"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "smileys_and_people":
+            MessageLookupByLibrary.simpleMessage("Smileys & People"),
         "sms": MessageLookupByLibrary.simpleMessage("SMS"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Developer"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "sticker_store": MessageLookupByLibrary.simpleMessage("Sticker Store"),
         "sticker_styles":
             MessageLookupByLibrary.simpleMessage("Sticker Styles"),
         "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
@@ -155,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop": MessageLookupByLibrary.simpleMessage("Stop"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to stop export?"),
+        "symbols": MessageLookupByLibrary.simpleMessage("Symbols"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "telegram_info": MessageLookupByLibrary.simpleMessage("Telegram Info"),
         "telegram_info_desc":
@@ -163,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfoen"),
         "tginfo_sticker_importer":
             MessageLookupByLibrary.simpleMessage("Sticker Importer"),
+        "travel_and_places":
+            MessageLookupByLibrary.simpleMessage("Travel & Places"),
         "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
             "Try sending the request again"),
         "twofa_code_sent":

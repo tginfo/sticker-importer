@@ -1,6 +1,7 @@
 import 'package:sticker_import/components/types/emoji.dart';
 
 const kEmojiAtlas = EmojiAtlas(
+  fallbackLocale: 'en',
   categories: {
     r"Smileys & People": EmojiCategory(
   emojis: [

@@ -42,9 +42,9 @@ packages:
       name: basic_utils
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.2"
+    version: "5.1.2"
   characters:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: characters
       url: "https://pub.dartlang.org"
@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.2"
   dart_style:
     dependency: transitive
     description:
@@ -141,13 +148,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  emoji_picker_flutter:
-    dependency: "direct main"
-    description:
-      name: emoji_picker_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.1"
   enough_convert:
     dependency: "direct main"
     description:
@@ -199,7 +199,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.7"
+    version: "2.2.8"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -226,6 +226,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.0"
   http:
     dependency: transitive
     description:
@@ -407,7 +414,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.19"
+    version: "2.0.20"
   path_provider_ios:
     dependency: transitive
     description:
@@ -492,62 +499,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.0+1"
-  shared_preferences:
-    dependency: transitive
-    description:
-      name: shared_preferences
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.15"
-  shared_preferences_android:
-    dependency: transitive
-    description:
-      name: shared_preferences_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.12"
-  shared_preferences_ios:
-    dependency: transitive
-    description:
-      name: shared_preferences_ios
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  shared_preferences_linux:
-    dependency: transitive
-    description:
-      name: shared_preferences_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  shared_preferences_macos:
-    dependency: transitive
-    description:
-      name: shared_preferences_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.4"
-  shared_preferences_platform_interface:
-    dependency: transitive
-    description:
-      name: shared_preferences_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
-  shared_preferences_web:
-    dependency: transitive
-    description:
-      name: shared_preferences_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.4"
-  shared_preferences_windows:
-    dependency: transitive
-    description:
-      name: shared_preferences_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -677,7 +628,7 @@ packages:
     description:
       path: vkget
       ref: HEAD
-      resolved-ref: f05717a63530677ca88f082bf74ea2064b64cd23
+      resolved-ref: "1020b06e324334d8bb3eac2a4d03f7d4d4e51092"
       url: "https://github.com/Sominemo/VkGet.git"
     source: git
     version: "0.0.4"
@@ -701,7 +652,7 @@ packages:
       name: xdg_directories
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0+1"
+    version: "0.2.0+2"
   xml:
     dependency: transitive
     description:

@@ -108,7 +108,7 @@ class SettingsStorageTable {
   }
 
   static dynamic getDefault(String name, String key) {
-    return defaults[name]![key]!;
+    return defaults[name]?[key];
   }
 }
 
@@ -120,6 +120,7 @@ class SettingsStorage {
         [
           (db, version, event) async {
             db.createObjectStore('main', keyPath: 'key');
+            db.createObjectStore('activity', keyPath: 'key');
             db.createObjectStore('flags', keyPath: 'key');
           }
         ],
@@ -157,7 +158,7 @@ class TypeConvert {
     return n.toString();
   }
 
-  static bool strtoBool(String str) {
+  static bool strToBool(String str) {
     return str == '1';
   }
 

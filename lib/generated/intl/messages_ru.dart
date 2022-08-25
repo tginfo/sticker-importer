@@ -30,12 +30,18 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("О программе"),
+        "active_stickers":
+            MessageLookupByLibrary.simpleMessage("Активные стикеры"),
+        "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
+        "animals_and_nature":
+            MessageLookupByLibrary.simpleMessage("Животные и природа"),
         "animated": MessageLookupByLibrary.simpleMessage("Анимированный"),
         "animated_pack":
             MessageLookupByLibrary.simpleMessage("Анимированный набор"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "Этот набор – анимированный. Желаете экспортировать стикеры в виде анимаций, или статичных изображений?"),
+        "auth_code": MessageLookupByLibrary.simpleMessage("Код"),
         "by_link": MessageLookupByLibrary.simpleMessage("По ссылке"),
         "call": MessageLookupByLibrary.simpleMessage("Звонок"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
@@ -45,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "check_the_link": MessageLookupByLibrary.simpleMessage(
             "Проверьте правильность ссылки"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Выбор эмодзи"),
-        "code": MessageLookupByLibrary.simpleMessage("Код"),
+        "code": MessageLookupByLibrary.simpleMessage("ru"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
@@ -68,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Telegram Info это некоммерческий проект, который существует только благодаря вашей поддержке. Наша цель — доносить информацию о Telegram и его сервисах, делая их более открытыми и доступными."),
         "download": MessageLookupByLibrary.simpleMessage("Скачать"),
         "downloaded_n": MessageLookupByLibrary.simpleMessage("Загружено"),
+        "emoji_type_to_search":
+            MessageLookupByLibrary.simpleMessage("Печатайте, чтобы искать"),
         "enable_sticker":
             MessageLookupByLibrary.simpleMessage("Включить стикер"),
         "enter_code_from_app": MessageLookupByLibrary.simpleMessage(
@@ -97,8 +105,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Обязательное поле"),
         "fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Заполните все поля"),
+        "flags": MessageLookupByLibrary.simpleMessage("Флаги"),
         "follow_tginfo":
             MessageLookupByLibrary.simpleMessage("Подписаться на @tginfo"),
+        "food_and_drink": MessageLookupByLibrary.simpleMessage("Еда и напитки"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Назад"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Перейти в VK ID"),
@@ -122,13 +132,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Логин или номер телефона"),
         "logs_save_error": m0,
         "logs_saved_to": m1,
+        "my_avatar": MessageLookupByLibrary.simpleMessage("Мой аватар"),
+        "no_emoji_matches":
+            MessageLookupByLibrary.simpleMessage("Нет подходящих эмодзи"),
         "no_error_details": MessageLookupByLibrary.simpleMessage(
             "Нет дополнительных сведений об этой ошибке"),
+        "no_recent_emoji":
+            MessageLookupByLibrary.simpleMessage("Нет недавних эмодзи"),
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
             "Telegram не установлен на Вашем устройстве, поэтому экспорт не удался"),
+        "objects": MessageLookupByLibrary.simpleMessage("Предметы"),
         "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open_in_browser":
@@ -137,16 +153,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Подготовьте набор"),
+        "recent_emoji": MessageLookupByLibrary.simpleMessage("Недавние эмодзи"),
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "retrying": MessageLookupByLibrary.simpleMessage("Пробуем ещё раз..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Сохранить логи"),
+        "search_stickers":
+            MessageLookupByLibrary.simpleMessage("Поиск стикеров"),
         "select_all": MessageLookupByLibrary.simpleMessage("Выбрать всё"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
+        "smileys_and_people":
+            MessageLookupByLibrary.simpleMessage("Смайлы и люди"),
         "sms": MessageLookupByLibrary.simpleMessage("SMS"),
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Разработчик"),
         "source_code": MessageLookupByLibrary.simpleMessage("Исходный код"),
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
+        "sticker_store":
+            MessageLookupByLibrary.simpleMessage("Магазин стикеров"),
         "sticker_styles":
             MessageLookupByLibrary.simpleMessage("Стиль стикеров"),
         "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
@@ -155,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop": MessageLookupByLibrary.simpleMessage("Стоп"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите остановить экспорт?"),
+        "symbols": MessageLookupByLibrary.simpleMessage("Символы"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "telegram_info": MessageLookupByLibrary.simpleMessage("Telegram Info"),
         "telegram_info_desc": MessageLookupByLibrary.simpleMessage("Наш канал"),
@@ -162,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfo"),
         "tginfo_sticker_importer":
             MessageLookupByLibrary.simpleMessage("Sticker Importer"),
+        "travel_and_places":
+            MessageLookupByLibrary.simpleMessage("Места и путешествия"),
         "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
             "Попробуйте отправить запрос еще раз"),
         "twofa_code_sent":

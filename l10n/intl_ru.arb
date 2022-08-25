@@ -1,5 +1,6 @@
 {
     "@@locale": "ru",
+    "code": "ru",
     "tginfo_sticker_importer": "Sticker Importer",
     "welcome": "Добро пожаловать",
     "welcome_screen_description": "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram",
@@ -99,7 +100,7 @@
     "internet_error_title": "Ошибка соединения",
     "internet_error_info": "Запрос не удался. Проверьте подключение к интернету и попробуйте еще раз",
     "t_continue": "Продолжить",
-    "code": "Код",
+    "auth_code": "Код",
     "by_link": "По ссылке",
     "vk_account": "Аккаунт VK",
     "delete_account_confirm": "Вы уверены, что хотите выйти?",
@@ -114,5 +115,21 @@
     "go_to_vk_id": "Перейти в VK ID",
     "twofa_failed": "Ошибка двухфакторной аутентификации",
     "try_sending_request_again": "Попробуйте отправить запрос еще раз",
-    "captcha_fail": "Не удалось подтвердить, что вы не робот"
+    "captcha_fail": "Не удалось подтвердить, что вы не робот",
+    "sticker_store": "Магазин стикеров",
+    "search_stickers": "Поиск стикеров",
+    "my_avatar": "Мой аватар",
+    "active_stickers": "Активные стикеры",
+    "recent_emoji": "Недавние эмодзи",
+    "no_recent_emoji": "Нет недавних эмодзи",
+    "smileys_and_people": "Смайлы и люди",
+    "animals_and_nature": "Животные и природа",
+    "food_and_drink": "Еда и напитки",
+    "activity": "Занятия",
+    "travel_and_places": "Места и путешествия",
+    "objects": "Предметы",
+    "symbols": "Символы",
+    "flags": "Флаги",
+    "no_emoji_matches": "Нет подходящих эмодзи",
+    "emoji_type_to_search": "Печатайте, чтобы искать"
 }

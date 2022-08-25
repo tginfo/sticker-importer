@@ -11,13 +11,21 @@ bool iLogDoDetailedLogging = kDebugMode;
 void iLog(Object? message, {bool large = true}) {
   if (large && !iLogDoDetailedLogging) return;
 
-  if (message is String) {
+  String logged;
+
+  if (message is Error) {
+    logged = message.toString();
+    logged += '\n${message.stackTrace}';
+    log(logged);
+  } else if (message is String) {
+    logged = message;
     log(message);
   } else {
+    logged = message.toString();
     // ignore: avoid_print
-    print(message.toString());
+    print(logged);
   }
-  if (iLogDoDetailedLogging) _logs.writeln(message);
+  if (iLogDoDetailedLogging) _logs.writeln(logged);
 }
 
 Future<File> _logFileName() async {
