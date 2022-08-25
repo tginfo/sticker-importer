@@ -51,6 +51,8 @@ flutter:
               - asset: fonts/CustomIcons.ttf
                 weight: 600
         # Generated with https://github.com/samuelngs/apple-emoji-linux
+        # Change the line in Makefile to compress the assets:
+        # @convert $(IMOPS) "$<" -adaptive-resize 48x48 -composite "PNG32:$@"
         - family: AppleColorEmoji
           fonts:
               - asset: fonts/AppleColorEmoji.ttf
