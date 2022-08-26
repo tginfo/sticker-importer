@@ -27,6 +27,7 @@
     "stop_export_confirm": "Вы уверены, что хотите остановить экспорт?",
     "stop": "Стоп",
     "go_back": "Назад",
+    "continue_importing": "Продолжить импорт",
     "export_stopped": "Экспорт остановлен",
     "export_paused": "Экспорт приостановлен",
     "export_working": "Загрузка стикеров...",

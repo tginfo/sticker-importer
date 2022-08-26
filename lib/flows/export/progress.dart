@@ -95,7 +95,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text(S.of(context).go_back),
+                  child: Text(S.of(context).continue_importing),
                 ),
               ],
             );

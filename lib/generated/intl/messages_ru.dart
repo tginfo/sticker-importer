@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "code": MessageLookupByLibrary.simpleMessage("ru"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Продолжить"),
+        "continue_importing":
+            MessageLookupByLibrary.simpleMessage("Продолжить импорт"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),

@@ -28,6 +28,7 @@
     "stop_export_confirm": "Are you sure you want to stop export?",
     "stop": "Stop",
     "go_back": "Return",
+    "continue_importing": "Continue importing",
     "export_stopped": "Exporting stopped",
     "export_paused": "Exporting paused",
     "export_working": "Downloading stickers...",

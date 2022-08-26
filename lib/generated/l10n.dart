@@ -330,6 +330,16 @@ class S {
     );
   }
 
+  /// `Continue importing`
+  String get continue_importing {
+    return Intl.message(
+      'Continue importing',
+      name: 'continue_importing',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Exporting stopped`
   String get export_stopped {
     return Intl.message(
