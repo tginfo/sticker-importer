@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:sticker_import/components/types/emoji.dart';
 import 'package:sticker_import/components/ui/emoji/grid.dart';
 import 'package:sticker_import/generated/emoji_metadata.dart';

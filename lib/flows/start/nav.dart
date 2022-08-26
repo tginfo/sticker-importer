@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sticker_import/flows/settings/about.dart';
 import 'package:sticker_import/flows/start/start.dart';
@@ -38,7 +40,9 @@ class StartRouteState extends State<StartRoute> {
     super.initState();
 
     if (widget.tab == StartRouteScreen.start) {
-      checkUpdates(context);
+      Timer.run(() {
+        checkUpdates(context);
+      });
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void checkUpdates(BuildContext context) async {
+  final locale = S.of(context).code;
   final supportedAbis = (await DeviceInfoPlugin().androidInfo).supportedAbis;
 
   final res = await (await HttpClient().getUrl(
@@ -73,6 +74,21 @@ void checkUpdates(BuildContext context) async {
     return;
   }
 
+  final changelog = targetRelease['body'] as String;
+
+  // Get current language from markdown
+  String localeChangelog = changelog.substring(
+    RegExp('## \\[$locale\\].+\$', multiLine: true)
+            .firstMatch(changelog)
+            ?.end ??
+        0,
+  );
+
+  localeChangelog = localeChangelog.substring(
+    0,
+    RegExp('##').firstMatch(localeChangelog)?.start ?? localeChangelog.length,
+  );
+
   await showModalBottomSheet<dynamic>(
     context: context,
     isScrollControlled: true,
@@ -89,7 +105,7 @@ void checkUpdates(BuildContext context) async {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(targetRelease!['body'] as String),
+                child: Text(localeChangelog),
               ),
             ),
           ),
