@@ -22,6 +22,13 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
   final _formKey = GlobalKey<FormState>();
   bool isWithBorder = true;
 
+  @override
+  void dispose() {
+    super.dispose();
+
+    urlController.dispose();
+  }
+
   void goOn(BuildContext context, TextEditingController urlController) {
     if (!_formKey.currentState!.validate()) {
       return;

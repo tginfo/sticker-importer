@@ -118,10 +118,6 @@
     "twofa_failed": "Two-factor authentication failed",
     "try_sending_request_again": "Try sending the request again",
     "captcha_fail": "Couldn't pass Captcha",
-    "sticker_store": "Sticker Store",
-    "search_stickers": "Search stickers",
-    "my_avatar": "My avatar",
-    "active_stickers": "Active stickers",
     "recent_emoji": "Recent emoji",
     "no_recent_emoji": "No recent emoji",
     "no_recent_emoji_help": "Browse through available emojis by categories or use search.",
@@ -134,5 +130,7 @@
     "symbols": "Symbols",
     "flags": "Flags",
     "no_emoji_matches": "No emojis matching your request were found",
-    "emoji_type_to_search": "Type to search"
+    "emoji_type_to_search": "Type to search",
+    "sticker_store": "Sticker Store",
+    "search_stickers": "Search stickers"
 }

@@ -29,6 +29,8 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
+
     try {
       controller = widget.controller;
       controller.init();
@@ -41,8 +43,6 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
       iLog(e);
       rethrow;
     }
-
-    super.didChangeDependencies();
   }
 
   @override

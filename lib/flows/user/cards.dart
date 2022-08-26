@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sticker_import/components/types/account.dart';
 import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
@@ -66,7 +67,10 @@ class _CardListRouteState extends State<CardListRoute> {
                             await Navigator.of(context).push<void>(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
-                                  return VkStickerStoreRoute(account: e);
+                                  return AccountData(
+                                    account: e,
+                                    child: const VkStickerStoreRoute(),
+                                  );
                                 },
                               ),
                             );

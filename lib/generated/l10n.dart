@@ -1232,46 +1232,6 @@ class S {
     );
   }
 
-  /// `Sticker Store`
-  String get sticker_store {
-    return Intl.message(
-      'Sticker Store',
-      name: 'sticker_store',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Search stickers`
-  String get search_stickers {
-    return Intl.message(
-      'Search stickers',
-      name: 'search_stickers',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My avatar`
-  String get my_avatar {
-    return Intl.message(
-      'My avatar',
-      name: 'my_avatar',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Active stickers`
-  String get active_stickers {
-    return Intl.message(
-      'Active stickers',
-      name: 'active_stickers',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Recent emoji`
   String get recent_emoji {
     return Intl.message(
@@ -1397,6 +1357,26 @@ class S {
     return Intl.message(
       'Type to search',
       name: 'emoji_type_to_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker Store`
+  String get sticker_store {
+    return Intl.message(
+      'Sticker Store',
+      name: 'sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search stickers`
+  String get search_stickers {
+    return Intl.message(
+      'Search stickers',
+      name: 'search_stickers',
       desc: '',
       args: [],
     );

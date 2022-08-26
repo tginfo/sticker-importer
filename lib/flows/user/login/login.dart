@@ -22,6 +22,14 @@ class _LoginRouteState extends State<LoginRoute> {
   final passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+
+    loginController.dispose();
+    passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
 

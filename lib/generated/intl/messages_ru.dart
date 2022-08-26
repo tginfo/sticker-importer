@@ -30,8 +30,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("О программе"),
-        "active_stickers":
-            MessageLookupByLibrary.simpleMessage("Активные стикеры"),
         "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
         "animals_and_nature":
@@ -134,7 +132,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Логин или номер телефона"),
         "logs_save_error": m0,
         "logs_saved_to": m1,
-        "my_avatar": MessageLookupByLibrary.simpleMessage("Мой аватар"),
         "no_emoji_matches":
             MessageLookupByLibrary.simpleMessage("Нет подходящих эмодзи"),
         "no_error_details": MessageLookupByLibrary.simpleMessage(

@@ -30,8 +30,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("About"),
-        "active_stickers":
-            MessageLookupByLibrary.simpleMessage("Active stickers"),
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
         "animals_and_nature":
@@ -134,7 +132,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login or phone number"),
         "logs_save_error": m0,
         "logs_saved_to": m1,
-        "my_avatar": MessageLookupByLibrary.simpleMessage("My avatar"),
         "no_emoji_matches": MessageLookupByLibrary.simpleMessage(
             "No emojis matching your request were found"),
         "no_error_details":

@@ -24,13 +24,7 @@ class EmojiPicker extends StatefulWidget {
 }
 
 class EmojiPickerState extends State<EmojiPicker> {
-  late TabController tabController;
   late Future<List<EmojiUiCategory>> categories;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -101,6 +95,12 @@ class _EmojiPageState extends State<EmojiPage>
       length: widget.categories.length,
       vsync: this,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
   }
 
   @override

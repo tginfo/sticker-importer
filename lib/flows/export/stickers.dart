@@ -22,14 +22,14 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
 
   @override
   void initState() {
+    super.initState();
+
     for (final file in widget.controller.result!) {
       imageCache.evict(FileImage(File(file)));
     }
 
     enabled.addAll(List.filled(widget.controller.result!.length, true));
     emoji.addAll(List.filled(widget.controller.result!.length, ''));
-
-    super.initState();
   }
 
   @override
