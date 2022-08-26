@@ -147,8 +147,8 @@ class _EmojiPageState extends State<EmojiPage>
                       [e]
                           .followedBy(widget.categories[0].emojis)
                           .toSet()
-                          .toList()
-                          .take(35),
+                          .take(35)
+                          .toList(),
                     ),
                   );
 

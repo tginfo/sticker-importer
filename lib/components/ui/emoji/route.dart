@@ -42,8 +42,8 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
                         .followedBy(
                             (jsonDecode(l ?? '[]') as List).whereType<String>())
                         .toSet()
-                        .toList()
-                        .take(35),
+                        .take(35)
+                        .toList(),
                   ),
                 );
               });
