@@ -25,12 +25,14 @@ class ExportProgressFlow extends StatefulWidget {
 
 class ExportProgressFlowState extends State<ExportProgressFlow> {
   StreamSubscription<Function>? notifier;
+  late ExportController controller;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     try {
-      widget.controller.init();
-      notifier = widget.controller.notifier.listen((event) {
+      controller = widget.controller;
+      controller.init();
+      notifier = controller.notifier.listen((event) {
         setState(() {
           event();
         });
@@ -40,7 +42,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
       rethrow;
     }
 
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -55,17 +57,17 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    if (widget.controller.state == ExportControllerState.error) {
-      iLog(widget.controller.errorDetails ?? 'No error details');
+    if (controller.state == ExportControllerState.error) {
+      iLog(controller.errorDetails ?? 'No error details');
     }
 
-    if (widget.controller.state == ExportControllerState.done) {
+    if (controller.state == ExportControllerState.done) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.of(context).push<dynamic>(
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) {
             return StickerChooserRoute(
-              controller: widget.controller,
+              controller: controller,
             );
           },
         ),
@@ -87,7 +89,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
-                    widget.controller.stop();
+                    controller.stop();
                   },
                   child: Text(S.of(context).stop),
                 ),
@@ -106,6 +108,9 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
         return res;
       },
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+        ),
         body: Form(
           child: Center(
             child: SingleChildScrollView(
@@ -123,35 +128,29 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if ((widget.controller.state ==
-                              ExportControllerState.working ||
-                          widget.controller.state ==
-                              ExportControllerState.warmingUp))
+                      if ((controller.state == ExportControllerState.working ||
+                          controller.state == ExportControllerState.warmingUp))
                         LargeText(S.of(context).export_working),
-                      if ((widget.controller.state ==
-                              ExportControllerState.paused ||
-                          widget.controller.state ==
-                              ExportControllerState.retrying))
+                      if ((controller.state == ExportControllerState.paused ||
+                          controller.state == ExportControllerState.retrying))
                         LargeText(S.of(context).export_paused),
-                      if (widget.controller.state ==
-                          ExportControllerState.stopped)
+                      if (controller.state == ExportControllerState.stopped)
                         LargeText(S.of(context).export_stopped),
-                      if (widget.controller.state ==
-                          ExportControllerState.error)
+                      if (controller.state == ExportControllerState.error)
                         LargeText(S.of(context).export_error),
-                      if (widget.controller.state == ExportControllerState.done)
+                      if (controller.state == ExportControllerState.done)
                         LargeText(S.of(context).export_done),
                     ],
                   ),
-                  if (widget.controller.state != ExportControllerState.error &&
-                      widget.controller.state != ExportControllerState.done)
+                  if (controller.state != ExportControllerState.error &&
+                      controller.state != ExportControllerState.done)
                     BodyPadding(
                       child: Text(
                         S.of(context).export_config_info,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
-                  if (widget.controller.state == ExportControllerState.error)
+                  if (controller.state == ExportControllerState.error)
                     BodyPadding(
                       child: Text(
                         S.of(context).export_error_description,
@@ -164,15 +163,14 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                       children: [
                         LinearProgressIndicator(
                           value: (() {
-                            switch (widget.controller.state) {
+                            switch (controller.state) {
                               case ExportControllerState.warmingUp:
                               case ExportControllerState.retrying:
                                 return null;
                               default:
-                                return widget.controller.count != null &&
-                                        widget.controller.count != 0
-                                    ? widget.controller.processed /
-                                        widget.controller.count!
+                                return controller.count != null &&
+                                        controller.count != 0
+                                    ? controller.processed / controller.count!
                                     : 0.0;
                             }
                           })(),
@@ -189,12 +187,12 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                           ExportControllerState.paused,
                           ExportControllerState.stopped,
                           ExportControllerState.working,
-                        ].contains(widget.controller.state))
+                        ].contains(controller.state))
                           Text(
-                            '${widget.controller.processed} / ${widget.controller.count} ${S.of(context).of_stickers(widget.controller.count!)}',
+                            '${controller.processed} / ${controller.count} ${S.of(context).of_stickers(controller.count!)}',
                           ),
                         if ([ExportControllerState.error]
-                            .contains(widget.controller.state))
+                            .contains(controller.state))
                           Text(
                             S.of(context).error,
                             style: TextStyle(
@@ -205,10 +203,10 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                             ),
                           ),
                         if ([ExportControllerState.warmingUp]
-                            .contains(widget.controller.state))
+                            .contains(controller.state))
                           Text(S.of(context).warming_up),
                         if ([ExportControllerState.retrying]
-                            .contains(widget.controller.state))
+                            .contains(controller.state))
                           Text(S.of(context).retrying),
                       ],
                     ),
@@ -220,14 +218,14 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                         if (![
                           ExportControllerState.error,
                           ExportControllerState.paused,
-                        ].contains(widget.controller.state))
+                        ].contains(controller.state))
                           TextButton(
-                            onPressed: (widget.controller.state ==
-                                    ExportControllerState.done
-                                ? null
-                                : () {
-                                    Navigator.of(context).maybePop();
-                                  }),
+                            onPressed:
+                                (controller.state == ExportControllerState.done
+                                    ? null
+                                    : () {
+                                        Navigator.of(context).maybePop();
+                                      }),
                             style: ButtonStyle(
                               foregroundColor:
                                   MaterialStateProperty.resolveWith<Color?>(
@@ -247,10 +245,10 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                           ),
                         if ([
                           ExportControllerState.paused,
-                        ].contains(widget.controller.state))
+                        ].contains(controller.state))
                           TextButton(
                             onPressed: () {
-                              widget.controller.init();
+                              controller.init();
                             },
                             child: Row(
                               children: [
@@ -262,7 +260,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                           ),
                         if ([
                           ExportControllerState.error,
-                        ].contains(widget.controller.state))
+                        ].contains(controller.state))
                           TextButton(
                             onPressed: () {
                               showModalBottomSheet<dynamic>(
@@ -273,7 +271,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                                     ListTile(
                                       title: Text(S.of(context).error),
                                       subtitle: Text(
-                                        widget.controller.errorDetails ??
+                                        controller.errorDetails ??
                                             S.of(context).no_error_details,
                                       ),
                                       trailing: IconButton(
@@ -281,8 +279,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                                         onPressed: () {
                                           Clipboard.setData(
                                             ClipboardData(
-                                                text: widget.controller
-                                                        .errorDetails ??
+                                                text: controller.errorDetails ??
                                                     ''),
                                           );
                                         },

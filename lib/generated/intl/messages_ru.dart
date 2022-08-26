@@ -181,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "still": MessageLookupByLibrary.simpleMessage("Статичный"),
         "stop": MessageLookupByLibrary.simpleMessage("Стоп"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
-            "Вы уверены, что хотите остановить экспорт?"),
+            "Вы уверены, что хотите остановить задачу?"),
         "symbols": MessageLookupByLibrary.simpleMessage("Символы"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "telegram_info": MessageLookupByLibrary.simpleMessage("Telegram Info"),

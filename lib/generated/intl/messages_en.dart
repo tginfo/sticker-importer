@@ -180,7 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "still": MessageLookupByLibrary.simpleMessage("Still Pictures"),
         "stop": MessageLookupByLibrary.simpleMessage("Stop"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to stop export?"),
+            "Are you sure you want to stop the task?"),
         "symbols": MessageLookupByLibrary.simpleMessage("Symbols"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "telegram_info": MessageLookupByLibrary.simpleMessage("Telegram Info"),

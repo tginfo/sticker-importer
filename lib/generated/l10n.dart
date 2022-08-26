@@ -300,10 +300,10 @@ class S {
     );
   }
 
-  /// `Are you sure you want to stop export?`
+  /// `Are you sure you want to stop the task?`
   String get stop_export_confirm {
     return Intl.message(
-      'Are you sure you want to stop export?',
+      'Are you sure you want to stop the task?',
       name: 'stop_export_confirm',
       desc: '',
       args: [],

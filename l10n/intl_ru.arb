@@ -24,7 +24,7 @@
     "unit_mb": "MB",
     "unit_gb": "GB",
     "confirmation": "Подтверждение",
-    "stop_export_confirm": "Вы уверены, что хотите остановить экспорт?",
+    "stop_export_confirm": "Вы уверены, что хотите остановить задачу?",
     "stop": "Стоп",
     "go_back": "Назад",
     "continue_importing": "Продолжить импорт",
