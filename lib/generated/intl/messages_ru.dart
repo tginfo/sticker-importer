@@ -139,6 +139,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Нет дополнительных сведений об этой ошибке"),
         "no_recent_emoji":
             MessageLookupByLibrary.simpleMessage("Нет недавних эмодзи"),
+        "no_recent_emoji_help": MessageLookupByLibrary.simpleMessage(
+            "Вы можете искать эмодзи по категориям, или воспользоваться текстовым поиском"),
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),

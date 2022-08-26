@@ -123,6 +123,7 @@
     "active_stickers": "Active stickers",
     "recent_emoji": "Recent emoji",
     "no_recent_emoji": "No recent emoji",
+    "no_recent_emoji_help": "Browse through available emojis by categories or use search.",
     "smileys_and_people": "Smileys & People",
     "animals_and_nature": "Animals & Nature",
     "food_and_drink": "Food & Drink",
@@ -131,6 +132,6 @@
     "objects": "Objects",
     "symbols": "Symbols",
     "flags": "Flags",
-    "no_emoji_matches": "No emojis matching your search were found",
+    "no_emoji_matches": "No emojis matching your request were found",
     "emoji_type_to_search": "Type to search"
 }

@@ -134,11 +134,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "logs_saved_to": m1,
         "my_avatar": MessageLookupByLibrary.simpleMessage("My avatar"),
         "no_emoji_matches": MessageLookupByLibrary.simpleMessage(
-            "No emojis matching your search were found"),
+            "No emojis matching your request were found"),
         "no_error_details":
             MessageLookupByLibrary.simpleMessage("No error details available"),
         "no_recent_emoji":
             MessageLookupByLibrary.simpleMessage("No recent emoji"),
+        "no_recent_emoji_help": MessageLookupByLibrary.simpleMessage(
+            "Browse through available emojis by categories or use search."),
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),

@@ -42,7 +42,8 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
                         .followedBy(
                             (jsonDecode(l ?? '[]') as List).whereType<String>())
                         .toSet()
-                        .toList(),
+                        .toList()
+                        .take(35),
                   ),
                 );
               });
@@ -106,7 +107,13 @@ Widget searchEmoji(BuildContext context, String query) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-          child: Text(S.of(context).emoji_type_to_search),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              S.of(context).emoji_type_to_search,
+              textAlign: TextAlign.center,
+            ),
+          ),
         )
       ],
     );
@@ -119,7 +126,13 @@ Widget searchEmoji(BuildContext context, String query) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-          child: Text(S.of(context).no_emoji_matches),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              S.of(context).no_emoji_matches,
+              textAlign: TextAlign.center,
+            ),
+          ),
         )
       ],
     );

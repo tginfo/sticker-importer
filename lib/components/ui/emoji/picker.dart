@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sticker_import/components/types/emoji.dart';
 import 'package:sticker_import/components/ui/emoji/grid.dart';
 import 'package:sticker_import/generated/emoji_metadata.dart';
@@ -35,7 +37,8 @@ class EmojiPickerState extends State<EmojiPicker> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    categories = EmojiUiCategory.fromMap(context, kEmojiAtlas.categories);
+    categories =
+        EmojiUiCategory.fromMapLowPriority(context, kEmojiAtlas.categories);
   }
 
   @override
@@ -53,9 +56,12 @@ class EmojiPickerState extends State<EmojiPicker> {
             // log error
             iLog(snapshot.error);
             return Center(
-              child: Text(
-                snapshot.error.toString(),
-                textAlign: TextAlign.center,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  snapshot.error.toString(),
+                  textAlign: TextAlign.center,
+                ),
               ),
             );
           } else {
@@ -92,7 +98,7 @@ class _EmojiPageState extends State<EmojiPage>
     super.initState();
 
     tabController = TabController(
-      initialIndex: widget.categories[0].emojis.isEmpty ? 1 : 0,
+      initialIndex: 0,
       length: widget.categories.length,
       vsync: this,
     );
@@ -141,7 +147,8 @@ class _EmojiPageState extends State<EmojiPage>
                       [e]
                           .followedBy(widget.categories[0].emojis)
                           .toSet()
-                          .toList(),
+                          .toList()
+                          .take(35),
                     ),
                   );
 
@@ -173,7 +180,27 @@ class EmojiGridState extends State<EmojiGrid> {
   Widget build(BuildContext context) {
     if (widget.category.emojis.isEmpty) {
       return Center(
-        child: Text(S.of(context).no_recent_emoji),
+        child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Opacity(
+                  opacity: 0.2,
+                  child: Icon(Icons.access_time_filled_rounded, size: 128),
+                ),
+                Text(
+                  S.of(context).no_recent_emoji,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  S.of(context).no_recent_emoji_help,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )),
       );
     }
 
@@ -204,6 +231,19 @@ class EmojiUiCategory {
     required this.icon,
     required this.emojis,
   });
+
+  static Future<List<EmojiUiCategory>> fromMapLowPriority(
+      BuildContext context, Map<String, EmojiCategory> map) {
+    final completer = Completer<List<EmojiUiCategory>>();
+
+    Timer.run(
+      () async {
+        completer.complete(await fromMap(context, map));
+      },
+    );
+
+    return completer.future;
+  }
 
   static Future<List<EmojiUiCategory>> fromMap(
       BuildContext context, Map<String, EmojiCategory> map) async {

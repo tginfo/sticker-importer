@@ -122,6 +122,7 @@
     "active_stickers": "Активные стикеры",
     "recent_emoji": "Недавние эмодзи",
     "no_recent_emoji": "Нет недавних эмодзи",
+    "no_recent_emoji_help": "Вы можете искать эмодзи по категориям, или воспользоваться текстовым поиском",
     "smileys_and_people": "Смайлы и люди",
     "animals_and_nature": "Животные и природа",
     "food_and_drink": "Еда и напитки",

@@ -1282,6 +1282,16 @@ class S {
     );
   }
 
+  /// `Browse through available emojis by categories or use search.`
+  String get no_recent_emoji_help {
+    return Intl.message(
+      'Browse through available emojis by categories or use search.',
+      name: 'no_recent_emoji_help',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Smileys & People`
   String get smileys_and_people {
     return Intl.message(
@@ -1362,10 +1372,10 @@ class S {
     );
   }
 
-  /// `No emojis matching your search were found`
+  /// `No emojis matching your request were found`
   String get no_emoji_matches {
     return Intl.message(
-      'No emojis matching your search were found',
+      'No emojis matching your request were found',
       name: 'no_emoji_matches',
       desc: '',
       args: [],
