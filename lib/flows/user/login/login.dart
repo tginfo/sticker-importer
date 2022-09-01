@@ -205,10 +205,10 @@ class _LoginRouteState extends State<LoginRoute> {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary:
-                                    Theme.of(context).colorScheme.onPrimary,
-                                onPrimary:
+                                foregroundColor:
                                     Theme.of(context).colorScheme.primary,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
                               ),
                               onPressed: () {
                                 launchUrl(
