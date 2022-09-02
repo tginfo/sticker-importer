@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:enough_convert/enough_convert.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sticker_import/components/flutter/vk_image.dart';
 import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -117,16 +117,13 @@ class VkExportController extends ExportController {
       final List<StickerStyle> stickerStyles = [];
 
       for (final style in info!['payload'][1][0]['products'] as List<dynamic>) {
-        final img = await account.vk.fetch(
-          Uri.parse(
-            'https://vk.com/sticker/1-${style['sticker_ids'][0]}-128',
-          ),
+        final image = VKGetImage.vk(
+          'https://vk.com/sticker/1-${style['sticker_ids'][0]}-128',
+          account.vk,
         );
 
-        final imgRawList = <int>[];
-        await for (final b in img) {
-          imgRawList.addAll(b);
-        }
+        // ignore: use_build_context_synchronously
+        await precacheImage(image.image, context);
 
         if (state == ExportControllerState.stopped) {
           return;
@@ -134,7 +131,7 @@ class VkExportController extends ExportController {
 
         stickerStyles.add(StickerStyle(
           title: style['title'] as String,
-          image: Image.memory(Uint8List.fromList(imgRawList)),
+          image: image,
           id: style['id'] as int,
           isAnimated: style['is_animated'] as bool,
           stickerIds: (style['sticker_ids'] as List).cast<int>(),
