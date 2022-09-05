@@ -1381,6 +1381,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Search results`
+  String get search_results {
+    return Intl.message(
+      'Search results',
+      name: 'search_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No stickers found`
+  String get no_sticker_search_results {
+    return Intl.message(
+      'No stickers found',
+      name: 'no_sticker_search_results',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

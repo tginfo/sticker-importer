@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_recent_emoji_help": MessageLookupByLibrary.simpleMessage(
             "Вы можете искать эмодзи по категориям, или воспользоваться текстовым поиском"),
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
+        "no_sticker_search_results":
+            MessageLookupByLibrary.simpleMessage("Таких стикеров не найдено"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
@@ -158,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "retrying": MessageLookupByLibrary.simpleMessage("Пробуем ещё раз..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Сохранить логи"),
+        "search_results":
+            MessageLookupByLibrary.simpleMessage("Результаты поиска"),
         "search_stickers":
             MessageLookupByLibrary.simpleMessage("Поиск стикеров"),
         "select_all": MessageLookupByLibrary.simpleMessage("Выбрать всё"),

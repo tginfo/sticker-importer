@@ -111,7 +111,7 @@ class UserList {
 
     account.vk.onCaptcha = (r) async {
       final lang = S.of(context);
-      final String imgUrl = r.asJson!['captcha_img'] as String;
+      final String imgUrl = r.asJson()!['captcha_img'] as String;
 
       final response = await showDialog<String?>(
         context: context,
@@ -148,7 +148,15 @@ class UserList {
 
                       if (snapshot.hasError) {
                         iLog(snapshot.error);
-                        return Text(S.of(context).error);
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              snapshot.error.toString(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       }
 
                       return Image.memory(Uint8List.fromList(snapshot.data!));

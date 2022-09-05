@@ -132,5 +132,7 @@
     "no_emoji_matches": "No emojis matching your request were found",
     "emoji_type_to_search": "Type to search",
     "sticker_store": "Sticker Store",
-    "search_stickers": "Search stickers"
+    "search_stickers": "Search stickers",
+    "search_results": "Search results",
+    "no_sticker_search_results": "No stickers found"
 }

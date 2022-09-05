@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_recent_emoji_help": MessageLookupByLibrary.simpleMessage(
             "Browse through available emojis by categories or use search."),
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
+        "no_sticker_search_results":
+            MessageLookupByLibrary.simpleMessage("No stickers found"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
@@ -158,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),
         "retrying": MessageLookupByLibrary.simpleMessage("Retrying..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Save logs"),
+        "search_results":
+            MessageLookupByLibrary.simpleMessage("Search results"),
         "search_stickers":
             MessageLookupByLibrary.simpleMessage("Search stickers"),
         "select_all": MessageLookupByLibrary.simpleMessage("Select All"),

@@ -117,8 +117,6 @@
     "twofa_failed": "Ошибка двухфакторной аутентификации",
     "try_sending_request_again": "Попробуйте отправить запрос еще раз",
     "captcha_fail": "Не удалось подтвердить, что вы не робот",
-    "sticker_store": "Магазин стикеров",
-    "search_stickers": "Поиск стикеров",
     "my_avatar": "Мой аватар",
     "active_stickers": "Активные стикеры",
     "recent_emoji": "Недавние эмодзи",
@@ -133,5 +131,9 @@
     "symbols": "Символы",
     "flags": "Флаги",
     "no_emoji_matches": "Нет подходящих эмодзи",
-    "emoji_type_to_search": "Печатайте, чтобы искать"
+    "emoji_type_to_search": "Печатайте, чтобы искать",
+    "sticker_store": "Магазин стикеров",
+    "search_stickers": "Поиск стикеров",
+    "search_results": "Результаты поиска",
+    "no_sticker_search_results": "Таких стикеров не найдено"
 }

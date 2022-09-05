@@ -160,3 +160,50 @@ class VKGetImage extends Image {
     super.filterQuality,
   }) : super(image: VKGetImageProvider(uri, vk, scale: scale));
 }
+
+class VKGetFadeInImage extends FadeInImage {
+  VKGetFadeInImage.vk({
+    super.key,
+    required String placeholder,
+    super.placeholderErrorBuilder,
+    required String image,
+    required VKGet vk,
+    super.imageErrorBuilder,
+    AssetBundle? bundle,
+    double? placeholderScale,
+    double imageScale = 1.0,
+    super.excludeFromSemantics = false,
+    super.imageSemanticLabel,
+    super.fadeOutDuration = const Duration(milliseconds: 300),
+    super.fadeOutCurve = Curves.easeOut,
+    super.fadeInDuration = const Duration(milliseconds: 700),
+    super.fadeInCurve = Curves.easeIn,
+    super.width,
+    super.height,
+    super.fit,
+    super.placeholderFit,
+    super.alignment = Alignment.center,
+    super.repeat = ImageRepeat.noRepeat,
+    super.matchTextDirection = false,
+    int? placeholderCacheWidth,
+    int? placeholderCacheHeight,
+    int? imageCacheWidth,
+    int? imageCacheHeight,
+  }) : super(
+          placeholder: placeholderScale != null
+              ? ResizeImage.resizeIfNeeded(
+                  placeholderCacheWidth,
+                  placeholderCacheHeight,
+                  ExactAssetImage(placeholder,
+                      bundle: bundle, scale: placeholderScale))
+              : ResizeImage.resizeIfNeeded(
+                  placeholderCacheWidth,
+                  placeholderCacheHeight,
+                  AssetImage(placeholder, bundle: bundle)),
+          image: ResizeImage.resizeIfNeeded(
+            imageCacheWidth,
+            imageCacheHeight,
+            VKGetImageProvider(image, vk, scale: imageScale),
+          ),
+        );
+}
