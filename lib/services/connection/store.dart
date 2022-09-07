@@ -72,7 +72,7 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
       sticker: VkStickerStoreSticker(
         id: id,
         image: 'https://vk.com/images/sticker/1-$id-512',
-        thumbnail: 'https://vk.com/images/sticker/1-$id-128',
+        thumbnail: 'https://vk.com/images/sticker/1-$id-128b',
       ),
       pack: null,
     );
@@ -277,7 +277,8 @@ class VkStickerStorePack {
             for (final sticker in json['product']['stickers'] as List<dynamic>)
               VkStickerStoreSticker(
                 id: sticker['sticker_id'] as int,
-                thumbnail: sticker['images'][1]['url'] as String,
+                thumbnail:
+                    sticker['images_with_background'][1]['url'] as String,
                 image: (hasAnimation
                     ? sticker['animation_url'] as String
                     : sticker['images'][3]['url'] as String),

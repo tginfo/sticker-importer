@@ -1401,6 +1401,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Sticker pack`
+  String get sticker_pack {
+    return Intl.message(
+      'Sticker pack',
+      name: 'sticker_pack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import to Telegram`
+  String get import_to_telegram {
+    return Intl.message(
+      'Import to Telegram',
+      name: 'import_to_telegram',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

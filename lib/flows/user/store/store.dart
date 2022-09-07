@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sticker_import/components/flutter/fade_in_image.dart';
 import 'package:sticker_import/components/flutter/vk_image.dart';
 import 'package:sticker_import/components/types/account.dart';
+import 'package:sticker_import/flows/user/store/pack.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/store.dart';
@@ -252,22 +253,26 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final pack = item.packs[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: SizedBox(
-                      width: 90,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          VkPackImage(
-                            pack: pack,
-                            account: account,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(pack.title),
-                        ],
+                  return PackButton(
+                    pack: pack,
+                    account: account,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+                      child: SizedBox(
+                        width: 90,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            VkPackImage(
+                              pack: pack,
+                              account: account,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(pack.title),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -284,38 +289,45 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final pack = item.packs[index];
 
-                return SizedBox(
-                  height: 100,
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SizedBox(
-                        width: 90,
-                        height: 90,
-                        child: VkPackImage(
-                          pack: pack,
-                          account: account,
+                return PackButton(
+                  pack: pack,
+                  account: account,
+                  child: SizedBox(
+                    height: 100,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 5,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(pack.title),
-                            Text(
-                              pack.author,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
+                        SizedBox(
+                          width: 90,
+                          height: 90,
+                          child: VkPackImage(
+                            pack: pack,
+                            account: account,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                pack.title,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                pack.author,
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -336,36 +348,40 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final sticker = item.stickers[index];
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: SizedBox(
-                  width: 145,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 145,
-                        height: 145,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).dividerColor,
+              return PackButton(
+                pack: sticker.pack,
+                account: account,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+                  child: SizedBox(
+                    width: 145,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 145,
+                          height: 145,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).dividerColor,
+                            ),
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          color: Theme.of(context).cardColor,
-                          borderRadius: BorderRadius.circular(8),
+                          child: Center(
+                              child: VkStoreEntityImage(
+                            url: sticker.sticker.thumbnail,
+                            isAnimated:
+                                sticker.pack?.styles[0].isAnimated ?? false,
+                            account: account,
+                          )),
                         ),
-                        child: Center(
-                            child: VkStoreEntityImage(
-                          url: sticker.sticker.thumbnail,
-                          isAnimated:
-                              sticker.pack?.styles[0].isAnimated ?? false,
-                          account: account,
-                        )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(sticker.pack?.styles[0].title ?? ''),
-                    ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(sticker.pack?.styles[0].title ?? ''),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -387,7 +403,7 @@ class VkPackImage extends VkStoreEntityImage {
     required VkStickerStorePack pack,
     required super.account,
   }) : super(
-          url: 'https://vk.com/sticker/packs/${pack.id}/icon/square.png',
+          url: 'https://vk.com/sticker/packs/${pack.id}/icon/square_2x.png',
           isAnimated: pack.styles[0].isAnimated,
         );
 }
@@ -410,7 +426,6 @@ class VkStoreEntityImage extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
           ),
           width: 90,
@@ -598,6 +613,49 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
   Widget buildSuggestions(BuildContext context) {
     return Center(
       child: Text(S.of(context).search_stickers),
+    );
+  }
+}
+
+class PackButton extends StatelessWidget {
+  const PackButton({
+    super.key,
+    required this.pack,
+    required this.account,
+    required this.child,
+  });
+
+  final VkStickerStorePack? pack;
+  final Account account;
+  final Widget child;
+
+  void action(BuildContext context) async {
+    if (pack == null) {
+      return;
+    }
+
+    vkStoreStickerPackPopup(pack: pack!, account: account, context: context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(12),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => action(context),
+        child: FocusableActionDetector(
+          actions: {
+            ButtonActivateIntent: CallbackAction(
+              onInvoke: (action) async {
+                this.action(context);
+                return null;
+              },
+            ),
+          },
+          child: child,
+        ),
+      ),
     );
   }
 }

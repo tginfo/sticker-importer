@@ -113,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Go to VK ID"),
+        "import_to_telegram":
+            MessageLookupByLibrary.simpleMessage("Import to Telegram"),
         "internet_error_info": MessageLookupByLibrary.simpleMessage(
             "Request failed. Check your Internet connection and try again"),
         "internet_error_title":
@@ -173,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Developer"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "sticker_pack": MessageLookupByLibrary.simpleMessage("Sticker pack"),
         "sticker_store": MessageLookupByLibrary.simpleMessage("Sticker Store"),
         "sticker_styles":
             MessageLookupByLibrary.simpleMessage("Sticker Styles"),

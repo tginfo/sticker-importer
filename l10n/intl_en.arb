@@ -134,5 +134,7 @@
     "sticker_store": "Sticker Store",
     "search_stickers": "Search stickers",
     "search_results": "Search results",
-    "no_sticker_search_results": "No stickers found"
+    "no_sticker_search_results": "No stickers found",
+    "sticker_pack": "Sticker pack",
+    "import_to_telegram": "Import to Telegram"
 }

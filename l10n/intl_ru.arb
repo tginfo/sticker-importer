@@ -135,5 +135,7 @@
     "sticker_store": "Магазин стикеров",
     "search_stickers": "Поиск стикеров",
     "search_results": "Результаты поиска",
-    "no_sticker_search_results": "Таких стикеров не найдено"
+    "no_sticker_search_results": "Таких стикеров не найдено",
+    "sticker_pack": "Набор стикеров",
+    "import_to_telegram": "Импортировать в Telegram"
 }
