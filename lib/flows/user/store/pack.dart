@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -37,6 +38,25 @@ class VkStickerStorePackBottomSheet extends StatefulWidget {
 
 class _VkStickerStorePackBottomSheetState
     extends State<VkStickerStorePackBottomSheet> {
+  ButtonStyle storeButtonStyle(BuildContext context) {
+    return ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onPrimary,
+        ),
+        foregroundColor: MaterialStateProperty.all<Color>(
+          Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.primary,
+        ),
+        overlayColor: MaterialStateProperty.all<Color>(
+            Theme.of(context).colorScheme.primary.withAlpha(50)),
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.all(15),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -67,6 +87,16 @@ class _VkStickerStorePackBottomSheetState
                   leading: IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Share.share(
+                        widget.pack.domain,
+                        subject:
+                            '${widget.pack.title}\n\n${widget.pack.description}',
+                      );
+                    },
+                    icon: const Icon(Icons.share_rounded),
                   ),
                 ),
               ),
@@ -154,28 +184,16 @@ class _VkStickerStorePackBottomSheetState
                 child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(context).colorScheme.onPrimary,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: storeButtonStyle(context),
+                            child: Text(S.of(context).import_to_telegram),
+                            onPressed: () {},
                           ),
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context).colorScheme.primary,
-                          ),
-                          overlayColor: MaterialStateProperty.all<Color>(
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withAlpha(50)),
-                          padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(15),
-                          )),
-                      child: Text(S.of(context).import_to_telegram),
-                      onPressed: () {},
+                        ),
+                      ],
                     ),
                   ),
                 ),
