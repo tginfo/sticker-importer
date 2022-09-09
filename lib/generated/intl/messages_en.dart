@@ -39,6 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Animated Stickers"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "This sticker pack is animated. Do you want to export it animated, or keep the stickers as still images?"),
+        "animated_stickers_support_note":
+            MessageLookupByLibrary.simpleMessage("Note on animated stickers"),
+        "animated_stickers_support_note_text": MessageLookupByLibrary.simpleMessage(
+            "This sticker pack is animated, so you can import it either as static images, or as animations."),
         "auth_code": MessageLookupByLibrary.simpleMessage("Code"),
         "by_link": MessageLookupByLibrary.simpleMessage("By Link"),
         "call": MessageLookupByLibrary.simpleMessage("Call"),

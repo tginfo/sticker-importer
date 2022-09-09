@@ -39,6 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Анимированный набор"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "Этот набор – анимированный. Желаете экспортировать стикеры в виде анимаций, или статичных изображений?"),
+        "animated_stickers_support_note":
+            MessageLookupByLibrary.simpleMessage("Анимированные стикеры"),
+        "animated_stickers_support_note_text": MessageLookupByLibrary.simpleMessage(
+            "Этот набор – анимированный. Вы можете экспортировать стикеры в виде анимаций, или статичных изображений."),
         "auth_code": MessageLookupByLibrary.simpleMessage("Код"),
         "by_link": MessageLookupByLibrary.simpleMessage("По ссылке"),
         "call": MessageLookupByLibrary.simpleMessage("Звонок"),

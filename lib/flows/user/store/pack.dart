@@ -152,6 +152,29 @@ class _VkStickerStorePackBottomSheetState
                       ),
                       child: Text(widget.pack.description),
                     ),
+                    if (widget.pack.styles[0].isAnimated)
+                      Container(
+                        color: Colors.grey.withAlpha(20),
+                        child: Card(
+                          margin: const EdgeInsets.all(15),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(15),
+                            title: Text(
+                                S.of(context).animated_stickers_support_note),
+                            subtitle: Text(
+                              '${S.of(context).animated_stickers_support_note_text}\n\n${S.of(context).not_all_animated}',
+                            ),
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.onSecondary,
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              child:
+                                  const Icon(Icons.slow_motion_video_rounded),
+                            ),
+                          ),
+                        ),
+                      ),
                     GridView.builder(
                       primary: false,
                       shrinkWrap: true,

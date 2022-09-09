@@ -772,6 +772,26 @@ class S {
     );
   }
 
+  /// `Note on animated stickers`
+  String get animated_stickers_support_note {
+    return Intl.message(
+      'Note on animated stickers',
+      name: 'animated_stickers_support_note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This sticker pack is animated, so you can import it either as static images, or as animations.`
+  String get animated_stickers_support_note_text {
+    return Intl.message(
+      'This sticker pack is animated, so you can import it either as static images, or as animations.',
+      name: 'animated_stickers_support_note_text',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Telegram is not installed on your device, so we couldn't export the pack`
   String get not_installed {
     return Intl.message(
