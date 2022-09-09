@@ -191,14 +191,18 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
     Key? key,
     required this.layout,
     required this.account,
+    this.primary = true,
   }) : super(key: key);
 
   final List<VkStickerStoreLayout> layout;
   final Account account;
+  final bool primary;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      primary: primary,
+      shrinkWrap: !primary,
       itemCount: layout.length,
       itemBuilder: (context, index) {
         final item = layout[index];

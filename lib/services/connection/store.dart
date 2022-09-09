@@ -49,8 +49,20 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
   final data =
       jsonDecode(utf8.decode(response.expand((element) => element).toList()))
           as Map<String, dynamic>;
-  final packs = data['response']['stickers_packs'] as Map<String, dynamic>? ??
-      <String, dynamic>{};
+  final Map<String, dynamic> packs;
+
+  if (data['response']['stickers_packs'] != null) {
+    packs = data['response']['stickers_packs'] as Map<String, dynamic>;
+  } else if (data['response']['packs'] != null) {
+    packs = (data['response']['packs'] as List<dynamic>)
+        .asMap()
+        .map<String, dynamic>((key, dynamic value) => MapEntry<String, dynamic>(
+              value['product']['id'].toString(),
+              value,
+            ));
+  } else {
+    packs = <String, dynamic>{};
+  }
 
   VkStickerStoreStickerAndPack findSticker(int id) {
     for (final pack in packs.values) {
@@ -78,26 +90,61 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
     );
   }
 
-  final blocks = (data['response']['section']['blocks'] as List<dynamic>)
-      .cast<Map<String, dynamic>>();
-  final nextFrom = data['response']['section']['next_from'] as String?;
+  final List<Map<String, dynamic>> blocks;
+  final String? nextFrom;
+
+  if (data['response']['section'] != null) {
+    blocks = (data['response']['section']['blocks'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
+
+    nextFrom = data['response']['section']['next_from'] as String?;
+  } else {
+    blocks = (data['response']['blocks'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
+
+    nextFrom = data['response']['next_from'] as String?;
+  }
 
   for (final block in blocks) {
     if (block['data_type'] == 'stickers_packs') {
       final packList = (block['stickers_pack_ids'] as List<dynamic>)
           .map((dynamic e) => e.toString());
 
-      list.add(VkStickerStoreLayoutPackList(
-        type: (block['layout']['name'] == 'slider')
-            ? VkStickerStoreLayoutPackListType.slider
-            : VkStickerStoreLayoutPackListType.list,
-        packs: [
-          for (final packId in packList)
-            VkStickerStorePack.fromJson(
-              packs[packId] as Map<String, dynamic>,
-            )
-        ],
-      ));
+      list.add(
+        VkStickerStoreLayoutPackList(
+          type: (block['layout']['name'] == 'slider')
+              ? VkStickerStoreLayoutPackListType.slider
+              : VkStickerStoreLayoutPackListType.list,
+          packs: [
+            for (final packId in packList)
+              VkStickerStorePack.fromJson(
+                packs[packId] as Map<String, dynamic>,
+              )
+          ],
+        ),
+      );
+    } else if (block['pack_ids'] != null) {
+      final packList =
+          (block['pack_ids'] as List<dynamic>).map((dynamic e) => e.toString());
+
+      list.add(
+        VkStickerStoreLayoutHeader(
+          title: block['title'] as String,
+          buttons: [],
+        ),
+      );
+
+      list.add(
+        VkStickerStoreLayoutPackList(
+          type: VkStickerStoreLayoutPackListType.slider,
+          packs: [
+            for (final packId in packList)
+              VkStickerStorePack.fromJson(
+                packs[packId] as Map<String, dynamic>,
+              )
+          ],
+        ),
+      );
     } else if (block['data_type'] == 'stickers') {
       list.add(VkStickerStoreLayoutStickersList(stickers: [
         for (final sticker
@@ -247,7 +294,7 @@ class VkStickerStorePack {
   final String image;
   final List<VkStickerStoreStyle> styles;
 
-  const VkStickerStorePack({
+  VkStickerStorePack({
     required this.id,
     required this.domain,
     required this.title,
@@ -287,6 +334,40 @@ class VkStickerStorePack {
         ),
       ],
     );
+  }
+
+  Stream<VkStickerStoreLayout> _getContent(Account account) async* {
+    String? nextFrom;
+
+    do {
+      final data = (await account.vk.call(
+        'store.getStickerPacksRecommendationBlocks',
+        <String, String>{
+          'pack_id': id.toString(),
+          'extended': '1',
+          if (nextFrom != null) 'start_from': nextFrom,
+        },
+        isTraced: false,
+        lazyInterpretation: true,
+      ));
+      data.allowInterpretation!(false);
+
+      final _BackgroundComputationResultVkStoreLayout res =
+          await compute(_decodeRequest, await data.response.toList());
+
+      if (res.list.isEmpty) break;
+
+      yield* Stream.fromIterable(res.list);
+      nextFrom = res.nextFrom;
+    } while (nextFrom != null);
+  }
+
+  VkStickerStoreContent? _contentCache;
+
+  Future<VkStickerStoreContent> getContent(Account account) async {
+    _contentCache ??=
+        VkStickerStoreContent(layout: await _getContent(account).toList());
+    return _contentCache!;
   }
 }
 

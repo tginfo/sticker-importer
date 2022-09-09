@@ -4,6 +4,7 @@ import 'package:sticker_import/flows/user/store/store.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/store.dart';
+import 'package:sticker_import/utils/debugging.dart';
 
 void vkStoreStickerPackPopup({
   required VkStickerStorePack pack,
@@ -166,6 +167,37 @@ class _VkStickerStorePackBottomSheetState
                           url: widget.pack.styles[0].stickers![index].thumbnail,
                           account: widget.account,
                           isAnimated: false,
+                        );
+                      },
+                    ),
+                    const Divider(),
+                    FutureBuilder(
+                      future: widget.pack.getContent(widget.account),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          iLog(snapshot.error);
+                          return Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Center(
+                              child: Text(snapshot.error.toString()),
+                            ),
+                          );
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+
+                        return VkStickerStoreLayoutWidget(
+                          layout: snapshot.data!.layout,
+                          account: widget.account,
+                          primary: false,
                         );
                       },
                     ),
