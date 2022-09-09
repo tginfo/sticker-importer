@@ -72,7 +72,6 @@ class _VkStickerStorePackBottomSheetState
             children: [
               DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
                   border: Border(
                     bottom: BorderSide(
                       color: Theme.of(context).dividerColor,
