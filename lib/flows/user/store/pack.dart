@@ -200,10 +200,16 @@ class _VkStickerStorePackBottomSheetState
                           );
                         }
 
-                        return VkStickerStoreLayoutWidget(
-                          layout: snapshot.data!.layout,
-                          account: widget.account,
+                        return ListView.builder(
+                          shrinkWrap: true,
                           primary: false,
+                          itemCount: snapshot.data!.layout.length,
+                          itemBuilder: (context, index) {
+                            return VkStickerStoreLayoutWidget(
+                              layout: snapshot.data!.layout[index],
+                              account: widget.account,
+                            );
+                          },
                         );
                       },
                     ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -37,14 +38,14 @@ class VkStickerStore {
   }
 }
 
-class _BackgroundComputationResultVkStoreLayout {
+class BackgroundComputationResultVkStoreLayout {
   final List<VkStickerStoreLayout> list;
   final String? nextFrom;
 
-  const _BackgroundComputationResultVkStoreLayout(this.list, this.nextFrom);
+  const BackgroundComputationResultVkStoreLayout(this.list, this.nextFrom);
 }
 
-_BackgroundComputationResultVkStoreLayout _decodeRequest(
+BackgroundComputationResultVkStoreLayout _decodeRequest(
     List<List<int>> response) {
   final list = <VkStickerStoreLayout>[];
   final data =
@@ -113,6 +114,7 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
 
       list.add(
         VkStickerStoreLayoutPackList(
+          id: block['id'] as String,
           type: (block['layout']['name'] == 'slider')
               ? VkStickerStoreLayoutPackListType.slider
               : VkStickerStoreLayoutPackListType.list,
@@ -130,6 +132,7 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
 
       list.add(
         VkStickerStoreLayoutHeader(
+          id: block['id'] as String,
           title: block['title'] as String,
           buttons: [],
         ),
@@ -137,6 +140,7 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
 
       list.add(
         VkStickerStoreLayoutPackList(
+          id: block['id'] as String,
           type: VkStickerStoreLayoutPackListType.slider,
           packs: [
             for (final packId in packList)
@@ -147,14 +151,18 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
         ),
       );
     } else if (block['data_type'] == 'stickers') {
-      list.add(VkStickerStoreLayoutStickersList(stickers: [
-        for (final sticker
-            in (block['sticker_ids'] as List<dynamic>).cast<int>())
-          findSticker(sticker),
-      ]));
+      list.add(VkStickerStoreLayoutStickersList(
+        id: block['id'] as String,
+        stickers: [
+          for (final sticker
+              in (block['sticker_ids'] as List<dynamic>).cast<int>())
+            findSticker(sticker),
+        ],
+      ));
     } else if (block['layout']['name'] == 'header' ||
         block['layout']['name'] == 'header_compact') {
       list.add(VkStickerStoreLayoutHeader(
+        id: block['id'] as String,
         title: block['layout']['title'] as String,
         buttons: [
           for (final button
@@ -168,13 +176,13 @@ _BackgroundComputationResultVkStoreLayout _decodeRequest(
         ],
       ));
     } else if (block['layout']['name'] == 'separator') {
-      list.add(VkStickerStoreLayoutSeparator());
+      list.add(VkStickerStoreLayoutSeparator(id: block['id'] as String));
     } else {
       iLog('Unknown block type: ${jsonEncode(block)}');
     }
   }
 
-  return _BackgroundComputationResultVkStoreLayout(list, nextFrom);
+  return BackgroundComputationResultVkStoreLayout(list, nextFrom);
 }
 
 class VkStickerStoreSection {
@@ -188,10 +196,16 @@ class VkStickerStoreSection {
   final String id;
   final Account account;
 
-  Stream<VkStickerStoreLayout> _getContent() async* {
-    String? nextFrom;
+  Future<BackgroundComputationResultVkStoreLayout> getPageContent(
+      String? nextFrom) async {
+    if (_contentCache.containsKey(nextFrom)) {
+      return _contentCache[nextFrom]!;
+    }
 
-    do {
+    final completer = Completer<BackgroundComputationResultVkStoreLayout>();
+    _contentCache[nextFrom] = completer.future;
+
+    scheduleMicrotask(() async {
       final data = (await account.vk.call(
         'catalog.getSection',
         <String, String>{
@@ -204,22 +218,33 @@ class VkStickerStoreSection {
       ));
       data.allowInterpretation!(false);
 
-      final _BackgroundComputationResultVkStoreLayout res =
+      final BackgroundComputationResultVkStoreLayout res =
           await compute(_decodeRequest, await data.response.toList());
 
-      if (res.list.isEmpty) break;
+      completer.complete(res);
+    });
 
+    return _contentCache[nextFrom]!;
+  }
+
+  Stream<VkStickerStoreLayout> getAllContent() async* {
+    String? nextFrom;
+
+    do {
+      final res = await getPageContent(nextFrom);
+      if (res.list.isEmpty) break;
       yield* Stream.fromIterable(res.list);
       nextFrom = res.nextFrom;
     } while (nextFrom != null);
   }
 
-  VkStickerStoreContent? _contentCache;
+  final _contentCache =
+      <String?, Future<BackgroundComputationResultVkStoreLayout>>{};
 
-  Future<VkStickerStoreContent> getContent() async {
-    _contentCache ??=
-        VkStickerStoreContent(layout: await _getContent().toList());
-    return _contentCache!;
+  Future<VkStickerStoreContent> getContentAsList() async {
+    return VkStickerStoreContent(
+      layout: await getAllContent().toList(),
+    );
   }
 }
 
@@ -229,15 +254,20 @@ class VkStickerStoreContent {
   const VkStickerStoreContent({required this.layout});
 }
 
-abstract class VkStickerStoreLayout {}
+abstract class VkStickerStoreLayout {
+  String? get id;
+}
 
 class VkStickerStoreLayoutHeader implements VkStickerStoreLayout {
   final String title;
   final List<VkStickerStoreLayoutSectionButton> buttons;
+  @override
+  final String id;
 
   const VkStickerStoreLayoutHeader({
     required this.title,
     required this.buttons,
+    required this.id,
   });
 }
 
@@ -251,7 +281,12 @@ class VkStickerStoreLayoutSectionButton {
   });
 }
 
-class VkStickerStoreLayoutSeparator implements VkStickerStoreLayout {}
+class VkStickerStoreLayoutSeparator implements VkStickerStoreLayout {
+  @override
+  final String id;
+
+  const VkStickerStoreLayoutSeparator({required this.id});
+}
 
 enum VkStickerStoreLayoutPackListType {
   slider,
@@ -261,10 +296,13 @@ enum VkStickerStoreLayoutPackListType {
 class VkStickerStoreLayoutPackList implements VkStickerStoreLayout {
   final List<VkStickerStorePack> packs;
   final VkStickerStoreLayoutPackListType type;
+  @override
+  final String id;
 
   const VkStickerStoreLayoutPackList({
     required this.packs,
     required this.type,
+    required this.id,
   });
 }
 
@@ -280,10 +318,20 @@ class VkStickerStoreStickerAndPack {
 
 class VkStickerStoreLayoutStickersList implements VkStickerStoreLayout {
   final List<VkStickerStoreStickerAndPack> stickers;
+  @override
+  final String id;
 
   const VkStickerStoreLayoutStickersList({
     required this.stickers,
+    required this.id,
   });
+}
+
+class VkStickerStoreLayoutLoader implements VkStickerStoreLayout {
+  const VkStickerStoreLayoutLoader();
+
+  @override
+  String? get id => null;
 }
 
 class VkStickerStorePack {
@@ -353,7 +401,7 @@ class VkStickerStorePack {
       ));
       data.allowInterpretation!(false);
 
-      final _BackgroundComputationResultVkStoreLayout res =
+      final BackgroundComputationResultVkStoreLayout res =
           await compute(_decodeRequest, await data.response.toList());
 
       if (res.list.isEmpty) break;

@@ -141,38 +141,9 @@ class _StickerStoreBodyState extends State<StickerStoreBody> {
     return PageView.builder(
       controller: widget.pageController,
       itemBuilder: (context, index) {
-        final section = widget.sections[index];
-        final account = AccountData.of(context)!.account;
-
-        return FutureBuilder(
-          future: section.getContent(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              iLog(snapshot.error);
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    snapshot.error.toString(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-            }
-
-            if (snapshot.hasData) {
-              final layout = snapshot.data!.layout;
-
-              return VkStickerStoreLayoutWidget(
-                layout: layout,
-                account: account,
-              );
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+        return VkStickerStoreLayoutPage(
+          section: widget.sections[index],
+          account: AccountData.of(context)!.account,
         );
       },
       onPageChanged: (value) {
@@ -186,217 +157,349 @@ class _StickerStoreBodyState extends State<StickerStoreBody> {
   }
 }
 
+class VkStickerStoreLayoutPage extends StatefulWidget {
+  const VkStickerStoreLayoutPage({
+    super.key,
+    required this.section,
+    required this.account,
+    this.onEmpty,
+  });
+
+  final VkStickerStoreSection section;
+  final Account account;
+  final Widget Function(BuildContext)? onEmpty;
+
+  @override
+  State<VkStickerStoreLayoutPage> createState() =>
+      _VkStickerStoreLayoutPageState();
+}
+
+class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
+  String? nextFrom;
+
+  Future<bool> getContent() async {
+    if (isEnd) return false;
+    try {
+      final res = await widget.section.getPageContent(nextFrom);
+      print('NEXTFROM $nextFrom -> ${res.nextFrom}');
+      if (res.list.isEmpty || res.nextFrom == null) isEnd = true;
+      nextFrom = res.nextFrom;
+      layout.addAll(res.list);
+      isInProgress = false;
+      return true;
+    } catch (e) {
+      iLog(e);
+      isInProgress = false;
+      rethrow;
+    }
+  }
+
+  List<VkStickerStoreLayout> layout = [];
+
+  bool isInProgress = true;
+  bool isEnd = false;
+
+  ScrollController? scrollController;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (scrollController != null) {
+      scrollController!.removeListener(appendContent);
+    }
+
+    scrollController = PrimaryScrollController.of(context);
+    scrollController!.addListener(appendContent);
+  }
+
+  void appendContent() {
+    if (!mounted) return;
+    final scrollController = PrimaryScrollController.of(context)!;
+    if (isInProgress || isEnd) return;
+    if (scrollController.position.pixels >
+        scrollController.position.maxScrollExtent - 200) {
+      final l = layout.length;
+      isInProgress = true;
+      scheduleMicrotask(() async {
+        await getContent();
+        if (layout.length != l) setState(() {});
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: getContent(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          iLog(snapshot.error);
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                snapshot.error.toString(),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.hasData) {
+          if (layout.isEmpty && widget.onEmpty != null) {
+            return widget.onEmpty!(context);
+          }
+
+          List<VkStickerStoreLayout> localLayout = layout;
+
+          if (!isEnd) {
+            localLayout = localLayout.followedBy(
+              <VkStickerStoreLayout>[
+                const VkStickerStoreLayoutLoader(),
+              ],
+            ).toList();
+          }
+
+          return ListView.builder(
+            itemCount: localLayout.length,
+            itemBuilder: (context, index) {
+              return VkStickerStoreLayoutWidget(
+                layout: localLayout[index],
+                account: widget.account,
+              );
+            },
+          );
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+}
+
 class VkStickerStoreLayoutWidget extends StatelessWidget {
   const VkStickerStoreLayoutWidget({
     Key? key,
     required this.layout,
     required this.account,
-    this.primary = true,
   }) : super(key: key);
 
-  final List<VkStickerStoreLayout> layout;
+  final VkStickerStoreLayout layout;
   final Account account;
-  final bool primary;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      primary: primary,
-      shrinkWrap: !primary,
-      itemCount: layout.length,
-      itemBuilder: (context, index) {
-        final item = layout[index];
+    final item = layout;
+    if (item is VkStickerStoreLayoutSeparator) {
+      return Divider(
+        key: ValueKey(item),
+      );
+    }
 
-        if (item is VkStickerStoreLayoutSeparator) {
-          return const Divider();
-        }
-
-        if (item is VkStickerStoreLayoutHeader) {
-          return ListTile(
-            title: Text(
-              item.title,
-              style: const TextStyle(
-                fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
-                inherit: true,
-              ),
-            ),
-            trailing: item.buttons.isNotEmpty
-                ? TextButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push<void>(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return AccountData(
-                              account: account,
-                              child: VkStickerStoreSectionRoute(
-                                section: VkStickerStoreSection(
-                                  title: item.title,
-                                  id: item.buttons[0].sectionId,
-                                  account: account,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.unfold_more),
-                    label: Text(item.buttons[0].title),
-                  )
-                : null,
-          );
-        }
-
-        if (item is VkStickerStoreLayoutPackList) {
-          if (item.type == VkStickerStoreLayoutPackListType.slider) {
-            return SizedBox(
-              height: 145,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: item.packs.length,
-                itemBuilder: (context, index) {
-                  final pack = item.packs[index];
-
-                  return PackButton(
-                    pack: pack,
-                    account: account,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-                      child: SizedBox(
-                        width: 90,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            VkPackImage(
-                              pack: pack,
+    if (item is VkStickerStoreLayoutHeader) {
+      return ListTile(
+        key: ValueKey(item),
+        title: Text(
+          item.title,
+          style: const TextStyle(
+            fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
+            inherit: true,
+          ),
+        ),
+        trailing: item.buttons.isNotEmpty
+            ? TextButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return AccountData(
+                          account: account,
+                          child: VkStickerStoreSectionRoute(
+                            section: VkStickerStoreSection(
+                              title: item.title,
+                              id: item.buttons[0].sectionId,
                               account: account,
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(pack.title),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
-              ),
-            );
-          } else if (item.type == VkStickerStoreLayoutPackListType.list) {
-            return ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              primary: false,
-              shrinkWrap: true,
-              itemExtent: 100,
-              itemCount: item.packs.length,
-              itemBuilder: (context, index) {
-                final pack = item.packs[index];
+                icon: const Icon(Icons.unfold_more),
+                label: Text(item.buttons[0].title),
+              )
+            : null,
+      );
+    }
 
-                return PackButton(
-                  pack: pack,
-                  account: account,
-                  child: SizedBox(
-                    height: 100,
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: VkPackImage(
-                            pack: pack,
-                            account: account,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                pack.title,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              Text(
-                                pack.author,
-                                style: Theme.of(context).textTheme.caption,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-        }
-
-        if (item is VkStickerStoreLayoutStickersList) {
-          return GridView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            primary: false,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              mainAxisExtent: 215,
-              maxCrossAxisExtent: 145,
-            ),
-            itemCount: item.stickers.length,
+    if (item is VkStickerStoreLayoutPackList) {
+      if (item.type == VkStickerStoreLayoutPackListType.slider) {
+        return SizedBox(
+          key: ValueKey(item),
+          height: 145,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: item.packs.length,
             itemBuilder: (context, index) {
-              final sticker = item.stickers[index];
+              final pack = item.packs[index];
 
               return PackButton(
-                pack: sticker.pack,
+                key: ValueKey(pack),
+                pack: pack,
                 account: account,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
                   child: SizedBox(
-                    width: 145,
+                    width: 90,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 145,
-                          height: 145,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).dividerColor,
-                            ),
-                            color: Theme.of(context).cardColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                              child: VkStoreEntityImage(
-                            url: sticker.sticker.thumbnail,
-                            isAnimated:
-                                sticker.pack?.styles[0].isAnimated ?? false,
-                            account: account,
-                          )),
+                        VkPackImage(
+                          pack: pack,
+                          account: account,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(sticker.pack?.styles[0].title ?? ''),
+                        Text(pack.title),
                       ],
                     ),
                   ),
                 ),
               );
             },
+          ),
+        );
+      } else if (item.type == VkStickerStoreLayoutPackListType.list) {
+        return ListView.builder(
+          key: ValueKey(item),
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          primary: false,
+          shrinkWrap: true,
+          itemExtent: 100,
+          itemCount: item.packs.length,
+          itemBuilder: (context, index) {
+            final pack = item.packs[index];
+
+            return PackButton(
+              key: ValueKey(pack),
+              pack: pack,
+              account: account,
+              child: SizedBox(
+                height: 100,
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    SizedBox(
+                      width: 90,
+                      height: 90,
+                      child: VkPackImage(
+                        pack: pack,
+                        account: account,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            pack.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            pack.author,
+                            style: Theme.of(context).textTheme.caption,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }
+    }
+
+    if (item is VkStickerStoreLayoutStickersList) {
+      return GridView.builder(
+        key: ValueKey(item),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        primary: false,
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisExtent: 215,
+          maxCrossAxisExtent: 145,
+        ),
+        itemCount: item.stickers.length,
+        itemBuilder: (context, index) {
+          final sticker = item.stickers[index];
+
+          return PackButton(
+            key: ValueKey(sticker),
+            pack: sticker.pack,
+            account: account,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+              child: SizedBox(
+                width: 145,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 145,
+                      height: 145,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).dividerColor,
+                        ),
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                          child: VkStoreEntityImage(
+                        url: sticker.sticker.thumbnail,
+                        isAnimated: sticker.pack?.styles[0].isAnimated ?? false,
+                        account: account,
+                      )),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(sticker.pack?.styles[0].title ?? ''),
+                  ],
+                ),
+              ),
+            ),
           );
-        }
+        },
+      );
+    }
 
-        iLog('Unknown item type: ${item.runtimeType}');
+    if (item is VkStickerStoreLayoutLoader) {
+      return const Padding(
+        padding: EdgeInsets.all(16),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
-        return Container();
-      },
+    iLog('Unknown item type: ${item.runtimeType}');
+
+    return Container(
+      key: ValueKey(item),
     );
   }
 }
@@ -412,7 +515,7 @@ class VkPackImage extends VkStoreEntityImage {
         );
 }
 
-class VkStoreEntityImage extends StatelessWidget {
+class VkStoreEntityImage extends StatefulWidget {
   const VkStoreEntityImage({
     super.key,
     required this.url,
@@ -423,6 +526,33 @@ class VkStoreEntityImage extends StatelessWidget {
   final String url;
   final bool isAnimated;
   final Account account;
+
+  @override
+  State<VkStoreEntityImage> createState() => _VkStoreEntityImageState();
+}
+
+class _VkStoreEntityImageState extends State<VkStoreEntityImage> {
+  bool _wasAnimated = false;
+  late VKGetImageProvider provider;
+
+  bool get wasAnimated {
+    if (_wasAnimated) {
+      return true;
+    }
+
+    _wasAnimated = true;
+    return false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    provider = VKGetImageProvider(
+      widget.url,
+      widget.account.vk,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -436,17 +566,16 @@ class VkStoreEntityImage extends StatelessWidget {
           height: 90,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: FadeInImagePlaceholder(
-              image: VKGetImageProvider(
-                url,
-                account.vk,
-              ),
-              width: 90,
-              height: 90,
-            ),
+            child: wasAnimated
+                ? Image(image: provider)
+                : FadeInImagePlaceholder(
+                    image: provider,
+                    width: 90,
+                    height: 90,
+                  ),
           ),
         ),
-        if (isAnimated)
+        if (widget.isAnimated)
           Positioned(
             bottom: 5,
             right: 5,
@@ -476,8 +605,6 @@ class VkStickerStoreSectionRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final account = AccountData.of(context)!.account;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(section.title),
@@ -486,35 +613,9 @@ class VkStickerStoreSectionRoute extends StatelessWidget {
           inherit: true,
         ),
       ),
-      body: FutureBuilder(
-        future: section.getContent(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            iLog(snapshot.error);
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  snapshot.error.toString(),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          }
-
-          if (snapshot.hasData) {
-            final layout = snapshot.data!.layout;
-
-            return VkStickerStoreLayoutWidget(
-              layout: layout,
-              account: account,
-            );
-          }
-
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      body: VkStickerStoreLayoutPage(
+        section: section,
+        account: AccountData.of(context)!.account,
       ),
     );
   }
@@ -549,7 +650,7 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
     );
   }
 
-  Future<VkStickerStoreContent> requestSearchSection(
+  Future<VkStickerStoreSection> requestSearchSection(
       BuildContext context) async {
     final searchResultsString = S.of(context).search_results;
     final response = await account.vk.call(
@@ -565,12 +666,12 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
       account: account,
     );
 
-    return await section.getContent();
+    return section;
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<VkStickerStoreSection>(
         future: requestSearchSection(context),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -587,24 +688,20 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
           }
 
           if (snapshot.hasData) {
-            final section = snapshot.data as VkStickerStoreContent;
-
-            if (section.layout.isEmpty) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    S.of(context).no_sticker_search_results,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-            }
-
-            return VkStickerStoreLayoutWidget(
-              layout: section.layout,
-              account: account,
-            );
+            return VkStickerStoreLayoutPage(
+                section: snapshot.data!,
+                account: account,
+                onEmpty: (BuildContext context) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        S.of(context).no_sticker_search_results,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                });
           }
 
           return const Center(
