@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
+import 'package:sticker_import/components/ui/store_button_style.dart';
 import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/flows/export/stickers.dart';
 import 'package:sticker_import/generated/l10n.dart';
@@ -394,6 +395,7 @@ Future<bool> shouldUseAnimated(BuildContext context) async {
         child: Text(S.of(context).still),
       ),
       ElevatedButton(
+        style: storeButtonStyle(context),
         onPressed: () {
           Navigator.of(context).pop(true);
         },

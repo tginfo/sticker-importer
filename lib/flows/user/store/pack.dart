@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sticker_import/components/ui/store_button_style.dart';
 import 'package:sticker_import/export/controllers/vk_store.dart';
 import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
@@ -41,25 +42,6 @@ class VkStickerStorePackBottomSheet extends StatefulWidget {
 
 class _VkStickerStorePackBottomSheetState
     extends State<VkStickerStorePackBottomSheet> {
-  ButtonStyle storeButtonStyle(BuildContext context) {
-    return ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          Theme.of(context).brightness == Brightness.dark
-              ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.onPrimary,
-        ),
-        foregroundColor: MaterialStateProperty.all<Color>(
-          Theme.of(context).brightness == Brightness.dark
-              ? Theme.of(context).colorScheme.onPrimary
-              : Theme.of(context).colorScheme.primary,
-        ),
-        overlayColor: MaterialStateProperty.all<Color>(
-            Theme.of(context).colorScheme.primary.withAlpha(50)),
-        padding: MaterialStateProperty.all(
-          const EdgeInsets.all(15),
-        ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -244,7 +226,10 @@ class _VkStickerStorePackBottomSheetState
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            style: storeButtonStyle(context),
+                            style: storeButtonStyle(context).copyWith(
+                                padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(15),
+                            )),
                             child: Text(S.of(context).import_to_telegram),
                             onPressed: () async {
                               final settings = await showModalBottomSheet<
@@ -385,6 +370,7 @@ class VkStickerStoreImportSettingsBottomSheetState
                         width: 8,
                       ),
                       ElevatedButton(
+                        style: storeButtonStyle(context),
                         onPressed: () {
                           Navigator.of(context).pop(
                             VkStickerStoreImportSettings(isAnimated: true),
@@ -421,6 +407,7 @@ class VkStickerStoreImportSettingsBottomSheetState
                         width: 8,
                       ),
                       ElevatedButton(
+                        style: storeButtonStyle(context),
                         onPressed: () {
                           Navigator.of(context).pop(
                             VkStickerStoreImportSettings(isWithBorder: true),
