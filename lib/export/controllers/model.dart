@@ -20,6 +20,7 @@ abstract class ExportController {
   int get processed;
   int? get count;
   List<String>? get result;
+  List<Set<String>>? get emojiSuggestions;
   List<String>? get previews;
   bool get isAnimated;
   final Future<StickerStyle> Function(List<StickerStyle> styles) onStyleChooser;
@@ -47,7 +48,15 @@ abstract class ExportController {
     });
   }
 
-  Future<void> warmup();
+  Future<void> warmup() {
+    return worker().onError((error, stackTrace) {
+      setState(() {
+        state = ExportControllerState.error;
+        errorDetails = stackTrace.toString();
+      });
+      if (error != null) throw error;
+    });
+  }
 
   Future<void> worker();
 

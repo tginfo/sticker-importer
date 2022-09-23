@@ -66,7 +66,8 @@ Future<String> loginFlow(String username, String password,
       oauth: true,
     );
 
-    final Map<String, dynamic> oauthRes = oauth.asJson as Map<String, dynamic>;
+    final Map<String, dynamic> oauthRes =
+        oauth.asJson() as Map<String, dynamic>;
 
     accessToken = oauthRes['access_token'] as String;
     if (oauthRes['access_token'] == null) throw TypeError();

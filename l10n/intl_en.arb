@@ -43,6 +43,9 @@
     "start": "Start",
     "link": "Link to the stickerpack",
     "with_border": "With outline",
+    "without_border": "Without outline",
+    "with_border_title": "Sticker outline",
+    "with_border_info": "Do you wish to import these stickers as is, or with a white outline around their edges?",
     "export_config_info": "Your Internet connection is being used while downloading",
     "downloaded_n": "Downloaded",
     "out_of": "of",
@@ -123,6 +126,7 @@
     "recent_emoji": "Recent emoji",
     "no_recent_emoji": "No recent emoji",
     "no_recent_emoji_help": "Browse through available emojis by categories or use search.",
+    "pick_emoji": "Pick some emoji, so they will be used for sticker suggestions in Telegram",
     "smileys_and_people": "Smileys & People",
     "animals_and_nature": "Animals & Nature",
     "food_and_drink": "Food & Drink",
@@ -138,5 +142,10 @@
     "search_results": "Search results",
     "no_sticker_search_results": "No stickers found",
     "sticker_pack": "Sticker pack",
-    "import_to_telegram": "Import to Telegram"
+    "import_to_telegram": "Import to Telegram",
+    "remove": "Remove",
+    "import_settings": "Import settings",
+    "stickers_without_suggestions": "Stickers without suggestions",
+    "stickers_without_suggestions_info": "Some stickers don't have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker",
+    "all_stickers": "All stickers"
 }

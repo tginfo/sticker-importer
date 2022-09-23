@@ -482,6 +482,36 @@ class S {
     );
   }
 
+  /// `Without outline`
+  String get without_border {
+    return Intl.message(
+      'Without outline',
+      name: 'without_border',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker outline`
+  String get with_border_title {
+    return Intl.message(
+      'Sticker outline',
+      name: 'with_border_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you wish to import these stickers as is, or with a white outline around their edges?`
+  String get with_border_info {
+    return Intl.message(
+      'Do you wish to import these stickers as is, or with a white outline around their edges?',
+      name: 'with_border_info',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your Internet connection is being used while downloading`
   String get export_config_info {
     return Intl.message(
@@ -1282,6 +1312,16 @@ class S {
     );
   }
 
+  /// `Pick some emoji, so they will be used for sticker suggestions in Telegram`
+  String get pick_emoji {
+    return Intl.message(
+      'Pick some emoji, so they will be used for sticker suggestions in Telegram',
+      name: 'pick_emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Smileys & People`
   String get smileys_and_people {
     return Intl.message(
@@ -1437,6 +1477,56 @@ class S {
     return Intl.message(
       'Import to Telegram',
       name: 'import_to_telegram',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message(
+      'Remove',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import settings`
+  String get import_settings {
+    return Intl.message(
+      'Import settings',
+      name: 'import_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stickers without suggestions`
+  String get stickers_without_suggestions {
+    return Intl.message(
+      'Stickers without suggestions',
+      name: 'stickers_without_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Some stickers don't have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker`
+  String get stickers_without_suggestions_info {
+    return Intl.message(
+      'Some stickers don\'t have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker',
+      name: 'stickers_without_suggestions_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All stickers`
+  String get all_stickers {
+    return Intl.message(
+      'All stickers',
+      name: 'all_stickers',
       desc: '',
       args: [],
     );

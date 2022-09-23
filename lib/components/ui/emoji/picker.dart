@@ -21,6 +21,31 @@ class EmojiPicker extends StatefulWidget {
 
   @override
   EmojiPickerState createState() => EmojiPickerState();
+
+  static Future<void> updateRecents(String r, BuildContext context) {
+    return SettingsStorage.of('activity')
+        .get<String?>('recentEmojis')
+        .then((l) {
+      SettingsStorage.of('activity').set<String>(
+        'recentEmojis',
+        jsonEncode(
+          [r]
+              .followedBy((jsonDecode(l ?? '[]') as List).whereType<String>())
+              .toSet()
+              .take(35)
+              .toList(),
+        ),
+      );
+    });
+  }
+
+  static Future<List<String>> getRecentEmojis(BuildContext context) async {
+    return (jsonDecode(
+            await SettingsStorage.of('activity').get<String?>('recentEmojis') ??
+                '[]') as List)
+        .whereType<String>()
+        .toList();
+  }
 }
 
 class EmojiPickerState extends State<EmojiPicker> {
@@ -140,16 +165,7 @@ class _EmojiPageState extends State<EmojiPage>
               return EmojiGrid(
                 category: category,
                 onEmojiSelected: (e) {
-                  SettingsStorage.of('activity').set<String>(
-                    'recentEmojis',
-                    jsonEncode(
-                      [e]
-                          .followedBy(widget.categories[0].emojis)
-                          .toSet()
-                          .take(35)
-                          .toList(),
-                    ),
-                  );
+                  EmojiPicker.updateRecents(e, context);
 
                   widget.onEmojiSelected(e);
                 },
@@ -283,11 +299,7 @@ class EmojiUiCategory {
       ),
     };
 
-    final recentEmojis = (jsonDecode(
-            await SettingsStorage.of('activity').get<String?>('recentEmojis') ??
-                '[]') as List)
-        .whereType<String>()
-        .toList();
+    final recentEmojis = await EmojiPicker.getRecentEmojis(context);
 
     return <EmojiUiCategory>[
       EmojiUiCategory(

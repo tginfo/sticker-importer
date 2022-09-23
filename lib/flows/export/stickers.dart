@@ -7,10 +7,14 @@ import 'package:sticker_import/flows/export/finish.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
 class StickerChooserRoute extends StatefulWidget {
-  const StickerChooserRoute({Key? key, required this.controller})
-      : super(key: key);
+  const StickerChooserRoute({
+    required this.controller,
+    this.emojiSuggestions,
+    super.key,
+  });
 
   final ExportController controller;
+  final List<Set<String>>? emojiSuggestions;
 
   @override
   StickerChooserRouteState createState() => StickerChooserRouteState();
@@ -18,7 +22,7 @@ class StickerChooserRoute extends StatefulWidget {
 
 class StickerChooserRouteState extends State<StickerChooserRoute> {
   final enabled = <bool>[];
-  final emoji = <String>[];
+  late final List<Set<String>> emoji;
 
   @override
   void initState() {
@@ -29,7 +33,8 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
     }
 
     enabled.addAll(List.filled(widget.controller.result!.length, true));
-    emoji.addAll(List.filled(widget.controller.result!.length, ''));
+    emoji = widget.emojiSuggestions ??
+        List.generate(widget.controller.result!.length, (_) => {});
   }
 
   @override
@@ -66,7 +71,7 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
 
                 pth.add(path);
                 if (emoji[index].isNotEmpty) {
-                  emj.add(emoji[index]);
+                  emj.add(emoji[index].join());
                 } else {
                   emj.add('#️⃣');
                 }
@@ -147,11 +152,13 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                               child: IconButton(
                                 tooltip: S.of(context).choose_emoji,
                                 onPressed: () async {
-                                  final m =
-                                      await Navigator.of(context).push<String>(
+                                  final m = await Navigator.of(context)
+                                      .push<Set<String>>(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return const EmojiPickerScreen();
+                                        return EmojiPickerScreen(
+                                          emojis: emoji[n],
+                                        );
                                       },
                                     ),
                                   );
@@ -164,7 +171,7 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                 icon: (emoji[n].isEmpty
                                     ? const Icon(Icons.face_rounded)
                                     : Text(
-                                        emoji[n],
+                                        emoji[n].first,
                                         style: const TextStyle(
                                           fontSize: 21,
                                           height: 1,

@@ -72,7 +72,7 @@ class Account {
 
   Future<Account> refresh() async {
     final Map<String, dynamic> data =
-        (await vk.call('users.get', <String, String>{})).asJson
+        (await vk.call('users.get', <String, String>{})).asJson()
             as Map<String, dynamic>;
 
     return Account(

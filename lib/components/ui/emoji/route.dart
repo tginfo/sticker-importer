@@ -1,71 +1,187 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:sticker_import/components/ui/emoji/grid.dart';
 import 'package:sticker_import/components/ui/emoji/picker.dart';
 import 'package:sticker_import/generated/emoji_metadata.dart';
 import 'package:sticker_import/generated/l10n.dart';
-import 'package:sticker_import/services/settings/settings.dart';
 
 class EmojiPickerScreen extends StatefulWidget {
-  const EmojiPickerScreen({Key? key}) : super(key: key);
+  const EmojiPickerScreen({required this.emojis, Key? key}) : super(key: key);
+
+  final Set<String> emojis;
 
   @override
   State<EmojiPickerScreen> createState() => _EmojiPickerScreenState();
 }
 
 class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
+  late Set<String> emojis;
+
+  @override
+  void initState() {
+    super.initState();
+
+    emojis = widget.emojis;
+  }
+
+  void handleEmoji(String emoji) {
+    if (emojis.length >= 20) return;
+
+    setState(() {
+      emojis.add(emoji);
+    });
+  }
+
+  void removeEmoji(String emoji) {
+    setState(() {
+      emojis.remove(emoji);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).choose_emoji),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search_rounded),
-            onPressed: () async {
-              final r = await showSearch(
-                context: context,
-                delegate: EmojiSearchDelegate(),
-              );
-
-              if (!mounted || r == null || r.isEmpty) return;
-
-              // ignore: unawaited_futures
-              SettingsStorage.of('activity')
-                  .get<String?>('recentEmojis')
-                  .then((l) {
-                SettingsStorage.of('activity').set<String>(
-                  'recentEmojis',
-                  jsonEncode(
-                    [r]
-                        .followedBy(
-                            (jsonDecode(l ?? '[]') as List).whereType<String>())
-                        .toSet()
-                        .take(35)
-                        .toList(),
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.of(context).pop<Set<String>>(emojis);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(S.of(context).choose_emoji),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search_rounded),
+              onPressed: () async {
+                final r = await showSearch(
+                  context: context,
+                  delegate: EmojiSearchDelegate(
+                    emojis: emojis,
+                    removeEmoji: removeEmoji,
+                    addEmoji: handleEmoji,
                   ),
                 );
-              });
 
-              Navigator.of(context).pop<String>(r);
-            },
-          )
-        ],
-      ),
-      body: EmojiPicker(
-        onEmojiSelected: (emoji) {
-          Navigator.of(context).pop<String>(emoji);
-        },
-        onBackspacePressed: () {
-          Navigator.of(context).pop<String>('');
-        },
+                if (!mounted || r == null || r.isEmpty) return;
+
+                // ignore: unawaited_futures
+                EmojiPicker.updateRecents(r, context);
+              },
+            )
+          ],
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Center(
+                child: PickedEmojiList(
+                  emojis: emojis,
+                  removeEmoji: removeEmoji,
+                ),
+              ),
+            ),
+            Expanded(
+              child: EmojiPicker(
+                onEmojiSelected: (emoji) {
+                  handleEmoji(emoji);
+                },
+                onBackspacePressed: () {
+                  removeEmoji(emojis.last);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
+class PickedEmojiList extends StatelessWidget {
+  const PickedEmojiList({
+    Key? key,
+    required this.emojis,
+    required this.removeEmoji,
+  }) : super(key: key);
+
+  final Set<String> emojis;
+  final void Function(String emoji) removeEmoji;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 70),
+      child: _PickedEmojiListContent(
+        emojis: emojis,
+        removeEmoji: removeEmoji,
+      ),
+    );
+  }
+}
+
+class _PickedEmojiListContent extends StatelessWidget {
+  const _PickedEmojiListContent({
+    Key? key,
+    required this.emojis,
+    required this.removeEmoji,
+  }) : super(key: key);
+
+  final Set<String> emojis;
+  final void Function(String emoji) removeEmoji;
+
+  @override
+  Widget build(BuildContext context) {
+    if (emojis.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          S.of(context).pick_emoji,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: [
+        for (final emoji in emojis)
+          Card(
+            child: EmojiButton(
+              emoji: emoji,
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  builder: (context) {
+                    return SafeArea(
+                      child: ListTile(
+                        leading: const Icon(Icons.delete),
+                        title: Text(S.of(context).remove),
+                        onTap: () {
+                          removeEmoji(emoji);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 class EmojiSearchDelegate extends SearchDelegate<String> {
+  EmojiSearchDelegate({
+    required this.emojis,
+    required this.removeEmoji,
+    required this.addEmoji,
+  });
+
+  final Set<String> emojis;
+  final void Function(String emoji) removeEmoji;
+  final void Function(String emoji) addEmoji;
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -97,51 +213,66 @@ class EmojiSearchDelegate extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     return searchEmoji(context, query);
   }
-}
 
-Widget searchEmoji(BuildContext context, String query) {
-  query = query.toLowerCase().trim();
+  Widget searchEmoji(BuildContext context, String query) {
+    query = query.toLowerCase().trim();
 
-  if (query.isEmpty) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              S.of(context).emoji_type_to_search,
-              textAlign: TextAlign.center,
+    if (query.isEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                S.of(context).emoji_type_to_search,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ],
+      );
+    }
+
+    final list = kEmojiAtlas.searchEmoji(S.of(context).code, query);
+
+    if (list.isEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                S.of(context).no_emoji_matches,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ],
+      );
+    }
+
+    return StatefulBuilder(builder: (context, setState) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Center(
+              child: PickedEmojiList(
+                emojis: emojis,
+                removeEmoji: (e) => setState(() => removeEmoji(e)),
+              ),
             ),
           ),
-        )
-      ],
-    );
-  }
-
-  final list = kEmojiAtlas.searchEmoji(S.of(context).code, query);
-
-  if (list.isEmpty) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              S.of(context).no_emoji_matches,
-              textAlign: TextAlign.center,
+          Expanded(
+            child: EmojiGridViewBuilder(
+              category: list,
+              onEmojiSelected: (e) => setState(() => addEmoji(e)),
             ),
           ),
-        )
-      ],
-    );
+        ],
+      );
+    });
   }
-
-  return EmojiGridViewBuilder(
-    category: list,
-    onEmojiSelected: (emoji) {
-      Navigator.of(context).pop<String>(emoji);
-    },
-  );
 }

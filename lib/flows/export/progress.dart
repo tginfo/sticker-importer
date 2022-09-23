@@ -67,6 +67,7 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) {
             return StickerChooserRoute(
+              emojiSuggestions: controller.emojiSuggestions,
               controller: controller,
             );
           },

@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_program": MessageLookupByLibrary.simpleMessage("О программе"),
         "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
+        "all_stickers": MessageLookupByLibrary.simpleMessage("Все стикеры"),
         "animals_and_nature":
             MessageLookupByLibrary.simpleMessage("Животные и природа"),
         "animated": MessageLookupByLibrary.simpleMessage("Анимированный"),
@@ -62,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),
         "customize_your_pack_info": MessageLookupByLibrary.simpleMessage(
-            "Выберите, какие стикеры Вы желаете импортировать и присвойте им соответствующие эмодзи для быстрого доступа"),
+            "Выберите, какие стикеры Вы желаете импортировать, и присвойте им соответствующие эмодзи для быстрого доступа"),
         "delete_account_confirm": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите выйти?"),
         "detailed_logging": MessageLookupByLibrary.simpleMessage("Отладка"),
@@ -116,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Назад"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Перейти в VK ID"),
+        "import_settings":
+            MessageLookupByLibrary.simpleMessage("Настройка импорта"),
         "import_to_telegram":
             MessageLookupByLibrary.simpleMessage("Импортировать в Telegram"),
         "internet_error_info": MessageLookupByLibrary.simpleMessage(
@@ -160,9 +163,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
         "out_of": MessageLookupByLibrary.simpleMessage("из"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "pick_emoji": MessageLookupByLibrary.simpleMessage(
+            "Выберите несколько эмодзи, которые будут использоваться для подсказок стикеров в Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Подготовьте набор"),
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Недавние эмодзи"),
+        "remove": MessageLookupByLibrary.simpleMessage("Удалить"),
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "retrying": MessageLookupByLibrary.simpleMessage("Пробуем ещё раз..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Сохранить логи"),
@@ -186,6 +192,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Стиль стикеров"),
         "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
             "Этот набор имеет несколько стилей. Какой Вы желаете использовать?"),
+        "stickers_without_suggestions":
+            MessageLookupByLibrary.simpleMessage("Стикеры без подсказок"),
+        "stickers_without_suggestions_info": MessageLookupByLibrary.simpleMessage(
+            "У некоторых стикеров нет подсказок, но вы можете добавить их вручную, нажав на иконку в правом нижнем углу стикера"),
         "still": MessageLookupByLibrary.simpleMessage("Статичный"),
         "stop": MessageLookupByLibrary.simpleMessage("Стоп"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
@@ -235,6 +245,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcome": MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
             "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram"),
-        "with_border": MessageLookupByLibrary.simpleMessage("С обводкой")
+        "with_border": MessageLookupByLibrary.simpleMessage("С обводкой"),
+        "with_border_info": MessageLookupByLibrary.simpleMessage(
+            "Желаете импортировать стикеры такими, какие они есть, или с белой обводкой вокруг краёв?"),
+        "with_border_title":
+            MessageLookupByLibrary.simpleMessage("Обводка стикеров"),
+        "without_border": MessageLookupByLibrary.simpleMessage("Без обводки")
       };
 }

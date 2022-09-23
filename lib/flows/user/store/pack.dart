@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sticker_import/export/controllers/vk_store.dart';
+import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -244,7 +246,39 @@ class _VkStickerStorePackBottomSheetState
                           child: ElevatedButton(
                             style: storeButtonStyle(context),
                             child: Text(S.of(context).import_to_telegram),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final settings = await showModalBottomSheet<
+                                  VkStickerStoreImportSettings?>(
+                                context: context,
+                                builder: (context) =>
+                                    VkStickerStoreImportSettingsBottomSheet(
+                                  style: widget.pack.styles[0],
+                                  account: widget.account,
+                                ),
+                              );
+
+                              if (settings == null) {
+                                return;
+                              }
+
+                              if (!mounted) return;
+
+                              // ignore: unawaited_futures
+                              Navigator.of(context).push<dynamic>(
+                                MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) {
+                                    return ExportProgressFlow(
+                                      controller: VkStoreExportController(
+                                        account: widget.account,
+                                        isAnimated: settings.isAnimated,
+                                        isWithBorder: settings.isWithBorder,
+                                        style: widget.pack.styles[0],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -257,6 +291,150 @@ class _VkStickerStorePackBottomSheetState
         );
       },
       onClosing: () {},
+    );
+  }
+}
+
+class VkStickerStoreImportSettings {
+  final bool isWithBorder;
+  final bool isAnimated;
+
+  VkStickerStoreImportSettings({
+    this.isWithBorder = false,
+    this.isAnimated = false,
+  });
+}
+
+class VkStickerStoreImportSettingsBottomSheet extends StatefulWidget {
+  const VkStickerStoreImportSettingsBottomSheet({
+    Key? key,
+    required this.style,
+    required this.account,
+  }) : super(key: key);
+
+  final VkStickerStoreStyle style;
+  final Account account;
+
+  @override
+  VkStickerStoreImportSettingsBottomSheetState createState() =>
+      VkStickerStoreImportSettingsBottomSheetState();
+}
+
+class VkStickerStoreImportSettingsBottomSheetState
+    extends State<VkStickerStoreImportSettingsBottomSheet> {
+  bool isWithBorder = false;
+  bool isAnimated = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomSheet(
+      onClosing: () {},
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                  ),
+                ),
+                child: ListTile(
+                  title: Text(
+                    S.of(context).import_settings,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  leading: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
+              ),
+              if (widget.style.isAnimated)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Text(S.of(context).animated_pack),
+                    subtitle: Text(
+                        '${S.of(context).animated_pack_info}\n\n${S.of(context).not_all_animated}'),
+                  ),
+                ),
+              if (widget.style.isAnimated)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(
+                            VkStickerStoreImportSettings(isAnimated: false),
+                          );
+                        },
+                        child: Text(S.of(context).still),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(
+                            VkStickerStoreImportSettings(isAnimated: true),
+                          );
+                        },
+                        child: Text(S.of(context).animated),
+                      )
+                    ],
+                  ),
+                ),
+              if (!widget.style.isAnimated)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Text(S.of(context).with_border_title),
+                    subtitle: Text(S.of(context).with_border_info),
+                  ),
+                ),
+              if (!widget.style.isAnimated)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(
+                            VkStickerStoreImportSettings(isWithBorder: true),
+                          );
+                        },
+                        child: Text(S.of(context).with_border),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(
+                            VkStickerStoreImportSettings(isWithBorder: true),
+                          );
+                        },
+                        child: Text(S.of(context).without_border),
+                      ),
+                    ],
+                  ),
+                )
+            ],
+          ),
+        );
+      },
     );
   }
 }

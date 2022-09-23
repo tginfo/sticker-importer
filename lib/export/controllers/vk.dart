@@ -41,34 +41,16 @@ class VkExportController extends ExportController {
   List<String> result = [];
 
   @override
+  final emojiSuggestions = null;
+
+  @override
   int processed = 0;
 
   Map<String, dynamic>? info;
   StickerStyle? stickerTarget;
   final Account account;
 
-  final StreamController<Function> _notifier = StreamController();
-  Stream<Function>? _broadcast;
-  @override
-  Stream<Function> get notifier => _broadcast!;
-
-  void _setState(Function f) {
-    _notifier.add(f);
-  }
-
   bool _isInited = false;
-
-  @override
-  void init() {
-    _broadcast ??= _notifier.stream.asBroadcastStream();
-    warmup().onError((error, stackTrace) {
-      _setState(() {
-        state = ExportControllerState.error;
-        errorDetails = stackTrace.toString();
-      });
-      if (error != null) throw error;
-    });
-  }
 
   @override
   Future<void> warmup() async {
@@ -77,7 +59,7 @@ class VkExportController extends ExportController {
     // If stopped
     if (!_isInited || state == ExportControllerState.stopped) {
       // Start warm-up
-      _setState(() {
+      setState(() {
         state = ExportControllerState.warmingUp;
       });
 
@@ -91,7 +73,7 @@ class VkExportController extends ExportController {
         id ??= await stickerUrlToId(account.vk, uri);
       } catch (e) {
         if (e == HttpStatus.tooManyRequests) {
-          _setState(() {
+          setState(() {
             state = ExportControllerState.error;
             errorDetails = S.of(context).vk_error_429;
           });
@@ -104,7 +86,7 @@ class VkExportController extends ExportController {
       iLog('Pack ID: $id');
 
       if (id == null) {
-        _setState(() {
+        setState(() {
           errorDetails =
               'Pack ID is not found for $uri. Check if your link is correct.';
           state = ExportControllerState.error;
@@ -155,20 +137,13 @@ class VkExportController extends ExportController {
 
       _isInited = true;
 
-      // ignore: unawaited_futures
-      worker().onError((error, stackTrace) {
-        _setState(() {
-          state = ExportControllerState.error;
-          errorDetails = stackTrace.toString();
-        });
-        if (error != null) throw error;
-      });
+      return super.warmup();
     }
   }
 
   @override
   Future<void> worker() async {
-    _setState(() {
+    setState(() {
       state = ExportControllerState.working;
     });
 
@@ -239,7 +214,7 @@ class VkExportController extends ExportController {
 
       files.add(targetFile.path);
 
-      _setState(() {
+      setState(() {
         processed++;
       });
     }
@@ -248,14 +223,14 @@ class VkExportController extends ExportController {
 
     result = files;
 
-    _setState(() {
+    setState(() {
       state = ExportControllerState.done;
     });
   }
 
   @override
   void stop() {
-    _setState(() {
+    setState(() {
       state = ExportControllerState.stopped;
     });
   }

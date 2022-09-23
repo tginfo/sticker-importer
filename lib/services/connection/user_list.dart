@@ -131,6 +131,7 @@ class UserList {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(S.of(context).enter_code_from_img),
+                  const SizedBox(height: 20.0),
                   FutureBuilder<List<int>>(
                     future: () async {
                       final req = await account.vk.fetch(Uri.parse(imgUrl));
@@ -206,7 +207,7 @@ class UserList {
 
     account.vk.onNeedValidation = (r) async {
       final lang = S.of(context);
-      final e = r.asJson as Map<String, dynamic>;
+      final e = r.asJson() as Map<String, dynamic>;
 
       var twofaValidation = false;
       var smsValidation = false;

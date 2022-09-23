@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:sticker_import/generated/emoji_metadata.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 import 'account.dart';
@@ -387,15 +388,57 @@ class VkStickerStoreStyle {
     required this.image,
     this.stickers,
   });
+
+  Future<void> updateKeywords(Account account) async {
+    final List<dynamic> data = ((await account.vk.call(
+      'store.getStickersKeywords',
+      <String, String>{
+        'products_ids': id.toString(),
+      },
+    ))
+            .asJson() as Map<String, dynamic>)['response']['dictionary']
+        as List<dynamic>;
+
+    for (final keywords in data) {
+      final emoji = (keywords['words'] as List<dynamic>)
+          .map((dynamic e) => kEmojiAtlas.filterEmoji(e as String))
+          .expand<String>((element) =>
+              element.where((element) => element.trim().isNotEmpty));
+
+      final stickerList =
+          (keywords['user_stickers'] as List<dynamic>? ?? <dynamic>[])
+              .followedBy(
+        keywords['promoted_stickers'] as List<dynamic>? ?? <dynamic>[],
+      );
+
+      for (final userSticker in stickerList) {
+        final VkStickerStoreSticker sticker;
+
+        try {
+          sticker = stickers!.firstWhere(
+            (element) => element.id == userSticker['sticker_id'],
+          );
+        } on StateError {
+          continue;
+        }
+
+        if (sticker.suggestions == null) {
+          sticker.suggestions = emoji.toList();
+        } else {
+          sticker.suggestions!.addAll(emoji);
+        }
+      }
+    }
+  }
 }
 
 class VkStickerStoreSticker {
   final int id;
   final String thumbnail;
   final String image;
-  final List<String>? suggestions;
+  List<String>? suggestions;
 
-  const VkStickerStoreSticker({
+  VkStickerStoreSticker({
     required this.id,
     required this.thumbnail,
     required this.image,

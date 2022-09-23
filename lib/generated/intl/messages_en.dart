@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_program": MessageLookupByLibrary.simpleMessage("About"),
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
+        "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),
         "animals_and_nature":
             MessageLookupByLibrary.simpleMessage("Animals & Nature"),
         "animated": MessageLookupByLibrary.simpleMessage("Animated"),
@@ -117,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Go to VK ID"),
+        "import_settings":
+            MessageLookupByLibrary.simpleMessage("Import settings"),
         "import_to_telegram":
             MessageLookupByLibrary.simpleMessage("Import to Telegram"),
         "internet_error_info": MessageLookupByLibrary.simpleMessage(
@@ -160,9 +163,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "out_of": MessageLookupByLibrary.simpleMessage("of"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pick_emoji": MessageLookupByLibrary.simpleMessage(
+            "Pick some emoji, so they will be used for sticker suggestions in Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Prepare your pack"),
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Recent emoji"),
+        "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),
         "retrying": MessageLookupByLibrary.simpleMessage("Retrying..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Save logs"),
@@ -185,6 +191,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sticker Styles"),
         "sticker_styles_info": MessageLookupByLibrary.simpleMessage(
             "This set has multiple sticker styles. Which one are you going with?"),
+        "stickers_without_suggestions": MessageLookupByLibrary.simpleMessage(
+            "Stickers without suggestions"),
+        "stickers_without_suggestions_info": MessageLookupByLibrary.simpleMessage(
+            "Some stickers don\'t have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker"),
         "still": MessageLookupByLibrary.simpleMessage("Still Pictures"),
         "stop": MessageLookupByLibrary.simpleMessage("Stop"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
@@ -234,6 +244,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
             "We can help you to move your stickers from VK.com and LINE to Telegram"),
-        "with_border": MessageLookupByLibrary.simpleMessage("With outline")
+        "with_border": MessageLookupByLibrary.simpleMessage("With outline"),
+        "with_border_info": MessageLookupByLibrary.simpleMessage(
+            "Do you wish to import these stickers as is, or with a white outline around their edges?"),
+        "with_border_title":
+            MessageLookupByLibrary.simpleMessage("Sticker outline"),
+        "without_border":
+            MessageLookupByLibrary.simpleMessage("Without outline")
       };
 }
