@@ -416,7 +416,7 @@ class VkStickerStoreImportSettingsBottomSheetState
                         style: storeButtonStyle(context),
                         onPressed: () {
                           Navigator.of(context).pop(
-                            VkStickerStoreImportSettings(isWithBorder: true),
+                            VkStickerStoreImportSettings(isWithBorder: false),
                           );
                         },
                         child: Text(S.of(context).without_border),

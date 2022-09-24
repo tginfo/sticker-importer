@@ -76,7 +76,7 @@ class VkStoreExportController extends ExportController {
         await tempFile.create(recursive: true);
 
         i = await account.vk.fetch(
-          Uri.parse(sticker.image),
+          Uri.parse(sticker.animation!),
         );
 
         final preview = await account.vk.fetch(
@@ -106,7 +106,8 @@ class VkStoreExportController extends ExportController {
 
         i = await account.vk.fetch(
           Uri.parse(
-              'https://vk.com/sticker/1-${sticker.id}-512${isWithBorder ? 'b' : ''}'),
+            isWithBorder ? sticker.imageWithBorder : sticker.imageWithoutBorder,
+          ),
         );
 
         await i.listen(targetFileStream.add).asFuture<List<int>?>();

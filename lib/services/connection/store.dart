@@ -85,8 +85,9 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
     return VkStickerStoreStickerAndPack(
       sticker: VkStickerStoreSticker(
         id: id,
-        image: 'https://vk.com/images/sticker/1-$id-512',
-        thumbnail: 'https://vk.com/images/sticker/1-$id-128b',
+        imageWithBorder: 'https://vk.com/sticker/1-$id-512b',
+        imageWithoutBorder: 'https://vk.com/sticker/1-$id-512',
+        thumbnail: 'https://vk.com/sticker/1-$id-128b',
       ),
       pack: null,
     );
@@ -353,7 +354,10 @@ class VkStickerStorePack {
     required this.styles,
   });
 
-  factory VkStickerStorePack.fromJson(Map<String, dynamic> json) {
+  factory VkStickerStorePack.fromJson(
+    Map<String, dynamic> json, {
+    bool isVmoji = false,
+  }) {
     final hasAnimation = json['product']['has_animation'] as bool? ?? false;
     return VkStickerStorePack(
       id: json['product']['id'] as int,
@@ -375,9 +379,13 @@ class VkStickerStorePack {
                 id: sticker['sticker_id'] as int,
                 thumbnail:
                     sticker['images_with_background'][1]['url'] as String,
-                image: (hasAnimation
-                    ? sticker['animation_url'] as String
-                    : sticker['images'][3]['url'] as String),
+                imageWithoutBorder: isVmoji
+                    ? sticker['images'][3]['url'] as String
+                    : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512',
+                imageWithBorder: isVmoji
+                    ? sticker['images_with_background'][3]['url'] as String
+                    : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512b',
+                animation: sticker['animation_url'] as String?,
               ),
           ],
         ),
@@ -483,13 +491,17 @@ class VkStickerStoreStyle {
 class VkStickerStoreSticker {
   final int id;
   final String thumbnail;
-  final String image;
+  final String imageWithBorder;
+  final String imageWithoutBorder;
+  final String? animation;
   List<String>? suggestions;
 
   VkStickerStoreSticker({
     required this.id,
     required this.thumbnail,
-    required this.image,
+    required this.imageWithBorder,
+    required this.imageWithoutBorder,
+    this.animation,
     this.suggestions,
   });
 }

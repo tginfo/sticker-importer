@@ -181,7 +181,6 @@ class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
     if (isEnd) return false;
     try {
       final res = await widget.section.getPageContent(nextFrom);
-      print('NEXTFROM $nextFrom -> ${res.nextFrom}');
       if (res.list.isEmpty || res.nextFrom == null) isEnd = true;
       nextFrom = res.nextFrom;
       layout.addAll(res.list);
