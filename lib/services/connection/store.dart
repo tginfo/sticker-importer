@@ -379,11 +379,13 @@ class VkStickerStorePack {
                 id: sticker['sticker_id'] as int,
                 thumbnail:
                     sticker['images_with_background'][1]['url'] as String,
-                imageWithoutBorder: isVmoji
-                    ? sticker['images'][3]['url'] as String
+                imageWithoutBorder: isVmoji ||
+                        sticker['images']?[4]?['url'] != null
+                    ? sticker['images'][4]['url'] as String
                     : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512',
-                imageWithBorder: isVmoji
-                    ? sticker['images_with_background'][3]['url'] as String
+                imageWithBorder: isVmoji ||
+                        sticker['images_with_background']?[4]?['url'] != null
+                    ? sticker['images_with_background'][4]['url'] as String
                     : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512b',
                 animation: sticker['animation_url'] as String?,
               ),

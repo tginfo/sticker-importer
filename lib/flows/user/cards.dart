@@ -122,6 +122,8 @@ class _CardListRouteState extends State<CardListRoute> {
                               if (!mounted) return;
                               final locale = S.of(context).code;
 
+                              // ignore: unawaited_futures
+                              e.logout();
                               await UserList.dbRemove(e.id);
                               await UserList.update(language: locale);
 

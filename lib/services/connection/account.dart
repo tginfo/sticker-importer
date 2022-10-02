@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:sticker_import/services/connection/constants.dart';
 import 'package:sticker_import/utils/debugging.dart';
+import 'package:vkget/types.dart';
 import 'package:vkget/vkget.dart';
 import './connection.dart';
 import './proxy.dart';
@@ -81,6 +82,15 @@ class Account {
       name:
           '${data['response'][0]['first_name'] as String} ${data['response'][0]['last_name'] as String}',
       uid: (data['response'][0]['id'] as int),
+    );
+  }
+
+  Future<VKGetResponse> logout() {
+    return vk.call(
+      'auth.logout',
+      <String, String>{
+        'client_id': AuthConstants.clientId,
+      },
     );
   }
 }

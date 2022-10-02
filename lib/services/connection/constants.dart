@@ -1,5 +1,5 @@
 class AuthConstants {
-  static const String apiVersion = '5.130';
-  static const String clientId = '2274003';
-  static const String clientSecret = 'hHbZxrka2uZ6jB1inYsH';
+  static const String apiVersion = '5.131';
+  static const String clientId = '3140623';
+  static const String clientSecret = 'VeWdmVclDCtn6ihuP1nt';
 }
