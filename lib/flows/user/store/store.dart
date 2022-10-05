@@ -3,15 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sticker_import/components/flutter/fade_in_image.dart';
 import 'package:sticker_import/components/flutter/vk_image.dart';
-import 'package:sticker_import/components/types/account.dart';
 import 'package:sticker_import/flows/user/store/pack.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/store.dart';
+import 'package:sticker_import/services/connection/user_list.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 class VkStickerStoreRoute extends StatefulWidget {
-  const VkStickerStoreRoute({super.key});
+  const VkStickerStoreRoute({this.showSearch = false, super.key});
+
+  final bool showSearch;
 
   @override
   State<VkStickerStoreRoute> createState() => _VkStickerStoreRouteState();
@@ -26,10 +28,30 @@ class _VkStickerStoreRouteState extends State<VkStickerStoreRoute> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    account = AccountData.of(context)!.account;
+    account = AccountData.of(context).account!;
     store = VkStickerStore(account: account);
     pageController?.dispose();
     pageController = PageController();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.showSearch) {
+      Timer.run(() {
+        buildSearch(context, account);
+      });
+    }
+  }
+
+  void buildSearch(BuildContext context, Account account) {
+    showSearch<VkStickerStorePack?>(
+      context: context,
+      delegate: VkStickerStoreSearchDelegate(
+        account: account,
+      ),
+    );
   }
 
   @override
@@ -66,14 +88,9 @@ class _VkStickerStoreRouteState extends State<VkStickerStoreRoute> {
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.search_rounded),
-                    tooltip: S.of(context).search_stickers,
+                    tooltip: S.of(context).sticker_search,
                     onPressed: () {
-                      showSearch<VkStickerStorePack?>(
-                        context: context,
-                        delegate: VkStickerStoreSearchDelegate(
-                          account: account,
-                        ),
-                      );
+                      buildSearch(context, account);
                     },
                   ),
                 ],
@@ -143,7 +160,7 @@ class _StickerStoreBodyState extends State<StickerStoreBody> {
       itemBuilder: (context, index) {
         return VkStickerStoreLayoutPage(
           section: widget.sections[index],
-          account: AccountData.of(context)!.account,
+          account: AccountData.of(context).account!,
         );
       },
       onPageChanged: (value) {
@@ -328,7 +345,7 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
                     ),
                   );
                 },
-                icon: const Icon(Icons.unfold_more),
+                icon: const Icon(Icons.unfold_more_rounded),
                 label: Text(item.buttons[0].title),
               )
             : null,
@@ -614,7 +631,7 @@ class VkStickerStoreSectionRoute extends StatelessWidget {
       ),
       body: VkStickerStoreLayoutPage(
         section: section,
-        account: AccountData.of(context)!.account,
+        account: AccountData.of(context).account!,
       ),
     );
   }
@@ -631,7 +648,7 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const Icon(Icons.clear_rounded),
         onPressed: () {
           query = '';
         },
@@ -711,8 +728,32 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Center(
-      child: Text(S.of(context).search_stickers),
+    return SafeArea(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Opacity(
+                opacity: 0.2,
+                child: Icon(Icons.image_search_rounded, size: 128),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                S.of(context).sticker_search,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                S.of(context).start_typing_to_search_stickers,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

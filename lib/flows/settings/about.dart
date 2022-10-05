@@ -53,7 +53,7 @@ class AboutRoute extends StatelessWidget {
                     leading: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Icon(
-                        Icons.telegram,
+                        Icons.telegram_rounded,
                         color: (Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Theme.of(context).primaryColor),
@@ -73,7 +73,7 @@ class AboutRoute extends StatelessWidget {
                     leading: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Icon(
-                        Icons.feedback,
+                        Icons.feedback_rounded,
                         color: (Theme.of(context).brightness == Brightness.dark
                             ? Colors.white
                             : Theme.of(context).primaryColor),

@@ -69,7 +69,7 @@ class _VkStickerStorePackBottomSheetState
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   leading: IconButton(
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(Icons.close_rounded),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   trailing: IconButton(
@@ -344,7 +344,7 @@ class VkStickerStoreImportSettingsBottomSheetState
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   leading: IconButton(
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(Icons.close_rounded),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),

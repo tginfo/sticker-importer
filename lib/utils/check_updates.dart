@@ -131,7 +131,7 @@ void checkUpdates(BuildContext context) async {
                       mode: LaunchMode.externalApplication,
                     );
                   },
-                  icon: const Icon(Icons.download),
+                  icon: const Icon(Icons.download_rounded),
                   label: Text(S.of(context).download),
                 ),
               ],

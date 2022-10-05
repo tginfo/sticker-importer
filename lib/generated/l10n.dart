@@ -1432,11 +1432,11 @@ class S {
     );
   }
 
-  /// `Search stickers`
-  String get search_stickers {
+  /// `Sticker Search`
+  String get sticker_search {
     return Intl.message(
-      'Search stickers',
-      name: 'search_stickers',
+      'Sticker Search',
+      name: 'sticker_search',
       desc: '',
       args: [],
     );
@@ -1527,6 +1527,176 @@ class S {
     return Intl.message(
       'All stickers',
       name: 'all_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with your VK.com account to:`
+  String get login_with_vk_to {
+    return Intl.message(
+      'Sign in with your VK.com account to:',
+      name: 'login_with_vk_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `and also`
+  String get and_also {
+    return Intl.message(
+      'and also',
+      name: 'and_also',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get access to your added sticker packs`
+  String get login_with_vk_to_library {
+    return Intl.message(
+      'Get access to your added sticker packs',
+      name: 'login_with_vk_to_library',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List popular sticker packs`
+  String get login_with_vk_to_store {
+    return Intl.message(
+      'List popular sticker packs',
+      name: 'login_with_vk_to_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for stickers by keywords and emoji`
+  String get login_with_vk_to_search {
+    return Intl.message(
+      'Search for stickers by keywords and emoji',
+      name: 'login_with_vk_to_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import vmoji packs`
+  String get login_with_vk_to_vmoji {
+    return Intl.message(
+      'Import vmoji packs',
+      name: 'login_with_vk_to_vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill in emoji suggestions automatically`
+  String get login_with_vk_to_suggestions {
+    return Intl.message(
+      'Fill in emoji suggestions automatically',
+      name: 'login_with_vk_to_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open VK.com store in web`
+  String get vk_sticker_store_web {
+    return Intl.message(
+      'Open VK.com store in web',
+      name: 'vk_sticker_store_web',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I changed my mind`
+  String get i_changed_my_mind {
+    return Intl.message(
+      'I changed my mind',
+      name: 'i_changed_my_mind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign out`
+  String get sign_out {
+    return Intl.message(
+      'Sign out',
+      name: 'sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to change account`
+  String get tap_to_change_account {
+    return Intl.message(
+      'Tap to change account',
+      name: 'tap_to_change_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Stickers`
+  String get my_stickers {
+    return Intl.message(
+      'My Stickers',
+      name: 'my_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK Vmoji`
+  String get vmoji {
+    return Intl.message(
+      'VK Vmoji',
+      name: 'vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `With emoji suggestions`
+  String get with_emoji_suggestions {
+    return Intl.message(
+      'With emoji suggestions',
+      name: 'with_emoji_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't ask again`
+  String get do_not_ask_again {
+    return Intl.message(
+      'Don\'t ask again',
+      name: 'do_not_ask_again',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start typing or pick an emoji to find stickers and sticker packs`
+  String get start_typing_to_search_stickers {
+    return Intl.message(
+      'Start typing or pick an emoji to find stickers and sticker packs',
+      name: 'start_typing_to_search_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose account`
+  String get choose_account {
+    return Intl.message(
+      'Choose account',
+      name: 'choose_account',
       desc: '',
       args: [],
     );

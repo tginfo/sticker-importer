@@ -151,7 +151,7 @@ class _EmojiPageState extends State<EmojiPage>
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.backspace),
+              icon: const Icon(Icons.backspace_rounded),
               onPressed: () {
                 widget.onBackspacePressed();
               },
@@ -204,12 +204,13 @@ class EmojiGridState extends State<EmojiGrid> {
                   opacity: 0.2,
                   child: Icon(Icons.access_time_filled_rounded, size: 128),
                 ),
+                const SizedBox(height: 16),
                 Text(
                   S.of(context).no_recent_emoji,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline5,
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   S.of(context).no_recent_emoji_help,
                   textAlign: TextAlign.center,

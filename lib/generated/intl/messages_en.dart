@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
         "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),
+        "and_also": MessageLookupByLibrary.simpleMessage("and also"),
         "animals_and_nature":
             MessageLookupByLibrary.simpleMessage("Animals & Nature"),
         "animated": MessageLookupByLibrary.simpleMessage("Animated"),
@@ -53,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Couldn\'t pass Captcha"),
         "check_the_link":
             MessageLookupByLibrary.simpleMessage("Check the link"),
+        "choose_account":
+            MessageLookupByLibrary.simpleMessage("Choose account"),
         "choose_emoji": MessageLookupByLibrary.simpleMessage("Choose Emoji"),
         "code": MessageLookupByLibrary.simpleMessage("en"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
@@ -71,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "detailed_logging_info":
             MessageLookupByLibrary.simpleMessage("Consumes more RAM"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
+        "do_not_ask_again":
+            MessageLookupByLibrary.simpleMessage("Don\'t ask again"),
         "donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "done_exc": MessageLookupByLibrary.simpleMessage("Done!"),
@@ -118,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Go to VK ID"),
+        "i_changed_my_mind":
+            MessageLookupByLibrary.simpleMessage("I changed my mind"),
         "import_settings":
             MessageLookupByLibrary.simpleMessage("Import settings"),
         "import_to_telegram":
@@ -139,8 +146,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "logged_in": MessageLookupByLibrary.simpleMessage("Logged in"),
         "login": MessageLookupByLibrary.simpleMessage("Login or phone number"),
+        "login_with_vk_to": MessageLookupByLibrary.simpleMessage(
+            "Sign in with your VK.com account to:"),
+        "login_with_vk_to_library": MessageLookupByLibrary.simpleMessage(
+            "Get access to your added sticker packs"),
+        "login_with_vk_to_search": MessageLookupByLibrary.simpleMessage(
+            "Search for stickers by keywords and emoji"),
+        "login_with_vk_to_store":
+            MessageLookupByLibrary.simpleMessage("List popular sticker packs"),
+        "login_with_vk_to_suggestions": MessageLookupByLibrary.simpleMessage(
+            "Fill in emoji suggestions automatically"),
+        "login_with_vk_to_vmoji":
+            MessageLookupByLibrary.simpleMessage("Import vmoji packs"),
         "logs_save_error": m0,
         "logs_saved_to": m1,
+        "my_stickers": MessageLookupByLibrary.simpleMessage("My Stickers"),
         "no_emoji_matches": MessageLookupByLibrary.simpleMessage(
             "No emojis matching your request were found"),
         "no_error_details":
@@ -174,10 +194,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_logs": MessageLookupByLibrary.simpleMessage("Save logs"),
         "search_results":
             MessageLookupByLibrary.simpleMessage("Search results"),
-        "search_stickers":
-            MessageLookupByLibrary.simpleMessage("Search stickers"),
         "select_all": MessageLookupByLibrary.simpleMessage("Select All"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "sign_out": MessageLookupByLibrary.simpleMessage("Sign out"),
         "smileys_and_people":
             MessageLookupByLibrary.simpleMessage("Smileys & People"),
         "sms": MessageLookupByLibrary.simpleMessage("SMS"),
@@ -185,7 +204,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Developer"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "start_typing_to_search_stickers": MessageLookupByLibrary.simpleMessage(
+            "Start typing or pick an emoji to find stickers and sticker packs"),
         "sticker_pack": MessageLookupByLibrary.simpleMessage("Sticker pack"),
+        "sticker_search":
+            MessageLookupByLibrary.simpleMessage("Sticker Search"),
         "sticker_store": MessageLookupByLibrary.simpleMessage("Sticker Store"),
         "sticker_styles":
             MessageLookupByLibrary.simpleMessage("Sticker Styles"),
@@ -201,6 +224,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to stop the task?"),
         "symbols": MessageLookupByLibrary.simpleMessage("Symbols"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Continue"),
+        "tap_to_change_account":
+            MessageLookupByLibrary.simpleMessage("Tap to change account"),
         "telegram_info": MessageLookupByLibrary.simpleMessage("Telegram Info"),
         "telegram_info_desc":
             MessageLookupByLibrary.simpleMessage("Our channel"),
@@ -240,6 +265,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("VK Sticker Store"),
         "vk_sticker_store_url": MessageLookupByLibrary.simpleMessage(
             "https://m.vk.com/stickers?tab=popular"),
+        "vk_sticker_store_web":
+            MessageLookupByLibrary.simpleMessage("Open VK.com store in web"),
+        "vmoji": MessageLookupByLibrary.simpleMessage("VK Vmoji"),
         "warming_up": MessageLookupByLibrary.simpleMessage("Warming up..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
@@ -249,6 +277,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Do you wish to import these stickers as is, or with a white outline around their edges?"),
         "with_border_title":
             MessageLookupByLibrary.simpleMessage("Sticker outline"),
+        "with_emoji_suggestions":
+            MessageLookupByLibrary.simpleMessage("With emoji suggestions"),
         "without_border":
             MessageLookupByLibrary.simpleMessage("Without outline")
       };

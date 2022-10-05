@@ -153,7 +153,7 @@ class _PickedEmojiListContent extends StatelessWidget {
                   builder: (context) {
                     return SafeArea(
                       child: ListTile(
-                        leading: const Icon(Icons.delete),
+                        leading: const Icon(Icons.delete_rounded),
                         title: Text(S.of(context).remove),
                         onTap: () {
                           removeEmoji(emoji);
@@ -186,7 +186,7 @@ class EmojiSearchDelegate extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const Icon(Icons.clear_rounded),
         onPressed: () {
           query = '';
         },

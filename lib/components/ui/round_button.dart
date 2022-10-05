@@ -4,12 +4,12 @@ class IconRoundButton extends StatelessWidget {
   const IconRoundButton({
     this.onPressed,
     required this.icon,
-    required this.child,
+    required this.label,
     super.key,
   });
 
   final void Function()? onPressed;
-  final String child;
+  final String label;
   final IconData icon;
 
   @override
@@ -52,7 +52,7 @@ class IconRoundButton extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: Text(
-                child,
+                label,
                 style: TextStyle(
                   fontSize: 20.0,
                   color: (isDarkTheme

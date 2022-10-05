@@ -40,17 +40,12 @@ class Account {
 
   @override
   bool operator ==(other) {
-    if (other is! Account) return false;
-
-    final account = other;
-    return account.id == id;
+    return identical(this, other);
   }
 
   @override
   int get hashCode {
-    var result = 10;
-    result = 34 * result + id.hashCode;
-    return result;
+    return Object.hash(id, uid, name, vk.token);
   }
 
   DateTime? _fired;
@@ -58,8 +53,9 @@ class Account {
 
   DateTime? get fired => _fired;
 
-  Future<void> fire({String? language}) async {
+  Future<void> fire({String? language, bool force = false}) async {
     if (language != null) vk.language = language;
+    if (_fired != null && !force) return;
 
     if (await vk.initConnection()) {
       automaticProxy = true;
@@ -71,18 +67,14 @@ class Account {
     _fired = DateTime.now();
   }
 
-  Future<Account> refresh() async {
+  Future<void> refresh() async {
     final Map<String, dynamic> data =
         (await vk.call('users.get', <String, String>{})).asJson()
             as Map<String, dynamic>;
 
-    return Account(
-      vk,
-      id,
-      name:
-          '${data['response'][0]['first_name'] as String} ${data['response'][0]['last_name'] as String}',
-      uid: (data['response'][0]['id'] as int),
-    );
+    name =
+        '${data['response'][0]['first_name'] as String} ${data['response'][0]['last_name'] as String}';
+    uid = data['response'][0]['id'] as int;
   }
 
   Future<VKGetResponse> logout() {

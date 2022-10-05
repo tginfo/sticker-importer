@@ -12,15 +12,14 @@ Future<Account?> createToken(
 ) async {
   try {
     final locale = S.of(context).code;
-    UserList.setCurrent(Account.from('', 0, language: locale), context);
+    final authObj = Account.from('', 0, language: locale);
+    UserList.connectToGui(authObj, context);
+    await authObj.fire(language: locale);
 
-    await UserList.current!.fire(language: locale);
-
-    final token = await loginFlow(username, password);
-    final account = Account.from(token, 0, language: locale);
-    await account.fire(language: locale);
-    final r = await account.refresh();
-    return r;
+    final token = await loginFlow(authObj, username, password);
+    authObj.vk.token = token;
+    await authObj.refresh();
+    return authObj;
   } catch (e) {
     Navigator.of(context).pop();
     // ignore: unawaited_futures
@@ -45,7 +44,7 @@ Future<Account?> createToken(
   }
 }
 
-Future<String> loginFlow(String username, String password,
+Future<String> loginFlow(Account account, String username, String password,
     {String? code}) async {
   final requestBody = <String, String>{
     'grant_type': 'password',
@@ -60,7 +59,7 @@ Future<String> loginFlow(String username, String password,
   late String accessToken;
 
   try {
-    final oauth = await UserList.current!.vk.call(
+    final oauth = await account.vk.call(
       'token',
       requestBody,
       oauth: true,

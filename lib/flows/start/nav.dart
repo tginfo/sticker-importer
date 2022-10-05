@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sticker_import/flows/settings/about.dart';
 import 'package:sticker_import/flows/start/start.dart';
-import 'package:sticker_import/flows/user/cards.dart';
+import 'package:sticker_import/flows/user/actions.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/utils/check_updates.dart';
 
@@ -24,7 +24,9 @@ class StartRouteState extends State<StartRoute> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     ImportByLinkRoute(),
-    CardListRoute(),
+    VkUserMenuRoute(
+      intent: null,
+    ),
     AboutRoute(),
   ];
 
@@ -55,15 +57,15 @@ class StartRouteState extends State<StartRoute> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.link),
+            icon: const Icon(Icons.link_rounded),
             label: S.of(context).by_link,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
+            icon: const Icon(Icons.person_rounded),
             label: S.of(context).vk_account,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.info),
+            icon: const Icon(Icons.info_rounded),
             label: S.of(context).about_program,
           ),
         ],

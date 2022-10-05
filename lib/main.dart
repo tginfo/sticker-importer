@@ -72,7 +72,9 @@ class TginfoMoverApp extends StatelessWidget {
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: NoOverscrollBehavior(),
-          child: child!,
+          child: AccountController(
+            child: child!,
+          ),
         );
       },
       theme: theme.copyWith(
@@ -211,8 +213,12 @@ class TginfoMoverApp extends StatelessWidget {
           fillColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) =>
                 !states.contains(MaterialState.disabled)
-                    ? const Color(0xFFAC1B24)
+                    ? const Color(0xFFd68d92)
                     : null,
+          ),
+          checkColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) =>
+                !states.contains(MaterialState.disabled) ? Colors.black : null,
           ),
         ),
         switchTheme: SwitchThemeData(
@@ -250,6 +256,7 @@ class TginfoMoverApp extends StatelessWidget {
             ),
           ),
         ),
+        indicatorColor: Colors.white,
       ),
       home: const StartRoute(),
       localizationsDelegates: const [

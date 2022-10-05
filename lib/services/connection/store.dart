@@ -33,8 +33,9 @@ class VkStickerStore {
     }
   }
 
-  Future<List<VkStickerStoreSection>> getSections() {
-    return _getSectionsStream().toList();
+  Future<List<VkStickerStoreSection>> getSections() async {
+    await account.fire();
+    return await _getSectionsStream().toList();
   }
 }
 

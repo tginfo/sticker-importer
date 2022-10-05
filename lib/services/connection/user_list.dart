@@ -1,9 +1,9 @@
-import 'dart:typed_data';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:idb_sqflite/idb_sqflite.dart';
 import 'package:sticker_import/components/ui/toast.dart';
+import 'package:sticker_import/services/settings/settings.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vkget/types.dart';
@@ -60,6 +60,10 @@ class UserList {
 
   static Future<void> update({String? language}) async {
     data.clear();
+    _current = null;
+
+    final currentUserUId =
+        await SettingsStorage.of('main').get<int?>('current_user');
 
     await for (final account
         in (await _database.writeTransaction('main')).openCursor()) {
@@ -74,6 +78,11 @@ class UserList {
       );
 
       data.add(user);
+
+      if (currentUserUId == user.uid) {
+        _current = user;
+      }
+
       account.next();
     }
   }
@@ -82,33 +91,17 @@ class UserList {
 
   static Account? get current => _current;
 
-  static void setCurrent(Account account, BuildContext context) {
-    /* account.vk.onConnectionProblems = () async {
-      return (await showDialog<bool>(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text(S.of(context).internet_error_title),
-                  content: Text(S.of(context).internet_error_info),
-                  actions: [
-                    TextButton(
-                      child: Text(S.of(context).t_continue),
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      },
-                    ),
-                    TextButton(
-                      child: Text(S.of(context).t_continue),
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                    ),
-                  ],
-                );
-              })) ??
-          false;
-    }; */
+  static Future<void> saveCurrent(Account? user) async {
+    if (user == null) {
+      await SettingsStorage.of('main').unset('current_user');
+    } else {
+      await SettingsStorage.of('main').set<int>('current_user', user.uid);
+    }
+    _current = user;
+  }
 
+  static void connectToGui(Account account, BuildContext context) {
+    account.vk.language = S.of(context).code;
     account.vk.onCaptcha = (r) async {
       final lang = S.of(context);
       final String imgUrl = r.asJson()!['captcha_img'] as String;
@@ -252,7 +245,7 @@ class UserList {
                     decoration: InputDecoration(
                       labelText: S.of(context).auth_code,
                       border: const OutlineInputBorder(),
-                      icon: const Icon(Icons.pin),
+                      icon: const Icon(Icons.pin_rounded),
                     ),
                     textInputAction:
                         (Theme.of(context).platform == TargetPlatform.iOS
@@ -287,8 +280,6 @@ class UserList {
       if (result == null) throw lang.twofa_failed;
       return VKGetValidationResult(true, code: result);
     };
-
-    _current = account;
   }
 }
 
@@ -380,5 +371,78 @@ class SmsButton2FaState extends State<SmsButton2Fa> {
         S.of(context).sms,
       ),
     );
+  }
+}
+
+class AccountController extends StatefulWidget {
+  const AccountController({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  State<AccountController> createState() => _AccountControllerState();
+}
+
+class _AccountControllerState extends State<AccountController> {
+  Account? account;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    account = UserList.current;
+    if (account != null) account!.vk.language = S.of(context).code;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return NotificationListener<AccountChangeNotification>(
+      onNotification: (notification) {
+        if (notification.account != null) {
+          UserList.connectToGui(notification.account!, context);
+        }
+
+        UserList.saveCurrent(notification.account);
+
+        setState(() {
+          account = notification.account;
+        });
+        return true;
+      },
+      child: AccountData(
+        account: account,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+class AccountChangeNotification extends Notification {
+  AccountChangeNotification(this.account);
+
+  final Account? account;
+}
+
+class AccountData extends InheritedWidget {
+  const AccountData({
+    required this.account,
+    required super.child,
+    super.key,
+  });
+
+  final Account? account;
+
+  static AccountData of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<AccountData>()!;
+  }
+
+  @override
+  bool updateShouldNotify(AccountData oldWidget) =>
+      account != oldWidget.account;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Account>('account', account));
   }
 }

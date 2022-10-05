@@ -3,11 +3,9 @@ import 'package:sticker_import/components/icons/custom_icons_icons.dart';
 import 'package:sticker_import/components/ui/round_button.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
-import 'package:sticker_import/services/connection/user_list.dart';
 import 'package:sticker_import/utils/loading_popup.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../start/nav.dart';
 import 'create_token.dart';
 
 class LoginRoute extends StatefulWidget {
@@ -94,139 +92,137 @@ class _LoginRouteState extends State<LoginRoute> {
       }
 
       if (!mounted) return;
-      await UserList.update(language: S.of(context).code);
-      for (final acc in UserList.data) {
-        if (acc.uid == authResult.uid) {
-          await UserList.dbRemove(acc.id);
-        }
-      }
-
-      final curId = await UserList.dbRecord(authResult);
-
-      if (!mounted) return;
-      await UserList.update(language: S.of(context).code);
-
-      if (!mounted) return;
-      UserList.setCurrent(
-        UserList.data.firstWhere((element) => element.id == curId),
-        context,
-      );
 
       loginController.clear();
       passwordController.clear();
 
       Navigator.of(context).pop();
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
-      await Navigator.of(context).push<void>(
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-            return const StartRoute(tab: StartRouteScreen.login);
-          },
-        ),
-      );
+      Navigator.of(context).pop<Account>(authResult);
     }
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Form(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                const Icon(CustomIcons.vk, size: 64, color: Color(0x7D929292)),
-                const SizedBox(height: 64.0),
-                TextFormField(
-                  controller: loginController,
-                  autofocus: true,
-                  autofillHints: const [AutofillHints.username],
-                  decoration: InputDecoration(
-                    labelText: S.of(context).login,
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.person),
-                  ),
-                  textInputAction: TextInputAction.next,
-                  onEditingComplete: () => node.nextFocus(),
-                ),
-                const SizedBox(height: 20.0),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  autofillHints: const [AutofillHints.password],
-                  decoration: InputDecoration(
-                    labelText: S.of(context).password,
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.lock),
-                  ),
-                  textInputAction: TextInputAction.go,
-                  onEditingComplete: authFunc,
-                ),
-                const SizedBox(height: 30.0),
-                Column(
-                  children: [
-                    IconRoundButton(
-                      icon: Icons.arrow_forward_rounded,
-                      child: S.of(context).sign_in,
-                      onPressed: authFunc,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15.0,
-                ),
-                Card(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: Column(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                  height: 50,
+                  child: Row(
                     children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.onSecondary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          child: const Icon(Icons.back_hand_rounded),
-                        ),
-                        title: Text(S.of(context).vk_id_setting_title),
-                        subtitle: Text(S.of(context).vk_id_setting_info),
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back_rounded),
+                        color: Theme.of(context).indicatorColor,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 5.0,
-                          right: 15.0,
+                    ],
+                  )),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Form(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(CustomIcons.vk,
+                          size: 64, color: Color(0x7D929292)),
+                      const SizedBox(height: 64.0),
+                      TextFormField(
+                        controller: loginController,
+                        //autofocus: true,
+                        autofillHints: const [AutofillHints.username],
+                        decoration: InputDecoration(
+                          labelText: S.of(context).login,
+                          border: const OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.person_rounded),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: () => node.nextFocus(),
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        autofillHints: const [AutofillHints.password],
+                        decoration: InputDecoration(
+                          labelText: S.of(context).password,
+                          border: const OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.lock_rounded),
+                        ),
+                        textInputAction: TextInputAction.go,
+                        onEditingComplete: authFunc,
+                      ),
+                      const SizedBox(height: 30.0),
+                      Column(
+                        children: [
+                          IconRoundButton(
+                            icon: Icons.arrow_forward_rounded,
+                            label: S.of(context).sign_in,
+                            onPressed: authFunc,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Card(
+                          child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: Column(
                           children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                            ListTile(
+                              leading: CircleAvatar(
                                 backgroundColor:
-                                    Theme.of(context).colorScheme.onPrimary,
+                                    Theme.of(context).colorScheme.onSecondary,
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                child: const Icon(Icons.back_hand_rounded),
                               ),
-                              onPressed: () {
-                                launchUrl(
-                                  Uri.parse(S.of(context).vk_id_security_link),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              },
-                              child: Text(S.of(context).go_to_vk_id),
+                              title: Text(S.of(context).vk_id_setting_title),
+                              subtitle: Text(S.of(context).vk_id_setting_info),
+                              isThreeLine: true,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 5.0,
+                                right: 15.0,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                    ),
+                                    onPressed: () {
+                                      launchUrl(
+                                        Uri.parse(
+                                            S.of(context).vk_id_security_link),
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                    },
+                                    child: Text(S.of(context).go_to_vk_id),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
+                      )),
                     ],
                   ),
-                )),
-              ],
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
