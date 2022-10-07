@@ -249,6 +249,8 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                           intent: VkAuthIntent.store,
                         );
 
+                        if (account == null) return;
+
                         // ignore: unawaited_futures
                         navigator.push<void>(
                           MaterialPageRoute(

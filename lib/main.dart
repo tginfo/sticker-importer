@@ -12,6 +12,7 @@ import 'package:sticker_import/services/connection/user_list.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 import 'services/native/method_channels.dart';
+import 'utils/chrome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,17 +28,7 @@ void main() async {
     return false;
   };
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarDividerColor: Colors.transparent,
-    systemNavigationBarIconBrightness: Brightness.dark,
-  ));
-
-  // ignore: unawaited_futures
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.edgeToEdge,
-    overlays: [SystemUiOverlay.top],
-  );
+  updateBar();
 
   MethodChannelStore.packageInfo = await PackageInfo.fromPlatform();
 
