@@ -25,7 +25,7 @@ dependencies:
     path_provider: ^2.0.9
     path: ^1.8.1
     enough_convert: ^1.4.0
-    device_info_plus: ^4.0.0
+    device_info_plus: ^5.0.5
     idb_sqflite: ^1.1.1
     sqflite: ^2.0.3+1
     share_plus: ^4.1.0

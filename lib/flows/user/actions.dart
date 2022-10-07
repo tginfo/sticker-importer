@@ -4,6 +4,7 @@ import 'package:sticker_import/components/ui/round_button.dart';
 import 'package:sticker_import/flows/user/library.dart';
 import 'package:sticker_import/flows/user/login/login.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
+import 'package:sticker_import/flows/user/vmoji.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/user_list.dart';
@@ -181,7 +182,12 @@ class _VkPageSignedInMenuState extends State<VkPageSignedInMenu> {
             Icons.face_rounded,
           ),
           title: Text(S.of(context).vmoji),
-          onTap: () {},
+          onTap: () {
+            vmojiWizard(
+              context: context,
+              account: AccountData.of(context).account!,
+            );
+          },
         ),
       ],
     );

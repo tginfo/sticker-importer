@@ -7,6 +7,7 @@ import 'package:sticker_import/export/controllers/vk.dart';
 import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/user/actions.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
+import 'package:sticker_import/flows/user/vmoji.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/user_list.dart';
@@ -60,7 +61,11 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
         context,
         intent: VkAuthIntent.vmoji,
       );
-      // TODO: Open vmoji import
+      if (account == null) {
+        return;
+      }
+
+      vmojiWizard(context: context, account: account);
       return;
     }
 

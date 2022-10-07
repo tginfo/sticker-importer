@@ -150,6 +150,36 @@ class _StickerPacksListState extends State<StickerPacksList> {
         }
 
         if (snapshot.hasData) {
+          if (packs.isEmpty) {
+            return SafeArea(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Opacity(
+                        opacity: 0.2,
+                        child: Icon(Icons.add_reaction_rounded, size: 128),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        S.of(context).no_added_stickers,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        S.of(context).no_added_stickers_help,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+
           Timer.run(() {
             appendContent();
           });
