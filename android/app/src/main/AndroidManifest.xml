@@ -13,8 +13,7 @@
    <application
         android:label="Sticker Import"
         android:icon="@mipmap/ic_launcher"
-        android:localeConfig="@xml/locales_config"
-        android:requestLegacyExternalStorage="true" >
+        android:localeConfig="@xml/locales_config" >
         
        <provider
            android:name="androidx.core.content.FileProvider"
@@ -64,5 +63,4 @@
         </service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>
