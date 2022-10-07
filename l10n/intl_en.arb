@@ -164,5 +164,9 @@
     "with_emoji_suggestions": "With emoji suggestions",
     "do_not_ask_again": "Don't ask again",
     "start_typing_to_search_stickers": "Start typing or pick an emoji to find stickers and sticker packs",
-    "choose_account": "Choose account"
+    "choose_account": "Choose account",
+    "no_added_stickers": "No added stickers",
+    "no_added_stickers_help": "This page will conveniently display stickers you added to your library on VK.com",
+    "active": "Active",
+    "purchased": "All"
 }

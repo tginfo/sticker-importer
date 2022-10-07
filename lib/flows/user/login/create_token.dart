@@ -53,6 +53,7 @@ Future<String> loginFlow(Account account, String username, String password,
     'client_id': AuthConstants.clientId,
     'client_secret': AuthConstants.clientSecret,
     '2fa_supported': '1',
+    'scope': 'all',
     if (code != null) 'code': code
   };
 

@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("О программе"),
+        "active": MessageLookupByLibrary.simpleMessage("Активные"),
         "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
         "all_stickers": MessageLookupByLibrary.simpleMessage("Все стикеры"),
@@ -107,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Экспорт остановлен"),
         "export_working":
             MessageLookupByLibrary.simpleMessage("Загрузка стикеров..."),
+        "feedback": MessageLookupByLibrary.simpleMessage("Оставить отзыв"),
         "feedback_desc": MessageLookupByLibrary.simpleMessage(
             "Если у вас есть вопросы или предложения, напишите нам"),
         "feedback_url": MessageLookupByLibrary.simpleMessage(
@@ -133,8 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "internet_error_title":
             MessageLookupByLibrary.simpleMessage("Ошибка соединения"),
         "licenses": MessageLookupByLibrary.simpleMessage("Лицензии"),
-        "licenses_desc":
-            MessageLookupByLibrary.simpleMessage("Открытого исходного кода"),
+        "licenses_desc": MessageLookupByLibrary.simpleMessage("Открытого ПО"),
         "link": MessageLookupByLibrary.simpleMessage("Ссылка на стикерпак"),
         "link_incorrect":
             MessageLookupByLibrary.simpleMessage("Ссылка некорректна"),
@@ -161,6 +162,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "logs_save_error": m0,
         "logs_saved_to": m1,
         "my_stickers": MessageLookupByLibrary.simpleMessage("Мои стикеры"),
+        "no_added_stickers":
+            MessageLookupByLibrary.simpleMessage("Нет добавленных стикеров"),
+        "no_added_stickers_help": MessageLookupByLibrary.simpleMessage(
+            "Эта страница будет отображать стикеры, добавленные вами в коллекцию ВКонтакте"),
         "no_emoji_matches":
             MessageLookupByLibrary.simpleMessage("Нет подходящих эмодзи"),
         "no_error_details": MessageLookupByLibrary.simpleMessage(
@@ -187,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Выберите несколько эмодзи, которые будут использоваться для подсказок стикеров в Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Подготовьте набор"),
+        "purchased": MessageLookupByLibrary.simpleMessage("Все"),
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Недавние эмодзи"),
         "remove": MessageLookupByLibrary.simpleMessage("Удалить"),
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),

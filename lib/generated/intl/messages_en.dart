@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("About"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
         "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),
@@ -161,6 +162,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "logs_save_error": m0,
         "logs_saved_to": m1,
         "my_stickers": MessageLookupByLibrary.simpleMessage("My Stickers"),
+        "no_added_stickers":
+            MessageLookupByLibrary.simpleMessage("No added stickers"),
+        "no_added_stickers_help": MessageLookupByLibrary.simpleMessage(
+            "This page will conveniently display stickers you added to your library on VK.com"),
         "no_emoji_matches": MessageLookupByLibrary.simpleMessage(
             "No emojis matching your request were found"),
         "no_error_details":
@@ -187,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Pick some emoji, so they will be used for sticker suggestions in Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Prepare your pack"),
+        "purchased": MessageLookupByLibrary.simpleMessage("All"),
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Recent emoji"),
         "remove": MessageLookupByLibrary.simpleMessage("Remove"),
         "resume": MessageLookupByLibrary.simpleMessage("Resume"),

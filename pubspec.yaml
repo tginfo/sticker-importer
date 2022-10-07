@@ -41,6 +41,7 @@ flutter:
     generate: true
     assets:
         - assets/
+        - vkscript/
     fonts:
         - family: Open Sans
           fonts:

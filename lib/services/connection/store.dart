@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:sticker_import/generated/emoji_metadata.dart';
+import 'package:sticker_import/services/connection/vkget_execute.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 import 'account.dart';
@@ -44,6 +45,18 @@ class BackgroundComputationResultVkStoreLayout {
   final String? nextFrom;
 
   const BackgroundComputationResultVkStoreLayout(this.list, this.nextFrom);
+}
+
+List<VkStickerStorePack> _decodeLibraryRequest(List<List<int>> response) {
+  final data =
+      (jsonDecode(utf8.decode(response.expand((element) => element).toList()))
+          as Map<String, dynamic>)['response'] as List<dynamic>;
+
+  return data
+      .map((dynamic e) => VkStickerStorePack.fromJson(
+            e as Map<String, dynamic>,
+          ))
+      .toList();
 }
 
 BackgroundComputationResultVkStoreLayout _decodeRequest(
@@ -336,22 +349,31 @@ class VkStickerStoreLayoutLoader implements VkStickerStoreLayout {
   String? get id => null;
 }
 
-class VkStickerStorePack {
+class VkStickerStorePackBase {
   final int id;
-  final String domain;
   final String title;
+  final String image;
+
+  VkStickerStorePackBase({
+    required this.id,
+    required this.title,
+    required this.image,
+  });
+}
+
+class VkStickerStorePack extends VkStickerStorePackBase {
+  final String domain;
   final String description;
   final String author;
-  final String image;
   final List<VkStickerStoreStyle> styles;
 
   VkStickerStorePack({
-    required this.id,
+    required super.id,
     required this.domain,
-    required this.title,
+    required super.title,
     required this.description,
     required this.author,
-    required this.image,
+    required super.image,
     required this.styles,
   });
 
@@ -361,7 +383,9 @@ class VkStickerStorePack {
   }) {
     final hasAnimation = json['product']['has_animation'] as bool? ?? false;
     return VkStickerStorePack(
-      id: json['product']['id'] as int,
+      id: json['product']['id'] is String
+          ? int.parse(json['product']['id'] as String)
+          : json['product']['id'] as int,
       domain: json['product']['url'] as String,
       title: json['product']['title'] as String,
       description: json['description'] as String,
@@ -369,7 +393,9 @@ class VkStickerStorePack {
       image: json['product']['icon'][1]['url'] as String,
       styles: [
         VkStickerStoreStyle(
-          id: json['product']['id'] as int,
+          id: json['product']['id'] is String
+              ? int.parse(json['product']['id'] as String)
+              : json['product']['id'] as int,
           domain: json['product']['url'] as String,
           title: json['product']['title'] as String,
           image: json['product']['icon'][1]['url'] as String,
@@ -453,6 +479,7 @@ class VkStickerStoreStyle {
       'store.getStickersKeywords',
       <String, String>{
         'products_ids': id.toString(),
+        'need_stickers': '0',
       },
     ))
             .asJson() as Map<String, dynamic>)['response']['dictionary']
@@ -467,8 +494,11 @@ class VkStickerStoreStyle {
       final stickerList =
           (keywords['user_stickers'] as List<dynamic>? ?? <dynamic>[])
               .followedBy(
-        keywords['promoted_stickers'] as List<dynamic>? ?? <dynamic>[],
-      );
+                keywords['promoted_stickers'] as List<dynamic>? ?? <dynamic>[],
+              )
+              .followedBy(
+                keywords['stickers'] as List<dynamic>? ?? <dynamic>[],
+              );
 
       for (final userSticker in stickerList) {
         final VkStickerStoreSticker sticker;
@@ -507,4 +537,53 @@ class VkStickerStoreSticker {
     this.animation,
     this.suggestions,
   });
+}
+
+class VkStickerLibrary {
+  VkStickerLibrary(this.account);
+
+  final Account account;
+  final Map<bool, Map<int, Future<List<VkStickerStorePack>>>> _contentCache =
+      {};
+
+  static const int perPage = 20;
+
+  Future<List<VkStickerStorePack>> getStickerLibrary({
+    required bool activeOnly,
+    required int page,
+  }) async {
+    if (_contentCache.containsKey(activeOnly) &&
+        _contentCache[activeOnly]!.containsKey(page)) {
+      return _contentCache[activeOnly]![page]!;
+    }
+
+    final completer = Completer<List<VkStickerStorePack>>();
+    _contentCache[activeOnly] ??= {};
+    _contentCache[activeOnly]![page] = completer.future;
+
+    scheduleMicrotask(() async {
+      try {
+        final res = await account.vk.execute(
+          'sticker_lib',
+          <String, dynamic>{
+            'offset': page * perPage,
+            'count': perPage,
+            'filters': activeOnly ? 'active' : 'purchased',
+          },
+          isTraced: false,
+          lazyInterpretation: true,
+        );
+        res.allowInterpretation!(false);
+
+        final c =
+            await compute(_decodeLibraryRequest, await res.response.toList());
+        completer.complete(c);
+      } catch (e) {
+        completer.completeError(e);
+        rethrow;
+      }
+    });
+
+    return _contentCache[activeOnly]![page]!;
+  }
 }

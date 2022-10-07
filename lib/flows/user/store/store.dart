@@ -239,15 +239,30 @@ class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
       isInProgress = true;
       scheduleMicrotask(() async {
         await getContent();
-        if (layout.length != l) setState(() {});
+        if (layout.length != l) {
+          setState(() {
+            Timer.run(() {
+              appendContent();
+            });
+          });
+        }
       });
     }
+  }
+
+  late final Future<bool> initialContent;
+
+  @override
+  void initState() {
+    super.initState();
+
+    initialContent = getContent();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: getContent(),
+      future: initialContent,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           iLog(snapshot.error);
@@ -263,6 +278,10 @@ class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
         }
 
         if (snapshot.hasData) {
+          Timer.run(() {
+            appendContent();
+          });
+
           if (layout.isEmpty && widget.onEmpty != null) {
             return widget.onEmpty!(context);
           }
@@ -391,59 +410,9 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
           ),
         );
       } else if (item.type == VkStickerStoreLayoutPackListType.list) {
-        return ListView.builder(
-          key: ValueKey(item),
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          primary: false,
-          shrinkWrap: true,
-          itemExtent: 100,
-          itemCount: item.packs.length,
-          itemBuilder: (context, index) {
-            final pack = item.packs[index];
-
-            return PackButton(
-              key: ValueKey(pack),
-              pack: pack,
-              account: account,
-              child: SizedBox(
-                height: 100,
-                child: Row(
-                  children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      width: 90,
-                      height: 90,
-                      child: VkPackImage(
-                        pack: pack,
-                        account: account,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            pack.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            pack.author,
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+        return VkStickerStoreLayoutWidgetPackList(
+          id: item.id,
+          packs: item.packs,
         );
       }
     }
@@ -516,6 +485,89 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
 
     return Container(
       key: ValueKey(item),
+    );
+  }
+}
+
+class VkStickerStoreLayoutWidgetPackList extends StatelessWidget {
+  const VkStickerStoreLayoutWidgetPackList({
+    super.key,
+    required this.id,
+    required this.packs,
+    this.isLoading = false,
+    this.scrollController,
+  });
+
+  final String id;
+  final bool isLoading;
+  final List<VkStickerStorePack> packs;
+  final ScrollController? scrollController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      key: ValueKey(id),
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      primary: false,
+      controller: scrollController,
+      shrinkWrap: scrollController == null,
+      itemExtent: 100,
+      itemCount: packs.length + (isLoading ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (isLoading && index == packs.length) {
+          return const SizedBox(
+            height: 100,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        final pack = packs[index];
+
+        return PackButton(
+          key: ValueKey(pack),
+          pack: pack,
+          account: AccountData.of(context).account!,
+          child: SizedBox(
+            height: 100,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 5,
+                ),
+                SizedBox(
+                  width: 90,
+                  height: 90,
+                  child: VkPackImage(
+                    pack: pack,
+                    account: AccountData.of(context).account!,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        pack.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        pack.author,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

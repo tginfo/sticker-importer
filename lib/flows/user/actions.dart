@@ -133,7 +133,7 @@ class _VkPageSignedInMenuState extends State<VkPageSignedInMenu> {
                 builder: (BuildContext context) {
                   return AccountData(
                     account: AccountData.of(context).account,
-                    child: const AddedStickerPacksLibraryRoute(),
+                    child: const AddedStickerPacksRoute(),
                   );
                 },
               ),
@@ -223,6 +223,7 @@ class _AccountListChooserState extends State<AccountListChooser> {
                 AccountChangeNotification(
                   e,
                 ).dispatch(context);
+                Navigator.of(context).pop();
               },
               trailing: IconButton(
                 icon: const Icon(Icons.close_rounded),

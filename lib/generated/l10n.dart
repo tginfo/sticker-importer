@@ -1701,6 +1701,46 @@ class S {
       args: [],
     );
   }
+
+  /// `No added stickers`
+  String get no_added_stickers {
+    return Intl.message(
+      'No added stickers',
+      name: 'no_added_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This page will conveniently display stickers you added to your library on VK.com`
+  String get no_added_stickers_help {
+    return Intl.message(
+      'This page will conveniently display stickers you added to your library on VK.com',
+      name: 'no_added_stickers_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get purchased {
+    return Intl.message(
+      'All',
+      name: 'purchased',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

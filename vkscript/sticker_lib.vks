@@ -1,0 +1,23 @@
+var offset = parseInt(Args.offset);
+var count = parseInt(Args.count);
+
+var l = API.store.getProducts({
+    type: "stickers",
+    filters: Args.filters,
+    extended: 0,
+}).items;
+var r = [];
+
+while (offset < l.length && count > 0) {
+    r.push(
+        API.store.getStockItemByProductId({
+            product_id: l[offset].id,
+            type: "stickers",
+            extended: 1,
+        })
+    );
+    offset = offset + 1;
+    count = count - 1;
+}
+
+return r;

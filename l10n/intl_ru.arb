@@ -11,10 +11,11 @@
     "tginfo_link": "https://t.me/tginfo",
     "sominemo": "Sominemo",
     "sominemo_desc": "Разработчик",
+    "feedback": "Оставить отзыв",
     "feedback_desc": "Если у вас есть вопросы или предложения, напишите нам",
     "feedback_url": "https://t.me/infowritebot?start=stickerimporter",
     "licenses": "Лицензии",
-    "licenses_desc": "Открытого исходного кода",
+    "licenses_desc": "Открытого ПО",
     "error": "Ошибка",
     "ok": "OK",
     "cancel": "Отмена",
@@ -122,8 +123,6 @@
     "twofa_failed": "Ошибка двухфакторной аутентификации",
     "try_sending_request_again": "Попробуйте отправить запрос еще раз",
     "captcha_fail": "Не удалось подтвердить, что вы не робот",
-    "my_avatar": "Мой аватар",
-    "active_stickers": "Активные стикеры",
     "recent_emoji": "Недавние эмодзи",
     "no_recent_emoji": "Нет недавних эмодзи",
     "no_recent_emoji_help": "Вы можете искать эмодзи по категориям, или воспользоваться текстовым поиском",
@@ -165,5 +164,9 @@
     "with_emoji_suggestions": "С подсказками стикеров",
     "do_not_ask_again": "Больше не спрашивать",
     "start_typing_to_search_stickers": "Начните печатать или выберите эмодзи, чтобы искать наборы и стикеры",
-    "choose_account": "Выберите аккаунт"
+    "choose_account": "Выберите аккаунт",
+    "no_added_stickers": "Нет добавленных стикеров",
+    "no_added_stickers_help": "Эта страница будет отображать стикеры, добавленные вами в коллекцию ВКонтакте",
+    "active": "Активные",
+    "purchased": "Все"
 }
