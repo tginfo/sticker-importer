@@ -6870,6 +6870,16 @@ const kEmojiAtlas = EmojiAtlas(
     '\u{d83e}\u{dd26}\u{200d}\u{2642}\u{fe0f}'
 ],
 ), 
+    r"bank": EmojiKeyword(emojis: [
+    '\u{d83c}\u{dfe7}', 
+    '\u{d83e}\u{dd11}', 
+    '\u{d83d}\u{dcb8}', 
+    '\u{d83c}\u{dfe6}', 
+    '\u{d83d}\u{dcb0}', 
+    '\u{d83d}\u{dcb5}', 
+    '\u{d83d}\u{dcb2}'
+],
+), 
     r"fun": EmojiKeyword(emojis: [
     '\u{d83e}\u{dd73}'
 ],
@@ -9054,6 +9064,12 @@ const kEmojiAtlas = EmojiAtlas(
 ), 
     r"flag_nr": EmojiKeyword(emojis: [
     '\u{d83c}\u{ddf3}\u{d83c}\u{ddf7}'
+],
+), 
+    r"oink": EmojiKeyword(emojis: [
+    '\u{d83d}\u{dc37}', 
+    '\u{d83d}\u{dc16}', 
+    '\u{d83d}\u{dc3d}'
 ],
 ), 
     r"woman's sandal": EmojiKeyword(emojis: [
@@ -14168,6 +14184,10 @@ const kEmojiAtlas = EmojiAtlas(
     '\u{d83c}\u{df33}'
 ],
 ), 
+    r"slide": EmojiKeyword(emojis: [
+    '\u{d83d}\u{dedd}'
+],
+), 
     r"speech balloon": EmojiKeyword(emojis: [
     '\u{d83d}\u{dcac}'
 ],
@@ -16658,10 +16678,6 @@ const kEmojiAtlas = EmojiAtlas(
 ), 
     r"oasis": EmojiKeyword(emojis: [
     '\u{d83c}\u{dfdd}'
-],
-), 
-    r"bank": EmojiKeyword(emojis: [
-    '\u{d83c}\u{dfe6}'
 ],
 ), 
     r"green check": EmojiKeyword(emojis: [
@@ -20432,7 +20448,8 @@ const kEmojiAtlas = EmojiAtlas(
 ],
 ), 
     r"amazed": EmojiKeyword(emojis: [
-    '\u{d83e}\u{dd2d}'
+    '\u{d83e}\u{dd2d}', 
+    '\u{d83e}\u{dd29}'
 ],
 ), 
     r"raised fist": EmojiKeyword(emojis: [
@@ -30274,6 +30291,10 @@ const kEmojiAtlas = EmojiAtlas(
     '\u{d83c}\u{df46}'
 ],
 ), 
+    r"банка": EmojiKeyword(emojis: [
+    '\u{d83e}\u{ded9}'
+],
+), 
     r"огонь": EmojiKeyword(emojis: [
     '\u{d83d}\u{dd25}', 
     '\u{d83d}\u{dcdb}'
@@ -31284,6 +31305,11 @@ const kEmojiAtlas = EmojiAtlas(
     '\u{d83d}\u{dc69}\u{200d}\u{d83d}\u{dcbc}', 
     '\u{d83d}\u{dc68}\u{200d}\u{d83d}\u{dcbb}', 
     '\u{d83d}\u{dc69}\u{200d}\u{d83d}\u{dcbb}'
+],
+), 
+    r"айфон": EmojiKeyword(emojis: [
+    '\u{d83c}\u{df4f}', 
+    '\u{d83d}\u{dcf1}'
 ],
 ), 
     r"кости": EmojiKeyword(emojis: [
@@ -33099,6 +33125,10 @@ const kEmojiAtlas = EmojiAtlas(
 ), 
     r"ловушка": EmojiKeyword(emojis: [
     '\u{d83e}\u{dea4}'
+],
+), 
+    r"ты": EmojiKeyword(emojis: [
+    '\u{d83e}\u{def5}'
 ],
 ), 
     r"ведение": EmojiKeyword(emojis: [
@@ -35523,10 +35553,6 @@ const kEmojiAtlas = EmojiAtlas(
 ), 
     r"забытый багаж": EmojiKeyword(emojis: [
     '\u{d83d}\u{dec5}'
-],
-), 
-    r"айфон": EmojiKeyword(emojis: [
-    '\u{d83d}\u{dcf1}'
 ],
 ), 
     r"белый восклицательный знак": EmojiKeyword(emojis: [
