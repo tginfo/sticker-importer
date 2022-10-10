@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sticker_import/components/flutter/fade_in_image.dart';
 import 'package:sticker_import/components/flutter/vk_image.dart';
+import 'package:sticker_import/components/ui/emoji/route.dart';
 import 'package:sticker_import/flows/user/store/pack.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -699,6 +700,24 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
+      IconButton(
+        icon: const Icon(Icons.emoji_emotions_rounded),
+        onPressed: () async {
+          final m = await Navigator.of(context).push<Set<String>>(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return EmojiPickerScreen(
+                  singleEmojiMode: true,
+                  emojis: const {},
+                  placeholder: S.of(context).pick_emoji_sticker_search,
+                );
+              },
+            ),
+          );
+
+          query = m?.join() ?? '';
+        },
+      ),
       IconButton(
         icon: const Icon(Icons.clear_rounded),
         onPressed: () {

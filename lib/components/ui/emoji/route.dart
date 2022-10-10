@@ -5,9 +5,16 @@ import 'package:sticker_import/generated/emoji_metadata.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
 class EmojiPickerScreen extends StatefulWidget {
-  const EmojiPickerScreen({required this.emojis, Key? key}) : super(key: key);
+  const EmojiPickerScreen({
+    required this.emojis,
+    required this.placeholder,
+    this.singleEmojiMode = false,
+    super.key,
+  });
 
   final Set<String> emojis;
+  final bool singleEmojiMode;
+  final String placeholder;
 
   @override
   State<EmojiPickerScreen> createState() => _EmojiPickerScreenState();
@@ -20,10 +27,17 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
   void initState() {
     super.initState();
 
-    emojis = widget.emojis;
+    emojis = Set.from(widget.emojis);
   }
 
   void handleEmoji(String emoji) {
+    if (widget.singleEmojiMode) {
+      emojis.clear();
+      emojis.add(emoji);
+      Navigator.of(context).pop(emojis);
+      return;
+    }
+
     if (emojis.length >= 20) return;
 
     setState(() {
@@ -56,7 +70,12 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
                   delegate: EmojiSearchDelegate(
                     emojis: emojis,
                     removeEmoji: removeEmoji,
-                    addEmoji: handleEmoji,
+                    addEmoji: (s) {
+                      if (widget.singleEmojiMode) Navigator.of(context).pop();
+                      handleEmoji(s);
+                    },
+                    singleEmojiMode: widget.singleEmojiMode,
+                    placeholder: widget.placeholder,
                   ),
                 );
 
@@ -70,15 +89,17 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Center(
-                child: PickedEmojiList(
-                  emojis: emojis,
-                  removeEmoji: removeEmoji,
+            if (!widget.singleEmojiMode)
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: PickedEmojiList(
+                    emojis: emojis,
+                    removeEmoji: removeEmoji,
+                    placeholder: widget.placeholder,
+                  ),
                 ),
               ),
-            ),
             Expanded(
               child: EmojiPicker(
                 onEmojiSelected: (emoji) {
@@ -101,10 +122,12 @@ class PickedEmojiList extends StatelessWidget {
     Key? key,
     required this.emojis,
     required this.removeEmoji,
+    required this.placeholder,
   }) : super(key: key);
 
   final Set<String> emojis;
   final void Function(String emoji) removeEmoji;
+  final String placeholder;
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +136,7 @@ class PickedEmojiList extends StatelessWidget {
       child: _PickedEmojiListContent(
         emojis: emojis,
         removeEmoji: removeEmoji,
+        placeholder: placeholder,
       ),
     );
   }
@@ -123,10 +147,12 @@ class _PickedEmojiListContent extends StatelessWidget {
     Key? key,
     required this.emojis,
     required this.removeEmoji,
+    required this.placeholder,
   }) : super(key: key);
 
   final Set<String> emojis;
   final void Function(String emoji) removeEmoji;
+  final String placeholder;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +160,7 @@ class _PickedEmojiListContent extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.all(15),
         child: Text(
-          S.of(context).pick_emoji,
+          placeholder,
           textAlign: TextAlign.center,
         ),
       );
@@ -176,11 +202,15 @@ class EmojiSearchDelegate extends SearchDelegate<String> {
     required this.emojis,
     required this.removeEmoji,
     required this.addEmoji,
+    required this.placeholder,
+    required this.singleEmojiMode,
   });
 
   final Set<String> emojis;
   final void Function(String emoji) removeEmoji;
   final void Function(String emoji) addEmoji;
+  final String placeholder;
+  final bool singleEmojiMode;
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -256,15 +286,17 @@ class EmojiSearchDelegate extends SearchDelegate<String> {
     return StatefulBuilder(builder: (context, setState) {
       return Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Center(
-              child: PickedEmojiList(
-                emojis: emojis,
-                removeEmoji: (e) => setState(() => removeEmoji(e)),
+          if (!singleEmojiMode)
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Center(
+                child: PickedEmojiList(
+                  emojis: emojis,
+                  removeEmoji: (e) => setState(() => removeEmoji(e)),
+                  placeholder: placeholder,
+                ),
               ),
             ),
-          ),
           Expanded(
             child: EmojiGridViewBuilder(
               category: list,

@@ -158,6 +158,9 @@ class StickerChooserRouteState extends State<StickerChooserRoute> {
                                       builder: (BuildContext context) {
                                         return EmojiPickerScreen(
                                           emojis: emoji[n],
+                                          placeholder: S
+                                              .of(context)
+                                              .pick_emoji_sticker_suggestion,
                                         );
                                       },
                                     ),

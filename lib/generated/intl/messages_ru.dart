@@ -192,7 +192,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "out_of": MessageLookupByLibrary.simpleMessage("из"),
         "pack_not_found": m3,
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
-        "pick_emoji": MessageLookupByLibrary.simpleMessage(
+        "pick_emoji_sticker_search": MessageLookupByLibrary.simpleMessage(
+            "Выберите эмодзи, чтобы начать поиск стикеров"),
+        "pick_emoji_sticker_suggestion": MessageLookupByLibrary.simpleMessage(
             "Выберите несколько эмодзи, которые будут использоваться для подсказок стикеров в Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Подготовьте набор"),

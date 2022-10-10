@@ -192,7 +192,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "out_of": MessageLookupByLibrary.simpleMessage("of"),
         "pack_not_found": m3,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "pick_emoji": MessageLookupByLibrary.simpleMessage(
+        "pick_emoji_sticker_search": MessageLookupByLibrary.simpleMessage(
+            "Pick an emoji to search for stickers"),
+        "pick_emoji_sticker_suggestion": MessageLookupByLibrary.simpleMessage(
             "Pick some emoji, so they will be used for sticker suggestions in Telegram"),
         "prepare_pack":
             MessageLookupByLibrary.simpleMessage("Prepare your pack"),

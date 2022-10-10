@@ -177,6 +177,11 @@ class TginfoMoverApp extends StatelessWidget {
           color: Color(0xFFAC1B24),
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: theme.textTheme.copyWith(
+            headline6: theme.textTheme.headline6!.copyWith(
+          fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
+          inherit: true,
+        )),
       ),
       darkTheme: darkTheme.copyWith(
         appBarTheme: AppBarTheme(
@@ -248,6 +253,11 @@ class TginfoMoverApp extends StatelessWidget {
           ),
         ),
         indicatorColor: Colors.white,
+        textTheme: darkTheme.textTheme.copyWith(
+            headline6: darkTheme.textTheme.headline6!.copyWith(
+          fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
+          inherit: true,
+        )),
       ),
       home: const StartRoute(),
       localizationsDelegates: const [

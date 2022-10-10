@@ -1323,10 +1323,20 @@ class S {
   }
 
   /// `Pick some emoji, so they will be used for sticker suggestions in Telegram`
-  String get pick_emoji {
+  String get pick_emoji_sticker_suggestion {
     return Intl.message(
       'Pick some emoji, so they will be used for sticker suggestions in Telegram',
-      name: 'pick_emoji',
+      name: 'pick_emoji_sticker_suggestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick an emoji to search for stickers`
+  String get pick_emoji_sticker_search {
+    return Intl.message(
+      'Pick an emoji to search for stickers',
+      name: 'pick_emoji_sticker_search',
       desc: '',
       args: [],
     );
