@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
         "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),
+        "all_stickers_section":
+            MessageLookupByLibrary.simpleMessage("All stickers"),
         "and_also": MessageLookupByLibrary.simpleMessage("and also"),
         "animals_and_nature":
             MessageLookupByLibrary.simpleMessage("Animals & Nature"),
@@ -180,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_recents": MessageLookupByLibrary.simpleMessage("No Recents"),
         "no_sticker_search_results":
             MessageLookupByLibrary.simpleMessage("No stickers found"),
+        "no_suggestions_section":
+            MessageLookupByLibrary.simpleMessage("No suggestions"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
         "not_installed": MessageLookupByLibrary.simpleMessage(

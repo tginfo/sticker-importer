@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
         "all_stickers": MessageLookupByLibrary.simpleMessage("Все стикеры"),
+        "all_stickers_section":
+            MessageLookupByLibrary.simpleMessage("Все стикеры"),
         "and_also": MessageLookupByLibrary.simpleMessage("а также"),
         "animals_and_nature":
             MessageLookupByLibrary.simpleMessage("Животные и природа"),
@@ -180,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_recents": MessageLookupByLibrary.simpleMessage("История пуста"),
         "no_sticker_search_results":
             MessageLookupByLibrary.simpleMessage("Таких стикеров не найдено"),
+        "no_suggestions_section":
+            MessageLookupByLibrary.simpleMessage("Без подсказок"),
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),
         "not_installed": MessageLookupByLibrary.simpleMessage(

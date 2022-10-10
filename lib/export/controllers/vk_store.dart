@@ -193,7 +193,7 @@ class VkStoreUrlExportController extends VkStoreExportController
       (await account.vk.call(
         'store.getStockItemByProductId',
         <String, String>{
-          'product_id': id.toString(),
+          'product_id': stickerTarget!.id.toString(),
           'type': 'stickers',
           'extended': '1',
         },

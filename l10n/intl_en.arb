@@ -170,5 +170,7 @@
     "no_added_stickers": "No added stickers",
     "no_added_stickers_help": "This page will conveniently display stickers you added to your library on VK.com",
     "active": "Active",
-    "purchased": "All"
+    "purchased": "All",
+    "no_suggestions_section": "No suggestions",
+    "all_stickers_section": "All stickers"
 }

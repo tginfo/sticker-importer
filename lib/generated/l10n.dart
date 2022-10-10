@@ -1761,6 +1761,26 @@ class S {
       args: [],
     );
   }
+
+  /// `No suggestions`
+  String get no_suggestions_section {
+    return Intl.message(
+      'No suggestions',
+      name: 'no_suggestions_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All stickers`
+  String get all_stickers_section {
+    return Intl.message(
+      'All stickers',
+      name: 'all_stickers_section',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
