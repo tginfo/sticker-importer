@@ -17,7 +17,7 @@ class VkStickerStore {
     final req = await account.vk.call(
       'catalog.getStickers',
       <String, String>{},
-      isTraced: false,
+      isTraced: kDebugMode,
     );
 
     final sections =
@@ -228,7 +228,7 @@ class VkStickerStoreSection {
           'extended': '1',
           if (nextFrom != null) 'start_from': nextFrom,
         },
-        isTraced: false,
+        isTraced: kDebugMode,
         lazyInterpretation: true,
       ));
       data.allowInterpretation!(false);
@@ -433,7 +433,7 @@ class VkStickerStorePack extends VkStickerStorePackBase {
           'extended': '1',
           if (nextFrom != null) 'start_from': nextFrom,
         },
-        isTraced: false,
+        isTraced: kDebugMode,
         lazyInterpretation: true,
       ));
       data.allowInterpretation!(false);
@@ -563,6 +563,7 @@ class VkStickerLibrary {
 
     scheduleMicrotask(() async {
       try {
+        await account.fire();
         final res = await account.vk.execute(
           'sticker_lib',
           <String, dynamic>{
@@ -570,7 +571,7 @@ class VkStickerLibrary {
             'count': perPage,
             'filters': activeOnly ? 'active' : 'purchased',
           },
-          isTraced: false,
+          isTraced: kDebugMode,
           lazyInterpretation: true,
         );
         res.allowInterpretation!(false);

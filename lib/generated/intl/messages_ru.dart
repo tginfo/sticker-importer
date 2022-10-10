@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(count) =>
       "${Intl.plural(count, zero: 'стикеров', one: 'стикер', two: 'стикера', few: 'стикеров', many: 'стикеров', other: 'стикеров')}";
 
+  static String m3(uri) =>
+      "Не удалось определить ID для ${uri}. Проверьте правильность ссылки.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("О программе"),
@@ -187,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open_in_browser":
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
         "out_of": MessageLookupByLibrary.simpleMessage("из"),
+        "pack_not_found": m3,
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "pick_emoji": MessageLookupByLibrary.simpleMessage(
             "Выберите несколько эмодзи, которые будут использоваться для подсказок стикеров в Telegram"),

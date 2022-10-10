@@ -12,6 +12,7 @@ class LogoAsset extends StatelessWidget {
             ? 'assets/logo-dark.webp'
             : 'assets/logo.webp',
         width: 200.0,
+        height: 27.0,
       ),
     );
   }

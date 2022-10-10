@@ -84,6 +84,7 @@
     "github": "GitHub",
     "source_code": "Исходный код",
     "no_error_details": "Нет дополнительных сведений об этой ошибке",
+    "pack_not_found": "Не удалось определить ID для {uri}. Проверьте правильность ссылки.",
     "detailed_logging": "Отладка",
     "detailed_logging_info": "Потребляет много ОЗУ",
     "save_logs": "Сохранить логи",

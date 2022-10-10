@@ -102,6 +102,7 @@ class UserList {
 
   static void connectToGui(Account account, BuildContext context) {
     account.vk.language = S.of(context).code;
+    account.vk.onRequestStateChange = iLog;
     account.vk.onCaptcha = (r) async {
       final lang = S.of(context);
       final String imgUrl = r.asJson()!['captcha_img'] as String;

@@ -3,7 +3,9 @@ import 'package:sticker_import/components/ui/body_padding.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
 import 'package:sticker_import/components/ui/round_button.dart';
+import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/export/controllers/vk.dart';
+import 'package:sticker_import/export/controllers/vk_store.dart';
 import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/user/actions.dart';
 import 'package:sticker_import/flows/user/store/store.dart';
@@ -69,8 +71,40 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
       return;
     }
 
-    final account = Account.from('', 0, language: S.of(context).code);
-    account.vk.onRequestStateChange = iLog;
+    final ExportController controller;
+
+    if (isWithEmojiSuggestions) {
+      final account = await getCurrentAccount(
+        context,
+        intent: VkAuthIntent.suggestions,
+      );
+      if (account == null) {
+        return;
+      }
+
+      controller = VkStoreUrlExportController(
+        account: account,
+        uri: u,
+        isWithBorder: isWithBorder,
+        context: context,
+        onStyleChooser: (styles) => chooseYourFighter(context, styles),
+        onShouldUseAnimated: () => shouldUseAnimated(context),
+      );
+    } else {
+      final account = Account.from('', 0, language: S.of(context).code);
+      account.vk.onRequestStateChange = iLog;
+
+      controller = VkExportController(
+        account: account,
+        uri: u,
+        isWithBorder: isWithBorder,
+        context: context,
+        onStyleChooser: (styles) => chooseYourFighter(context, styles),
+        onShouldUseAnimated: () => shouldUseAnimated(context),
+      );
+    }
+
+    if (!mounted) return;
 
     urlController.clear();
 
@@ -79,14 +113,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
       MaterialPageRoute<dynamic>(
         builder: (BuildContext context) {
           return ExportProgressFlow(
-            controller: VkExportController(
-              account: account,
-              uri: u,
-              isWithBorder: isWithBorder,
-              context: context,
-              onStyleChooser: (styles) => chooseYourFighter(context, styles),
-              onShouldUseAnimated: () => shouldUseAnimated(context),
-            ),
+            controller: controller,
           );
         },
       ),

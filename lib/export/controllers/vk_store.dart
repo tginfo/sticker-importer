@@ -1,26 +1,32 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sticker_import/export/controllers/model.dart';
 import 'package:sticker_import/generated/emoji_metadata.dart';
 import 'package:sticker_import/services/connection/account.dart';
 import 'package:sticker_import/services/connection/store.dart';
 
+import 'common/mixins.dart';
+
 class VkStoreExportController extends ExportController {
   final Account account;
-  final VkStickerStoreStyle style;
+  VkStickerStoreStyle style;
   final bool isWithBorder;
   @override
-  final bool isAnimated;
+  bool isAnimated;
 
   VkStoreExportController({
     required this.account,
     required this.style,
     required this.isWithBorder,
     required this.isAnimated,
+    Future<bool> Function()? onShouldUseAnimated,
+    Future<StickerStyle> Function(List<StickerStyle>)? onStyleChooser,
   }) : super(
-          onShouldUseAnimated: () => Future.value(isAnimated),
-          onStyleChooser: (styles) => Future.value(styles[0]),
+          onShouldUseAnimated:
+              onShouldUseAnimated ?? () => Future.value(isAnimated),
+          onStyleChooser: onStyleChooser ?? (styles) => Future.value(styles[0]),
         );
 
   @override
@@ -38,7 +44,6 @@ class VkStoreExportController extends ExportController {
   @override
   List<Set<String>>? emojiSuggestions = [];
 
-  // TODO: Make code reusable
   @override
   Future<void> worker() async {
     setState(() {
@@ -139,5 +144,62 @@ class VkStoreExportController extends ExportController {
     setState(() {
       state = ExportControllerState.done;
     });
+  }
+}
+
+class VkStoreUrlExportController extends VkStoreExportController
+    with VkStickerStoreUrlGet {
+  VkStoreUrlExportController({
+    required this.uri,
+    required this.context,
+    required super.account,
+    required super.isWithBorder,
+    required super.onStyleChooser,
+    required super.onShouldUseAnimated,
+  }) : super(
+            isAnimated: false,
+            style: const VkStickerStoreStyle(
+              id: 0,
+              domain: '',
+              isAnimated: false,
+              title: '',
+              image: '',
+            ));
+
+  @override
+  final Uri uri;
+
+  @override
+  final BuildContext context;
+
+  @override
+  int? id;
+
+  @override
+  Map<String, dynamic>? info;
+
+  @override
+  StickerStyle? stickerTarget;
+
+  @override
+  bool isInited = false;
+
+  @override
+  Future<void> warmup() async {
+    // Handles possible multiple styles and animated stickers
+    await getByUrlWarmup();
+
+    style = VkStickerStorePack.fromJson(
+      (await account.vk.call(
+        'store.getStockItemByProductId',
+        <String, String>{
+          'product_id': id.toString(),
+          'type': 'stickers',
+          'extended': '1',
+        },
+      ))
+          .asJson()['response'] as Map<String, dynamic>,
+    ).styles[0];
+    return super.warmup();
   }
 }

@@ -882,6 +882,16 @@ class S {
     );
   }
 
+  /// `Pack ID is not found for {uri}. Check if your link is correct.`
+  String pack_not_found(Object uri) {
+    return Intl.message(
+      'Pack ID is not found for $uri. Check if your link is correct.',
+      name: 'pack_not_found',
+      desc: '',
+      args: [uri],
+    );
+  }
+
   /// `No error details available`
   String get no_error_details {
     return Intl.message(

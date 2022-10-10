@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(count) =>
       "${Intl.plural(count, one: 'sticker', other: 'stickers')}";
 
+  static String m3(uri) =>
+      "Pack ID is not found for ${uri}. Check if your link is correct.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_program": MessageLookupByLibrary.simpleMessage("About"),
@@ -187,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "out_of": MessageLookupByLibrary.simpleMessage("of"),
+        "pack_not_found": m3,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pick_emoji": MessageLookupByLibrary.simpleMessage(
             "Pick some emoji, so they will be used for sticker suggestions in Telegram"),

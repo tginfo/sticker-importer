@@ -83,6 +83,7 @@
     "continue_btn": "Continue",
     "github": "GitHub",
     "source_code": "Source code",
+    "pack_not_found": "Pack ID is not found for {uri}. Check if your link is correct.",
     "no_error_details": "No error details available",
     "detailed_logging": "Detailed logging",
     "detailed_logging_info": "Consumes more RAM",
