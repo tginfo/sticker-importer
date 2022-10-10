@@ -18,6 +18,7 @@ class LoginRoute extends StatefulWidget {
 class _LoginRouteState extends State<LoginRoute> {
   final loginController = TextEditingController();
   final passwordController = TextEditingController();
+  var isPasswordObscured = true;
 
   @override
   void dispose() {
@@ -146,12 +147,22 @@ class _LoginRouteState extends State<LoginRoute> {
                       const SizedBox(height: 20.0),
                       TextFormField(
                         controller: passwordController,
-                        obscureText: true,
+                        obscureText: isPasswordObscured,
                         autofillHints: const [AutofillHints.password],
                         decoration: InputDecoration(
                           labelText: S.of(context).password,
                           border: const OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.lock_rounded),
+                          suffixIcon: IconButton(
+                            icon: isPasswordObscured
+                                ? const Icon(Icons.visibility_rounded)
+                                : const Icon(Icons.visibility_off_rounded),
+                            onPressed: () {
+                              setState(() {
+                                isPasswordObscured = !isPasswordObscured;
+                              });
+                            },
+                          ),
                         ),
                         textInputAction: TextInputAction.go,
                         onEditingComplete: authFunc,
