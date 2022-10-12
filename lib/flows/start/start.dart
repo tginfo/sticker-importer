@@ -8,7 +8,7 @@ import 'package:sticker_import/export/controllers/vk.dart';
 import 'package:sticker_import/export/controllers/vk_store.dart';
 import 'package:sticker_import/flows/export/progress.dart';
 import 'package:sticker_import/flows/user/actions.dart';
-import 'package:sticker_import/flows/user/store/store.dart';
+import 'package:sticker_import/flows/user/store/open_store.dart';
 import 'package:sticker_import/flows/user/vmoji.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/account.dart';
@@ -264,31 +264,8 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                   ),
                   Center(
                     child: OutlinedButton(
-                      onPressed: () async {
-                        final navigator = Navigator.of(context);
-                        if (await getDoNotAskAboutStickerStoreLogin()) {
-                          launchStickerStoreInWeb(context);
-                          return;
-                        }
-
-                        final account = await getCurrentAccount(
-                          context,
-                          intent: VkAuthIntent.store,
-                        );
-
-                        if (account == null) return;
-
-                        // ignore: unawaited_futures
-                        navigator.push<void>(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return AccountData(
-                                account: account,
-                                child: const VkStickerStoreRoute(),
-                              );
-                            },
-                          ),
-                        );
+                      onPressed: () {
+                        openStickerStore(context);
                       },
                       child: Text(S.of(context).vk_sticker_store),
                     ),

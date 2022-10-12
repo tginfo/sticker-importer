@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `tginfoen`
+  String get tginfo_tag {
+    return Intl.message(
+      'tginfoen',
+      name: 'tginfo_tag',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `https://t.me/tginfoen`
   String get tginfo_link {
     return Intl.message(
@@ -175,16 +185,6 @@ class S {
     return Intl.message(
       'If you have any questions or suggestions, please contact us',
       name: 'feedback_desc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `https://t.me/infowritebot?start=stickerimporter`
-  String get feedback_url {
-    return Intl.message(
-      'https://t.me/infowritebot?start=stickerimporter',
-      name: 'feedback_url',
       desc: '',
       args: [],
     );
@@ -667,36 +667,6 @@ class S {
     return Intl.message(
       'No Recents',
       name: 'no_recents',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Done!`
-  String get done_exc {
-    return Intl.message(
-      'Done!',
-      name: 'done_exc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Thank you for using Sticker Importer. This program was developed by Telegram Info.`
-  String get done_exc_block1 {
-    return Intl.message(
-      'Thank you for using Sticker Importer. This program was developed by Telegram Info.',
-      name: 'done_exc_block1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Telegram Info is a non-commercial project which exists thanks to your support. Our mission is helping spreading the knowledge about Telegram, making it more open and accessible this way.`
-  String get done_exc_block2 {
-    return Intl.message(
-      'Telegram Info is a non-commercial project which exists thanks to your support. Our mission is helping spreading the knowledge about Telegram, making it more open and accessible this way.',
-      name: 'done_exc_block2',
       desc: '',
       args: [],
     );
@@ -1777,6 +1747,76 @@ class S {
     return Intl.message(
       'All stickers',
       name: 'all_stickers_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import is done`
+  String get import_is_done {
+    return Intl.message(
+      'Import is done',
+      name: 'import_is_done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message(
+      'Retry',
+      name: 'retry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize`
+  String get customize {
+    return Intl.message(
+      'Customize',
+      name: 'customize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Sticker Store`
+  String get go_to_sticker_store {
+    return Intl.message(
+      'Go to Sticker Store',
+      name: 'go_to_sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe `
+  String get subscribe_tg_channel_up_sell_part_1 {
+    return Intl.message(
+      'Subscribe ',
+      name: 'subscribe_tg_channel_up_sell_part_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` for Telegram news and more services`
+  String get subscribe_tg_channel_up_sell_part_2 {
+    return Intl.message(
+      ' for Telegram news and more services',
+      name: 'subscribe_tg_channel_up_sell_part_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source code on GitHub`
+  String get source_code_on_github {
+    return Intl.message(
+      'Source code on GitHub',
+      name: 'source_code_on_github',
       desc: '',
       args: [],
     );

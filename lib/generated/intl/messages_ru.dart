@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continue_importing":
             MessageLookupByLibrary.simpleMessage("Продолжить импорт"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
+        "customize": MessageLookupByLibrary.simpleMessage("Настроить"),
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),
         "customize_your_pack_info": MessageLookupByLibrary.simpleMessage(
@@ -83,11 +84,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Больше не спрашивать"),
         "donate": MessageLookupByLibrary.simpleMessage("Пожертвование"),
         "done": MessageLookupByLibrary.simpleMessage("Готово"),
-        "done_exc": MessageLookupByLibrary.simpleMessage("Готово!"),
-        "done_exc_block1": MessageLookupByLibrary.simpleMessage(
-            "Благодарим за использование Sticker Importer. Данная программа разработана Telegram Info."),
-        "done_exc_block2": MessageLookupByLibrary.simpleMessage(
-            "Telegram Info это некоммерческий проект, который существует только благодаря вашей поддержке. Наша цель — доносить информацию о Telegram и его сервисах, делая их более открытыми и доступными."),
         "download": MessageLookupByLibrary.simpleMessage("Скачать"),
         "downloaded_n": MessageLookupByLibrary.simpleMessage("Загружено"),
         "emoji_type_to_search":
@@ -116,8 +112,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "feedback": MessageLookupByLibrary.simpleMessage("Оставить отзыв"),
         "feedback_desc": MessageLookupByLibrary.simpleMessage(
             "Если у вас есть вопросы или предложения, напишите нам"),
-        "feedback_url": MessageLookupByLibrary.simpleMessage(
-            "https://t.me/infowritebot?start=stickerimporter"),
         "field_required":
             MessageLookupByLibrary.simpleMessage("Обязательное поле"),
         "fill_all_fields":
@@ -128,9 +122,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "food_and_drink": MessageLookupByLibrary.simpleMessage("Еда и напитки"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Назад"),
+        "go_to_sticker_store":
+            MessageLookupByLibrary.simpleMessage("Перейти в магазин стикеров"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Перейти в VK ID"),
         "i_changed_my_mind":
             MessageLookupByLibrary.simpleMessage("Я передумал"),
+        "import_is_done":
+            MessageLookupByLibrary.simpleMessage("Импорт завершён"),
         "import_settings":
             MessageLookupByLibrary.simpleMessage("Настройка импорта"),
         "import_to_telegram":
@@ -206,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Недавние эмодзи"),
         "remove": MessageLookupByLibrary.simpleMessage("Удалить"),
         "resume": MessageLookupByLibrary.simpleMessage("Продолжить"),
+        "retry": MessageLookupByLibrary.simpleMessage("Повторить"),
         "retrying": MessageLookupByLibrary.simpleMessage("Пробуем ещё раз..."),
         "save_logs": MessageLookupByLibrary.simpleMessage("Сохранить логи"),
         "search_results":
@@ -219,6 +218,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sominemo": MessageLookupByLibrary.simpleMessage("Sominemo"),
         "sominemo_desc": MessageLookupByLibrary.simpleMessage("Разработчик"),
         "source_code": MessageLookupByLibrary.simpleMessage("Исходный код"),
+        "source_code_on_github":
+            MessageLookupByLibrary.simpleMessage("Исходный код на GitHub"),
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "start_typing_to_search_stickers": MessageLookupByLibrary.simpleMessage(
             "Начните печатать или выберите эмодзи, чтобы искать наборы и стикеры"),
@@ -239,6 +240,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "stop": MessageLookupByLibrary.simpleMessage("Стоп"),
         "stop_export_confirm": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите остановить задачу?"),
+        "subscribe_tg_channel_up_sell_part_1":
+            MessageLookupByLibrary.simpleMessage("Подпишитесь на "),
+        "subscribe_tg_channel_up_sell_part_2":
+            MessageLookupByLibrary.simpleMessage(
+                ", чтобы следить за новостями Telegram и другими сервисами"),
         "symbols": MessageLookupByLibrary.simpleMessage("Символы"),
         "t_continue": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "tap_to_change_account": MessageLookupByLibrary.simpleMessage(
@@ -249,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("https://t.me/tginfo"),
         "tginfo_sticker_importer":
             MessageLookupByLibrary.simpleMessage("Sticker Importer"),
+        "tginfo_tag": MessageLookupByLibrary.simpleMessage("tginfo"),
         "travel_and_places":
             MessageLookupByLibrary.simpleMessage("Места и путешествия"),
         "try_sending_request_again": MessageLookupByLibrary.simpleMessage(
