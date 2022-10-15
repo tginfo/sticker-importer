@@ -55,7 +55,11 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
 
     var u = Uri.parse(v);
 
-    u = u.replace(host: 'vk.com', scheme: 'https');
+    u = u.replace(
+      host: 'vk.com',
+      scheme: 'https',
+      port: 443,
+    );
 
     if ((u.pathSegments[0] == 'stickers' && u.pathSegments[1] == 'vmoji') ||
         u.queryParameters['stickers_id'] == '73622') {
@@ -162,6 +166,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                             ),
                             textInputAction: TextInputAction.go,
                             keyboardType: TextInputType.url,
+                            autofillHints: const [AutofillHints.url],
                             autocorrect: false,
                             onEditingComplete: () {
                               goOn(context, urlController);

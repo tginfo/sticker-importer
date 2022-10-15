@@ -72,7 +72,7 @@
     "animated": "Animated",
     "still": "Still Pictures",
     "not_all_animated": "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all",
-    "animated_stickers_support_note": "Note on animated stickers",
+    "animated_stickers_support_note": "Some stickers may be skipped",
     "animated_stickers_support_note_text": "This sticker pack is animated, so you can import it either as static images, or as animations.",
     "not_installed": "Telegram is not installed on your device, so we couldn't export the pack",
     "sticker_styles": "Sticker Styles",
@@ -176,5 +176,12 @@
     "go_to_sticker_store": "Go to Sticker Store",
     "subscribe_tg_channel_up_sell_part_1": "Subscribe ",
     "subscribe_tg_channel_up_sell_part_2": " for Telegram news and more services",
-    "source_code_on_github": "Source code on GitHub"
+    "source_code_on_github": "Source code on GitHub",
+    "vmoji_import": "Vmoji Import",
+    "vmoji_own_or_user": "Do you want to import your own or someone else's vmoji pack?",
+    "vmoji_own": "My own",
+    "vmoji_user": "Someone else's",
+    "vmoji_user_url_desc": "Enter the URL of the owner of the vmoji pack",
+    "vmoji_user_url": "User page URL",
+    "vmoji_user_does_not_use_vmoji": "This user doesn't use vmoji"
 }

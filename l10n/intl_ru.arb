@@ -72,7 +72,7 @@
     "animated": "Анимированный",
     "still": "Статичный",
     "not_all_animated": "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе",
-    "animated_stickers_support_note": "Анимированные стикеры",
+    "animated_stickers_support_note": "Некоторые стикеры могут быть упущены",
     "animated_stickers_support_note_text": "Этот набор – анимированный. Вы можете экспортировать стикеры в виде анимаций, или статичных изображений.",
     "not_installed": "Telegram не установлен на Вашем устройстве, поэтому экспорт не удался",
     "sticker_styles": "Стиль стикеров",
@@ -176,5 +176,12 @@
     "go_to_sticker_store": "Перейти в магазин стикеров",
     "subscribe_tg_channel_up_sell_part_1": "Подпишитесь на ",
     "subscribe_tg_channel_up_sell_part_2": ", чтобы следить за новостями Telegram и другими сервисами",
-    "source_code_on_github": "Исходный код на GitHub"
+    "source_code_on_github": "Исходный код на GitHub",
+    "vmoji_import": "Импорт vmoji",
+    "vmoji_own_or_user": "Желаете импортировать свой набор или набор другого пользователя?",
+    "vmoji_own": "Свой",
+    "vmoji_user": "Другого пользователя",
+    "vmoji_user_url_desc": "Введите ссылку на страницу владельца набора",
+    "vmoji_user_url": "Ссылка на страницу",
+    "vmoji_user_does_not_use_vmoji": "Этот пользователь не использует vmoji"
 }

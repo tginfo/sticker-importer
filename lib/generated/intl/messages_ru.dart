@@ -47,8 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Анимированный набор"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "Этот набор – анимированный. Желаете экспортировать стикеры в виде анимаций, или статичных изображений?"),
-        "animated_stickers_support_note":
-            MessageLookupByLibrary.simpleMessage("Анимированные стикеры"),
+        "animated_stickers_support_note": MessageLookupByLibrary.simpleMessage(
+            "Некоторые стикеры могут быть упущены"),
         "animated_stickers_support_note_text": MessageLookupByLibrary.simpleMessage(
             "Этот набор – анимированный. Вы можете экспортировать стикеры в виде анимаций, или статичных изображений."),
         "auth_code": MessageLookupByLibrary.simpleMessage("Код"),
@@ -292,6 +292,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "vk_sticker_store_web":
             MessageLookupByLibrary.simpleMessage("Открыть магазин в браузере"),
         "vmoji": MessageLookupByLibrary.simpleMessage("VK Vmoji"),
+        "vmoji_import": MessageLookupByLibrary.simpleMessage("Импорт vmoji"),
+        "vmoji_own": MessageLookupByLibrary.simpleMessage("Свой"),
+        "vmoji_own_or_user": MessageLookupByLibrary.simpleMessage(
+            "Желаете импортировать свой набор или набор другого пользователя?"),
+        "vmoji_user":
+            MessageLookupByLibrary.simpleMessage("Другого пользователя"),
+        "vmoji_user_does_not_use_vmoji": MessageLookupByLibrary.simpleMessage(
+            "Этот пользователь не использует vmoji"),
+        "vmoji_user_url":
+            MessageLookupByLibrary.simpleMessage("Ссылка на страницу"),
+        "vmoji_user_url_desc": MessageLookupByLibrary.simpleMessage(
+            "Введите ссылку на страницу владельца набора"),
         "warming_up": MessageLookupByLibrary.simpleMessage("Подготовка..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(

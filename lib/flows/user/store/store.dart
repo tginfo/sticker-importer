@@ -376,7 +376,7 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
       if (item.type == VkStickerStoreLayoutPackListType.slider) {
         return SizedBox(
           key: ValueKey(item),
-          height: 145,
+          height: 150,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: item.packs.length,
@@ -426,7 +426,7 @@ class VkStickerStoreLayoutWidget extends StatelessWidget {
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           mainAxisExtent: 215,
-          maxCrossAxisExtent: 145,
+          maxCrossAxisExtent: 150,
         ),
         itemCount: item.stickers.length,
         itemBuilder: (context, index) {
@@ -579,7 +579,7 @@ class VkPackImage extends VkStoreEntityImage {
     required VkStickerStorePack pack,
     required super.account,
   }) : super(
-          url: 'https://vk.com/sticker/packs/${pack.id}/icon/square_2x.png',
+          url: pack.image,
           isAnimated: pack.styles[0].isAnimated,
         );
 }

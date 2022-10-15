@@ -772,10 +772,10 @@ class S {
     );
   }
 
-  /// `Note on animated stickers`
+  /// `Some stickers may be skipped`
   String get animated_stickers_support_note {
     return Intl.message(
-      'Note on animated stickers',
+      'Some stickers may be skipped',
       name: 'animated_stickers_support_note',
       desc: '',
       args: [],
@@ -1817,6 +1817,76 @@ class S {
     return Intl.message(
       'Source code on GitHub',
       name: 'source_code_on_github',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vmoji Import`
+  String get vmoji_import {
+    return Intl.message(
+      'Vmoji Import',
+      name: 'vmoji_import',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to import your own or someone else's vmoji pack?`
+  String get vmoji_own_or_user {
+    return Intl.message(
+      'Do you want to import your own or someone else\'s vmoji pack?',
+      name: 'vmoji_own_or_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My own`
+  String get vmoji_own {
+    return Intl.message(
+      'My own',
+      name: 'vmoji_own',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Someone else's`
+  String get vmoji_user {
+    return Intl.message(
+      'Someone else\'s',
+      name: 'vmoji_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the URL of the owner of the vmoji pack`
+  String get vmoji_user_url_desc {
+    return Intl.message(
+      'Enter the URL of the owner of the vmoji pack',
+      name: 'vmoji_user_url_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User page URL`
+  String get vmoji_user_url {
+    return Intl.message(
+      'User page URL',
+      name: 'vmoji_user_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This user doesn't use vmoji`
+  String get vmoji_user_does_not_use_vmoji {
+    return Intl.message(
+      'This user doesn\'t use vmoji',
+      name: 'vmoji_user_does_not_use_vmoji',
       desc: '',
       args: [],
     );

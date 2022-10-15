@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:sticker_import/services/connection/constants.dart';
 import 'package:sticker_import/utils/debugging.dart';
@@ -85,4 +87,64 @@ class Account {
       },
     );
   }
+
+  Future<StickersImageConfig>? _stickersImageConfig;
+
+  Future<StickersImageConfig> getStickersImageConfig() {
+    if (_stickersImageConfig != null) return _stickersImageConfig!;
+
+    final completer = Completer<StickersImageConfig>();
+    _stickersImageConfig = completer.future;
+
+    () async {
+      try {
+        final Map<String, dynamic> data = ((await vk
+                    .call('store.getStickersImageConfigs', <String, String>{}))
+                .asJson() as Map<String, dynamic>)['response']
+            as Map<String, dynamic>;
+
+        completer.complete(StickersImageConfig(data));
+      } catch (error) {
+        _stickersImageConfig = null;
+        completer.completeError(error);
+      }
+    }();
+
+    return _stickersImageConfig!;
+  }
+}
+
+class StickersImageConfig {
+  String toUrl(
+    int id, {
+    int? configId,
+    int size = 512,
+    String format = 'png',
+    bool withBorder = false,
+  }) {
+    final config = (data['items'] as List<dynamic>).firstWhere(
+      (dynamic element) =>
+          (element as Map<String, dynamic>)['id'] ==
+          (configId ?? data['default_id'] as int),
+    ) as Map<String, dynamic>?;
+
+    if (config == null) {
+      throw Exception('Invalid config id $configId');
+    }
+
+    final String themeModifier = withBorder ? 'b' : '';
+
+    final url = (config['pattern'] as String)
+        .replaceAll('{image_id}', '$id')
+        .replaceAll('{size}', '$size')
+        .replaceAll('{theme_modifier}', themeModifier)
+        .replaceAll('{format}', '.$format')
+        .replaceAll('{version}', '');
+
+    return url;
+  }
+
+  final Map<String, dynamic> data;
+
+  const StickersImageConfig(this.data);
 }

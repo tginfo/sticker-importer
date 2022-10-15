@@ -199,6 +199,7 @@ class VkStoreUrlExportController extends VkStoreExportController
         },
       ))
           .asJson()['response'] as Map<String, dynamic>,
+      await account.getStickersImageConfig(),
     ).styles[0];
     return super.warmup();
   }

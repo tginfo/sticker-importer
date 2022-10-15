@@ -47,8 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Animated Stickers"),
         "animated_pack_info": MessageLookupByLibrary.simpleMessage(
             "This sticker pack is animated. Do you want to export it animated, or keep the stickers as still images?"),
-        "animated_stickers_support_note":
-            MessageLookupByLibrary.simpleMessage("Note on animated stickers"),
+        "animated_stickers_support_note": MessageLookupByLibrary.simpleMessage(
+            "Some stickers may be skipped"),
         "animated_stickers_support_note_text": MessageLookupByLibrary.simpleMessage(
             "This sticker pack is animated, so you can import it either as static images, or as animations."),
         "auth_code": MessageLookupByLibrary.simpleMessage("Code"),
@@ -291,6 +291,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "vk_sticker_store_web":
             MessageLookupByLibrary.simpleMessage("Open VK.com store in web"),
         "vmoji": MessageLookupByLibrary.simpleMessage("VK Vmoji"),
+        "vmoji_import": MessageLookupByLibrary.simpleMessage("Vmoji Import"),
+        "vmoji_own": MessageLookupByLibrary.simpleMessage("My own"),
+        "vmoji_own_or_user": MessageLookupByLibrary.simpleMessage(
+            "Do you want to import your own or someone else\'s vmoji pack?"),
+        "vmoji_user": MessageLookupByLibrary.simpleMessage("Someone else\'s"),
+        "vmoji_user_does_not_use_vmoji": MessageLookupByLibrary.simpleMessage(
+            "This user doesn\'t use vmoji"),
+        "vmoji_user_url": MessageLookupByLibrary.simpleMessage("User page URL"),
+        "vmoji_user_url_desc": MessageLookupByLibrary.simpleMessage(
+            "Enter the URL of the owner of the vmoji pack"),
         "warming_up": MessageLookupByLibrary.simpleMessage("Warming up..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(

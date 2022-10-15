@@ -40,6 +40,14 @@ class VkStickerStore {
   }
 }
 
+class BackgroundComputationRequestVkStickers {
+  final List<List<int>> response;
+  final StickersImageConfig stickerImageConfig;
+
+  const BackgroundComputationRequestVkStickers(
+      this.response, this.stickerImageConfig);
+}
+
 class BackgroundComputationResultVkStoreLayout {
   final List<VkStickerStoreLayout> list;
   final String? nextFrom;
@@ -47,24 +55,26 @@ class BackgroundComputationResultVkStoreLayout {
   const BackgroundComputationResultVkStoreLayout(this.list, this.nextFrom);
 }
 
-List<VkStickerStorePack> _decodeLibraryRequest(List<List<int>> response) {
-  final data =
-      (jsonDecode(utf8.decode(response.expand((element) => element).toList()))
-          as Map<String, dynamic>)['response'] as List<dynamic>;
+List<VkStickerStorePack> _decodeLibraryRequest(
+    BackgroundComputationRequestVkStickers external) {
+  final data = (jsonDecode(
+          utf8.decode(external.response.expand((element) => element).toList()))
+      as Map<String, dynamic>)['response'] as List<dynamic>;
 
   return data
       .map((dynamic e) => VkStickerStorePack.fromJson(
             e as Map<String, dynamic>,
+            external.stickerImageConfig,
           ))
       .toList();
 }
 
 BackgroundComputationResultVkStoreLayout _decodeRequest(
-    List<List<int>> response) {
+    BackgroundComputationRequestVkStickers external) {
   final list = <VkStickerStoreLayout>[];
-  final data =
-      jsonDecode(utf8.decode(response.expand((element) => element).toList()))
-          as Map<String, dynamic>;
+  final data = jsonDecode(
+          utf8.decode(external.response.expand((element) => element).toList()))
+      as Map<String, dynamic>;
   final Map<String, dynamic> packs;
 
   if (data['response']['stickers_packs'] != null) {
@@ -80,12 +90,13 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
     packs = <String, dynamic>{};
   }
 
-  VkStickerStoreStickerAndPack findSticker(int id) {
+  VkStickerStoreStickerAndPack findSticker(int id, StickersImageConfig config) {
     for (final pack in packs.values) {
       final stickers = pack['product']['stickers'] as List<dynamic>;
       for (final sticker in stickers) {
         if (sticker['sticker_id'] == id) {
-          final p = VkStickerStorePack.fromJson(pack as Map<String, dynamic>);
+          final p =
+              VkStickerStorePack.fromJson(pack as Map<String, dynamic>, config);
           return VkStickerStoreStickerAndPack(
               sticker: p.styles[0].stickers!.firstWhere(
                 (element) => element.id == id,
@@ -137,6 +148,7 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
             for (final packId in packList)
               VkStickerStorePack.fromJson(
                 packs[packId] as Map<String, dynamic>,
+                external.stickerImageConfig,
               )
           ],
         ),
@@ -161,6 +173,7 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
             for (final packId in packList)
               VkStickerStorePack.fromJson(
                 packs[packId] as Map<String, dynamic>,
+                external.stickerImageConfig,
               )
           ],
         ),
@@ -171,7 +184,7 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
         stickers: [
           for (final sticker
               in (block['sticker_ids'] as List<dynamic>).cast<int>())
-            findSticker(sticker),
+            findSticker(sticker, external.stickerImageConfig),
         ],
       ));
     } else if (block['layout']['name'] == 'header' ||
@@ -181,7 +194,7 @@ BackgroundComputationResultVkStoreLayout _decodeRequest(
         title: block['layout']['title'] as String,
         buttons: [
           for (final button
-              in (block['buttons'] as List<dynamic>? ?? <dynamic>[])
+              in (block['actions'] as List<dynamic>? ?? <dynamic>[])
                   .cast<Map<String, dynamic>>())
             if (button['action']['type'] == 'open_section')
               VkStickerStoreLayoutSectionButton(
@@ -233,8 +246,13 @@ class VkStickerStoreSection {
       ));
       data.allowInterpretation!(false);
 
-      final BackgroundComputationResultVkStoreLayout res =
-          await compute(_decodeRequest, await data.response.toList());
+      final BackgroundComputationResultVkStoreLayout res = await compute(
+        _decodeRequest,
+        BackgroundComputationRequestVkStickers(
+          await data.response.toList(),
+          await account.getStickersImageConfig(),
+        ),
+      );
 
       completer.complete(res);
     });
@@ -378,7 +396,8 @@ class VkStickerStorePack extends VkStickerStorePackBase {
   });
 
   factory VkStickerStorePack.fromJson(
-    Map<String, dynamic> json, {
+    Map<String, dynamic> json,
+    StickersImageConfig config, {
     bool isVmoji = false,
   }) {
     final hasAnimation = json['product']['has_animation'] as bool? ?? false;
@@ -390,7 +409,7 @@ class VkStickerStorePack extends VkStickerStorePackBase {
       title: json['product']['title'] as String,
       description: json['description'] as String,
       author: json['author'] as String,
-      image: json['product']['icon'][1]['url'] as String,
+      image: '${json['product']['icon']['base_url'] as String}/square_2x.png',
       styles: [
         VkStickerStoreStyle(
           id: json['product']['id'] is String
@@ -398,7 +417,8 @@ class VkStickerStorePack extends VkStickerStorePackBase {
               : json['product']['id'] as int,
           domain: json['product']['url'] as String,
           title: json['product']['title'] as String,
-          image: json['product']['icon'][1]['url'] as String,
+          image:
+              '${json['product']['icon']['base_url'] as String}/square_2x.png',
           isAnimated: hasAnimation,
           stickers: [
             for (final sticker in json['product']['stickers'] as List<dynamic>)
@@ -406,14 +426,16 @@ class VkStickerStorePack extends VkStickerStorePackBase {
                 id: sticker['sticker_id'] as int,
                 thumbnail:
                     sticker['images_with_background'][1]['url'] as String,
-                imageWithoutBorder: isVmoji ||
-                        sticker['images']?[4]?['url'] != null
-                    ? sticker['images'][4]['url'] as String
-                    : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512',
+                imageWithoutBorder:
+                    isVmoji || sticker['images']?[4]?['url'] != null
+                        ? sticker['images'][4]['url'] as String
+                        : config.toUrl(sticker['sticker_id'] as int,
+                            withBorder: false),
                 imageWithBorder: isVmoji ||
                         sticker['images_with_background']?[4]?['url'] != null
                     ? sticker['images_with_background'][4]['url'] as String
-                    : 'https://vk.com/sticker/1-${sticker['sticker_id']}-512b',
+                    : config.toUrl(sticker['sticker_id'] as int,
+                        withBorder: true),
                 animation: sticker['animation_url'] as String?,
               ),
           ],
@@ -438,8 +460,13 @@ class VkStickerStorePack extends VkStickerStorePackBase {
       ));
       data.allowInterpretation!(false);
 
-      final BackgroundComputationResultVkStoreLayout res =
-          await compute(_decodeRequest, await data.response.toList());
+      final BackgroundComputationResultVkStoreLayout res = await compute(
+        _decodeRequest,
+        BackgroundComputationRequestVkStickers(
+          await data.response.toList(),
+          await account.getStickersImageConfig(),
+        ),
+      );
 
       if (res.list.isEmpty) break;
 
@@ -576,8 +603,13 @@ class VkStickerLibrary {
         );
         res.allowInterpretation!(false);
 
-        final c =
-            await compute(_decodeLibraryRequest, await res.response.toList());
+        final c = await compute(
+          _decodeLibraryRequest,
+          BackgroundComputationRequestVkStickers(
+            await res.response.toList(),
+            await account.getStickersImageConfig(),
+          ),
+        );
         completer.complete(c);
       } catch (e) {
         completer.completeError(e);
