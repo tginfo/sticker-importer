@@ -8,10 +8,10 @@ import 'package:sticker_import/flows/start/nav.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/connection/user_list.dart';
+import 'package:sticker_import/utils/chrome.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 import 'services/native/method_channels.dart';
-import 'utils/chrome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,9 +59,6 @@ class TginfoMoverApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sticker Importer',
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [
-        SystemChromeNavigationObserver(),
-      ],
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: NoOverscrollBehavior(),
@@ -268,28 +265,5 @@ class TginfoMoverApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
     );
-  }
-}
-
-class SystemChromeNavigationObserver
-    extends RouteObserver<ModalRoute<dynamic>> {
-  SystemChromeNavigationObserver();
-
-  @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    super.didPush(route, previousRoute);
-    updateBar();
-  }
-
-  @override
-  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
-    updateBar();
-  }
-
-  @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    super.didPop(route, previousRoute);
-    updateBar();
   }
 }

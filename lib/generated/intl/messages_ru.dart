@@ -163,7 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login":
             MessageLookupByLibrary.simpleMessage("Логин или номер телефона"),
         "login_with_vk_to":
-            MessageLookupByLibrary.simpleMessage("Войдите ВКонтакте чтобы:"),
+            MessageLookupByLibrary.simpleMessage("Войдите ВКонтакте, чтобы:"),
         "login_with_vk_to_library": MessageLookupByLibrary.simpleMessage(
             "Получить доступ к добавленным наборам стикеров"),
         "login_with_vk_to_search": MessageLookupByLibrary.simpleMessage(
