@@ -9,7 +9,7 @@ import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void checkUpdates(BuildContext context) async {
+Future<bool> checkUpdates(BuildContext context) async {
   final locale = S.of(context).code;
   final supportedAbis = (await DeviceInfoPlugin().androidInfo).supportedAbis;
 
@@ -71,7 +71,7 @@ void checkUpdates(BuildContext context) async {
   if (targetRelease == null || targetFile == null) {
     iLog(
         'No updates found: ${targetRelease == null ? 'No new package' : 'Asset not found'}');
-    return;
+    return false;
   }
 
   final changelog = targetRelease['body'] as String;
@@ -141,4 +141,6 @@ void checkUpdates(BuildContext context) async {
       );
     },
   );
+
+  return true;
 }

@@ -3,7 +3,7 @@
     "code": "en",
     "tginfo_sticker_importer": "Sticker Importer",
     "welcome": "Welcome",
-    "welcome_screen_description": "We can help you to move your stickers from VK.com and LINE to Telegram",
+    "welcome_screen_description": "We can help you to move your stickers from VK.com to Telegram",
     "about_program": "About",
     "version": "Version",
     "telegram_info": "Telegram Info",
@@ -74,7 +74,7 @@
     "not_all_animated": "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all",
     "animated_stickers_support_note": "Some stickers may be skipped",
     "animated_stickers_support_note_text": "This sticker pack is animated, so you can import it either as static images, or as animations.",
-    "not_installed": "Telegram is not installed on your device, so we couldn't export the pack",
+    "not_installed": "Telegram is not installed on your device, so we couldn't import the pack",
     "sticker_styles": "Sticker Styles",
     "sticker_styles_info": "This set has multiple sticker styles. Which one are you going with?",
     "continue_btn": "Continue",
@@ -183,5 +183,11 @@
     "vmoji_user": "Someone else's",
     "vmoji_user_url_desc": "Enter the URL of the owner of the vmoji pack",
     "vmoji_user_url": "User page URL",
-    "vmoji_user_does_not_use_vmoji": "This user doesn't use vmoji"
+    "vmoji_user_does_not_use_vmoji": "This user doesn't use vmoji",
+    "ahead_warning_not_installed": "You don't have Telegram installed, install it before using the app",
+    "ahead_warning_old": "Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app.",
+    "ahead_warning_telegram_x": "Telegram X doesn't support sticker import. Please use the official Telegram app.",
+    "importing_will_not_work": "Importing won't work",
+    "go_to_google_play": "Go to Google Play",
+    "ignore": "Ignore"
 }

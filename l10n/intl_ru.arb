@@ -3,7 +3,7 @@
     "code": "ru",
     "tginfo_sticker_importer": "Sticker Importer",
     "welcome": "Добро пожаловать",
-    "welcome_screen_description": "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram",
+    "welcome_screen_description": "Давайте перенесём ваши стикеры из ВКонтакте в Telegram",
     "about_program": "О программе",
     "version": "Версия",
     "telegram_info": "Telegram Info",
@@ -74,7 +74,7 @@
     "not_all_animated": "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе",
     "animated_stickers_support_note": "Некоторые стикеры могут быть упущены",
     "animated_stickers_support_note_text": "Этот набор – анимированный. Вы можете экспортировать стикеры в виде анимаций, или статичных изображений.",
-    "not_installed": "Telegram не установлен на Вашем устройстве, поэтому экспорт не удался",
+    "not_installed": "Telegram не установлен на Вашем устройстве, поэтому импорт не удался",
     "sticker_styles": "Стиль стикеров",
     "sticker_styles_info": "Этот набор имеет несколько стилей. Какой Вы желаете использовать?",
     "continue_btn": "Продолжить",
@@ -183,5 +183,11 @@
     "vmoji_user": "Другого пользователя",
     "vmoji_user_url_desc": "Введите ссылку на страницу владельца набора",
     "vmoji_user_url": "Ссылка на страницу",
-    "vmoji_user_does_not_use_vmoji": "Этот пользователь не использует vmoji"
+    "vmoji_user_does_not_use_vmoji": "Этот пользователь не использует vmoji",
+    "ahead_warning_not_installed": "У вас не установлен Telegram, установите его перед использованием приложения",
+    "ahead_warning_old": "Ваша версия Telegram устарела и не поддерживает импорт стикеров, обновите её перед использованием приложения. Минимальная версия: 7.4. Если вы используете неофициальную версию Telegram, попробуйте установить официальную версию из Google Play",
+    "ahead_warning_telegram_x": "Telegram X не поддерживает импорт стикеров. Пожалуйста, используйте официальное приложение.",
+    "importing_will_not_work": "Импорт не будет работать",
+    "go_to_google_play": "Перейти в Google Play",
+    "ignore": "Игнорировать"
 }

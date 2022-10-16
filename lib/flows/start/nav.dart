@@ -5,6 +5,7 @@ import 'package:sticker_import/flows/settings/about.dart';
 import 'package:sticker_import/flows/start/start.dart';
 import 'package:sticker_import/flows/user/actions.dart';
 import 'package:sticker_import/generated/l10n.dart';
+import 'package:sticker_import/utils/check_support.dart';
 import 'package:sticker_import/utils/check_updates.dart';
 
 enum StartRouteScreen { start, login, about }
@@ -42,8 +43,10 @@ class StartRouteState extends State<StartRoute> {
     super.initState();
 
     if (widget.tab == StartRouteScreen.start) {
-      Timer.run(() {
-        checkUpdates(context);
+      Timer.run(() async {
+        if (await checkUpdates(context)) return;
+
+        checkSupport(context);
       });
     }
   }

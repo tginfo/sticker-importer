@@ -36,6 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "active": MessageLookupByLibrary.simpleMessage("Активные"),
         "activity": MessageLookupByLibrary.simpleMessage("Занятия"),
         "add_account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
+        "ahead_warning_not_installed": MessageLookupByLibrary.simpleMessage(
+            "У вас не установлен Telegram, установите его перед использованием приложения"),
+        "ahead_warning_old": MessageLookupByLibrary.simpleMessage(
+            "Ваша версия Telegram устарела и не поддерживает импорт стикеров, обновите её перед использованием приложения. Минимальная версия: 7.4. Если вы используете неофициальную версию Telegram, попробуйте установить официальную версию из Google Play"),
+        "ahead_warning_telegram_x": MessageLookupByLibrary.simpleMessage(
+            "Telegram X не поддерживает импорт стикеров. Пожалуйста, используйте официальное приложение."),
         "all_stickers": MessageLookupByLibrary.simpleMessage("Все стикеры"),
         "all_stickers_section":
             MessageLookupByLibrary.simpleMessage("Все стикеры"),
@@ -122,17 +128,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "food_and_drink": MessageLookupByLibrary.simpleMessage("Еда и напитки"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Назад"),
+        "go_to_google_play":
+            MessageLookupByLibrary.simpleMessage("Перейти в Google Play"),
         "go_to_sticker_store":
             MessageLookupByLibrary.simpleMessage("Перейти в магазин стикеров"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Перейти в VK ID"),
         "i_changed_my_mind":
             MessageLookupByLibrary.simpleMessage("В другой раз"),
+        "ignore": MessageLookupByLibrary.simpleMessage("Игнорировать"),
         "import_is_done":
             MessageLookupByLibrary.simpleMessage("Импорт завершён"),
         "import_settings":
             MessageLookupByLibrary.simpleMessage("Настройка импорта"),
         "import_to_telegram":
             MessageLookupByLibrary.simpleMessage("Импортировать в Telegram"),
+        "importing_will_not_work":
+            MessageLookupByLibrary.simpleMessage("Импорт не будет работать"),
         "internet_error_info": MessageLookupByLibrary.simpleMessage(
             "Запрос не удался. Проверьте подключение к интернету и попробуйте еще раз"),
         "internet_error_title":
@@ -186,7 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Не все анимированные стикеры из ВКонтакте поддерживаются в Telegram, такие стикеры будут автоматически исключены. Некоторые наборы не получится импортировать вовсе"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
-            "Telegram не установлен на Вашем устройстве, поэтому экспорт не удался"),
+            "Telegram не установлен на Вашем устройстве, поэтому импорт не удался"),
         "objects": MessageLookupByLibrary.simpleMessage("Предметы"),
         "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
@@ -307,7 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "warming_up": MessageLookupByLibrary.simpleMessage("Подготовка..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
-            "Давайте перенесём ваши стикеры из ВКонтакте и LINE в Telegram"),
+            "Давайте перенесём ваши стикеры из ВКонтакте в Telegram"),
         "with_border": MessageLookupByLibrary.simpleMessage("С обводкой"),
         "with_border_info": MessageLookupByLibrary.simpleMessage(
             "Желаете импортировать стикеры такими, какие они есть, или с белой обводкой вокруг краёв?"),

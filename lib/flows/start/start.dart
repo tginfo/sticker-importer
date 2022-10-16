@@ -192,8 +192,8 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                                 u = u.replace(host: 'vk.com', scheme: 'https');
                               }
 
-                              if (u.host != 'vk.com' &&
-                                  u.host != 'store.line.me') {
+                              if (u.host !=
+                                  'vk.com' /* && u.host != 'store.line.me'*/) {
                                 return S.of(context).link_incorrect;
                               }
 
@@ -207,7 +207,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                                 }
                               }
 
-                              if (u.host == 'store.line.me') {
+                              /* if (u.host == 'store.line.me') {
                                 if (u.pathSegments.length < 3 ||
                                     !(u.pathSegments[0] == 'stickershop' ||
                                         u.pathSegments[1] == 'product' ||
@@ -215,7 +215,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                                             null)) {
                                   return S.of(context).link_not_pack_line;
                                 }
-                              }
+                              } */
 
                               return null;
                             },

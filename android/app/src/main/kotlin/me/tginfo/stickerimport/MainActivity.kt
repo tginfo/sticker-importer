@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 import androidx.annotation.NonNull
 import androidx.core.content.FileProvider.getUriForFile
@@ -14,7 +15,7 @@ import java.io.File
 import java.util.*
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "me.tginfo.stickerexport/DrKLOIntent"
+    private val CHANNEL = "me.tginfo.stickerimport/NativeCalls"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -29,6 +30,8 @@ class MainActivity : FlutterActivity() {
                 val res = sendDrKLOIntent(paths, emoji, isAnimated, packageName)
 
                 result.success(1)
+            } else if (call.method == "checkForTelegramSupport") {
+                result.success(checkForTelegramSupport())
             } else {
                 result.notImplemented()
             }
@@ -41,10 +44,15 @@ class MainActivity : FlutterActivity() {
             intent.type = "image/*"
         } else {
             intent.type = "application/x-tgsticker"
-         }
+        }
 
 
-        val resInfoList: List<ResolveInfo> = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val resInfoList: List<ResolveInfo> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong()))
+        } else {
+            context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        }
+
         Log.i("PACKAGES LIST", resInfoList.toString())
 
         val files = ArrayList<Uri>()
@@ -69,5 +77,90 @@ class MainActivity : FlutterActivity() {
         intent.putExtra("IMPORTER", packageName)
 
         startActivity(intent)
+    }
+
+    private fun checkSupport(): List<ResolveInfo> {
+        val intent = Intent("org.telegram.messenger.CREATE_STICKER_PACK")
+        intent.type = "application/x-tgsticker"
+
+
+        val resInfoList: List<ResolveInfo> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong()))
+        } else {
+            context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        }
+
+        return resInfoList
+    }
+
+    private fun checkTgSchemeSupport() : List<ResolveInfo> {
+        val intent = Intent("android.intent.action.VIEW", Uri.parse(
+                "tg://settings")
+        )
+
+
+        val resInfoList: List<ResolveInfo> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.packageManager.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong()))
+        } else {
+            context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        }
+
+        return resInfoList
+    }
+
+    private fun checkForTelegramSupport() : String {
+        if (checkSupport().isNotEmpty()) {
+            return "ok"
+        }
+
+        val appList = checkTgSchemeSupport()
+
+        if (appList.isEmpty()) {
+            Log.i("SUPPORT CHECK", "tg: app list is empty")
+            return "no"
+        }
+
+        var checkX : Boolean = false;
+        var checkOfficial : ResolveInfo? = null;
+
+        for (t in appList) {
+            if (t.activityInfo.packageName == "org.thunderdog.challegram") {
+                Log.i("SUPPORT CHECK", "Telegram X detected")
+                checkX = true
+                continue
+            }
+
+            if (t.activityInfo.packageName.startsWith("org.telegram.messenger")) {
+                Log.i("SUPPORT CHECK", "Official Telegram detected")
+                checkOfficial = t;
+                continue
+            }
+        }
+
+        if (checkOfficial == null && checkX) {
+            return "x"
+        }
+
+        if (checkOfficial == null) {
+            return "idk"
+        }
+
+        val pkg = context.packageManager.getPackageInfo(checkOfficial.activityInfo.packageName, 0)
+
+        val longVersionCode =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    pkg.longVersionCode
+                } else {
+                    pkg.versionCode.toLong()
+                }
+
+        if (longVersionCode < 22213) {
+            Log.i("SUPPORT CHECK", "Telegram is old: $longVersionCode")
+            return "old"
+        }
+
+        Log.i("SUPPORT CHECK", "Telegram version: $longVersionCode")
+
+        return "old"
     }
 }

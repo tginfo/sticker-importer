@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `We can help you to move your stickers from VK.com and LINE to Telegram`
+  /// `We can help you to move your stickers from VK.com to Telegram`
   String get welcome_screen_description {
     return Intl.message(
-      'We can help you to move your stickers from VK.com and LINE to Telegram',
+      'We can help you to move your stickers from VK.com to Telegram',
       name: 'welcome_screen_description',
       desc: '',
       args: [],
@@ -792,10 +792,10 @@ class S {
     );
   }
 
-  /// `Telegram is not installed on your device, so we couldn't export the pack`
+  /// `Telegram is not installed on your device, so we couldn't import the pack`
   String get not_installed {
     return Intl.message(
-      'Telegram is not installed on your device, so we couldn\'t export the pack',
+      'Telegram is not installed on your device, so we couldn\'t import the pack',
       name: 'not_installed',
       desc: '',
       args: [],
@@ -1887,6 +1887,66 @@ class S {
     return Intl.message(
       'This user doesn\'t use vmoji',
       name: 'vmoji_user_does_not_use_vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have Telegram installed, install it before using the app`
+  String get ahead_warning_not_installed {
+    return Intl.message(
+      'You don\'t have Telegram installed, install it before using the app',
+      name: 'ahead_warning_not_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app.`
+  String get ahead_warning_old {
+    return Intl.message(
+      'Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app.',
+      name: 'ahead_warning_old',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Telegram X doesn't support sticker import. Please use the official Telegram app.`
+  String get ahead_warning_telegram_x {
+    return Intl.message(
+      'Telegram X doesn\'t support sticker import. Please use the official Telegram app.',
+      name: 'ahead_warning_telegram_x',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing won't work`
+  String get importing_will_not_work {
+    return Intl.message(
+      'Importing won\'t work',
+      name: 'importing_will_not_work',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Google Play`
+  String get go_to_google_play {
+    return Intl.message(
+      'Go to Google Play',
+      name: 'go_to_google_play',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ignore`
+  String get ignore {
+    return Intl.message(
+      'Ignore',
+      name: 'ignore',
       desc: '',
       args: [],
     );

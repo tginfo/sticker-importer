@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,7 +21,7 @@ void main() async {
     iLog(details.toString());
   };
 
-  PlatformDispatcher.instance.onError = (error, stack) {
+  WidgetsBinding.instance.platformDispatcher.onError = (error, stack) {
     iLog(error.toString());
     iLog(stack.toString());
     return false;

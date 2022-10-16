@@ -8,11 +8,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sticker_import/components/icons/custom_icons_icons.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
+import 'package:sticker_import/components/ui/store_button_style.dart';
 import 'package:sticker_import/flows/user/store/open_store.dart';
 import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/services/native/method_channels.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:sticker_import/utils/launch_telegram.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ExportFinishRoute extends StatefulWidget {
   const ExportFinishRoute({
@@ -51,7 +53,7 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
       if (e is PlatformException &&
           e.message != null &&
           e.message!.contains('No Activity found to handle Intent')) {
-        noTelegramAppAlert(context);
+        noTelegramAppAlert(context, null);
       }
     });
   }
@@ -239,16 +241,42 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
   }
 }
 
-Future<void> noTelegramAppAlert(BuildContext context) async {
+Future<void> noTelegramAppAlert(BuildContext context, String? reason) async {
+  final String reasonText;
+  if (reason == 'no' || reason == 'idk') {
+    reasonText = S.of(context).ahead_warning_not_installed;
+  } else if (reason == 'old') {
+    reasonText = S.of(context).ahead_warning_old;
+  } else if (reason == 'x') {
+    reasonText = S.of(context).ahead_warning_telegram_x;
+  } else {
+    reasonText = S.of(context).not_installed;
+  }
+
   final alert = AlertDialog(
-    title: Text(S.of(context).error),
-    content: Text(S.of(context).not_installed),
+    title: Text(
+      reason == null
+          ? S.of(context).error
+          : S.of(context).importing_will_not_work,
+    ),
+    content: Text(reasonText),
     actions: [
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text(S.of(context).ok),
+        child: Text(S.of(context).ignore),
+      ),
+      ElevatedButton(
+        style: storeButtonStyle(context),
+        onPressed: () {
+          Navigator.of(context).pop();
+          launchUrlString(
+            'https://play.google.com/store/apps/details?id=org.telegram.messenger',
+            mode: LaunchMode.externalApplication,
+          );
+        },
+        child: Text(S.of(context).go_to_google_play),
       ),
     ],
   );

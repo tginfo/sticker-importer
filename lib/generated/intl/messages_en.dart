@@ -36,6 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "active": MessageLookupByLibrary.simpleMessage("Active"),
         "activity": MessageLookupByLibrary.simpleMessage("Activity"),
         "add_account": MessageLookupByLibrary.simpleMessage("Add account"),
+        "ahead_warning_not_installed": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have Telegram installed, install it before using the app"),
+        "ahead_warning_old": MessageLookupByLibrary.simpleMessage(
+            "Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app."),
+        "ahead_warning_telegram_x": MessageLookupByLibrary.simpleMessage(
+            "Telegram X doesn\'t support sticker import. Please use the official Telegram app."),
         "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),
         "all_stickers_section":
             MessageLookupByLibrary.simpleMessage("All stickers"),
@@ -122,17 +128,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "food_and_drink": MessageLookupByLibrary.simpleMessage("Food & Drink"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub"),
         "go_back": MessageLookupByLibrary.simpleMessage("Return"),
+        "go_to_google_play":
+            MessageLookupByLibrary.simpleMessage("Go to Google Play"),
         "go_to_sticker_store":
             MessageLookupByLibrary.simpleMessage("Go to Sticker Store"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Go to VK ID"),
         "i_changed_my_mind":
             MessageLookupByLibrary.simpleMessage("I changed my mind"),
+        "ignore": MessageLookupByLibrary.simpleMessage("Ignore"),
         "import_is_done":
             MessageLookupByLibrary.simpleMessage("Import is done"),
         "import_settings":
             MessageLookupByLibrary.simpleMessage("Import settings"),
         "import_to_telegram":
             MessageLookupByLibrary.simpleMessage("Import to Telegram"),
+        "importing_will_not_work":
+            MessageLookupByLibrary.simpleMessage("Importing won\'t work"),
         "internet_error_info": MessageLookupByLibrary.simpleMessage(
             "Request failed. Check your Internet connection and try again"),
         "internet_error_title":
@@ -185,7 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_all_animated": MessageLookupByLibrary.simpleMessage(
             "Not all animated stickers from VK.com are supported in Telegram, so they will be automatically excluded. Some packs might not be importable at all"),
         "not_installed": MessageLookupByLibrary.simpleMessage(
-            "Telegram is not installed on your device, so we couldn\'t export the pack"),
+            "Telegram is not installed on your device, so we couldn\'t import the pack"),
         "objects": MessageLookupByLibrary.simpleMessage("Objects"),
         "of_stickers": m2,
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
@@ -304,7 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "warming_up": MessageLookupByLibrary.simpleMessage("Warming up..."),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "welcome_screen_description": MessageLookupByLibrary.simpleMessage(
-            "We can help you to move your stickers from VK.com and LINE to Telegram"),
+            "We can help you to move your stickers from VK.com to Telegram"),
         "with_border": MessageLookupByLibrary.simpleMessage("With outline"),
         "with_border_info": MessageLookupByLibrary.simpleMessage(
             "Do you wish to import these stickers as is, or with a white outline around their edges?"),
