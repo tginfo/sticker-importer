@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sticker_import/components/icons/custom_icons_icons.dart';
 import 'package:sticker_import/components/ui/large_text.dart';
 import 'package:sticker_import/components/ui/logo.dart';
@@ -56,6 +61,19 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).popUntil((route) => route.isFirst);
+
+        Timer.run(() async {
+          // ignore: unawaited_futures
+          compute<String, void>(
+            (String path) async {
+              final String sickerPath = '$path/stickers';
+
+              await Directory(sickerPath).delete(recursive: true);
+            },
+            (await getTemporaryDirectory()).path,
+          );
+        });
+
         return false;
       },
       child: Scaffold(
