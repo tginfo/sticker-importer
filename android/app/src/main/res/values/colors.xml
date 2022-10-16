@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="splashBackground">#FFECED</color>
+    <color name="scaffoldBackground">#FFFFFF</color>
+    <color name="logoTheme">#AC1B24</color>
+</resources>

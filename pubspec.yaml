@@ -34,8 +34,6 @@ dependencies:
 dev_dependencies:
     flutter_lints: ^2.0.1
     intl_utils: ^2.7.0
-    flutter_launcher_icons: ^0.10.0
-    flutter_native_splash: ^2.2.7
 
 flutter:
     uses-material-design: true

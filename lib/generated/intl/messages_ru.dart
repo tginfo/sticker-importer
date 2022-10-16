@@ -67,13 +67,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "continue_importing":
-            MessageLookupByLibrary.simpleMessage("Продолжить импорт"),
+            MessageLookupByLibrary.simpleMessage("Продолжить экспорт"),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
         "customize": MessageLookupByLibrary.simpleMessage("Настроить"),
         "customize_your_pack":
             MessageLookupByLibrary.simpleMessage("Настройте под себя"),
         "customize_your_pack_info": MessageLookupByLibrary.simpleMessage(
-            "Выберите, какие стикеры Вы желаете импортировать, и присвойте им соответствующие эмодзи для быстрого доступа"),
+            "Выберите, какие стикеры вы желаете импортировать, и присвойте им соответствующие эмодзи для быстрого доступа"),
         "delete_account_confirm": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите выйти?"),
         "detailed_logging": MessageLookupByLibrary.simpleMessage("Отладка"),
@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export_done": MessageLookupByLibrary.simpleMessage("Экспорт завершён"),
         "export_error": MessageLookupByLibrary.simpleMessage("Ошибка экспорта"),
         "export_error_description": MessageLookupByLibrary.simpleMessage(
-            "Во время экспорта, что-то пошло не так."),
+            "Во время экспорта что-то пошло не так."),
         "export_paused":
             MessageLookupByLibrary.simpleMessage("Экспорт приостановлен"),
         "export_stopped":
@@ -126,7 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Перейти в магазин стикеров"),
         "go_to_vk_id": MessageLookupByLibrary.simpleMessage("Перейти в VK ID"),
         "i_changed_my_mind":
-            MessageLookupByLibrary.simpleMessage("Я передумал"),
+            MessageLookupByLibrary.simpleMessage("В другой раз"),
         "import_is_done":
             MessageLookupByLibrary.simpleMessage("Импорт завершён"),
         "import_settings":
@@ -139,13 +139,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ошибка соединения"),
         "licenses": MessageLookupByLibrary.simpleMessage("Лицензии"),
         "licenses_desc": MessageLookupByLibrary.simpleMessage("Открытого ПО"),
-        "link": MessageLookupByLibrary.simpleMessage("Ссылка на стикерпак"),
+        "link":
+            MessageLookupByLibrary.simpleMessage("Ссылка на набор стикеров"),
         "link_incorrect":
             MessageLookupByLibrary.simpleMessage("Ссылка некорректна"),
         "link_not_pack_line": MessageLookupByLibrary.simpleMessage(
-            "Ссылка не является стикерпаком LINE"),
+            "Ссылка не является набором стикеров LINE"),
         "link_not_pack_vk": MessageLookupByLibrary.simpleMessage(
-            "Ссылка не является стикерпаком ВКонтакте"),
+            "Ссылка не является набором стикеров ВКонтакте"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка"),
         "logged_in": MessageLookupByLibrary.simpleMessage("Вход выполнен"),
         "login":
@@ -198,8 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Выберите эмодзи, чтобы начать поиск стикеров"),
         "pick_emoji_sticker_suggestion": MessageLookupByLibrary.simpleMessage(
             "Выберите несколько эмодзи, которые будут использоваться для подсказок стикеров в Telegram"),
-        "prepare_pack":
-            MessageLookupByLibrary.simpleMessage("Подготовьте набор"),
+        "prepare_pack": MessageLookupByLibrary.simpleMessage("Подготовка"),
         "purchased": MessageLookupByLibrary.simpleMessage("Все"),
         "recent_emoji": MessageLookupByLibrary.simpleMessage("Недавние эмодзи"),
         "remove": MessageLookupByLibrary.simpleMessage("Удалить"),
@@ -314,7 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "with_border_title":
             MessageLookupByLibrary.simpleMessage("Обводка стикеров"),
         "with_emoji_suggestions":
-            MessageLookupByLibrary.simpleMessage("С подсказками стикеров"),
+            MessageLookupByLibrary.simpleMessage("С эмодзи-подсказками"),
         "without_border": MessageLookupByLibrary.simpleMessage("Без обводки")
       };
 }

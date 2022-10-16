@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.tginfo.stickerimport">
     <queries>
         <intent>
@@ -17,8 +18,9 @@
    <application
         android:label="Sticker Import"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:localeConfig="@xml/locales_config" >
+        android:icon="@mipmap/ic_launcher_round"
+        android:localeConfig="@xml/locales_config"
+       tools:targetApi="tiramisu">
                 
        <provider
            android:name="androidx.core.content.FileProvider"

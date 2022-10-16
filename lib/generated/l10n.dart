@@ -330,10 +330,10 @@ class S {
     );
   }
 
-  /// `Continue importing`
+  /// `Continue exporting`
   String get continue_importing {
     return Intl.message(
-      'Continue importing',
+      'Continue exporting',
       name: 'continue_importing',
       desc: '',
       args: [],

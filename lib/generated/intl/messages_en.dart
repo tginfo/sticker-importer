@@ -67,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "continue_btn": MessageLookupByLibrary.simpleMessage("Continue"),
         "continue_importing":
-            MessageLookupByLibrary.simpleMessage("Continue importing"),
+            MessageLookupByLibrary.simpleMessage("Continue exporting"),
         "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "customize": MessageLookupByLibrary.simpleMessage("Customize"),
         "customize_your_pack":
