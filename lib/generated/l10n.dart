@@ -1902,10 +1902,10 @@ class S {
     );
   }
 
-  /// `Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app.`
+  /// `Your version of Telegram is too old to import stickers. At least version 7.8 is required. If you use a third-party client, try installing the official Telegram app.`
   String get ahead_warning_old {
     return Intl.message(
-      'Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app.',
+      'Your version of Telegram is too old to import stickers. At least version 7.8 is required. If you use a third-party client, try installing the official Telegram app.',
       name: 'ahead_warning_old',
       desc: '',
       args: [],

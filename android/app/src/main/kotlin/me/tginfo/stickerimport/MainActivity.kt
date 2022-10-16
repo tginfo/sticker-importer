@@ -154,7 +154,7 @@ class MainActivity : FlutterActivity() {
                     pkg.versionCode.toLong()
                 }
 
-        if (longVersionCode < 22213) {
+        if (longVersionCode < 23593) {
             Log.i("SUPPORT CHECK", "Telegram is old: $longVersionCode")
             return "old"
         }

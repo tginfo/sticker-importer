@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ahead_warning_not_installed": MessageLookupByLibrary.simpleMessage(
             "You don\'t have Telegram installed, install it before using the app"),
         "ahead_warning_old": MessageLookupByLibrary.simpleMessage(
-            "Your version of Telegram is too old to import stickers. At least version 7.4 is required. If you use a third-party client, try installing the official Telegram app."),
+            "Your version of Telegram is too old to import stickers. At least version 7.8 is required. If you use a third-party client, try installing the official Telegram app."),
         "ahead_warning_telegram_x": MessageLookupByLibrary.simpleMessage(
             "Telegram X doesn\'t support sticker import. Please use the official Telegram app."),
         "all_stickers": MessageLookupByLibrary.simpleMessage("All stickers"),

@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ahead_warning_not_installed": MessageLookupByLibrary.simpleMessage(
             "У вас не установлен Telegram, установите его перед использованием приложения"),
         "ahead_warning_old": MessageLookupByLibrary.simpleMessage(
-            "Ваша версия Telegram устарела и не поддерживает импорт стикеров, обновите её перед использованием приложения. Минимальная версия: 7.4. Если вы используете неофициальную версию Telegram, попробуйте установить официальную версию из Google Play"),
+            "Ваша версия Telegram устарела и не поддерживает импорт стикеров, обновите её перед использованием приложения. Минимальная версия: 7.8. Если вы используете неофициальную версию Telegram, попробуйте установить официальную версию из Google Play"),
         "ahead_warning_telegram_x": MessageLookupByLibrary.simpleMessage(
             "Telegram X не поддерживает импорт стикеров. Пожалуйста, используйте официальное приложение."),
         "all_stickers": MessageLookupByLibrary.simpleMessage("Все стикеры"),
