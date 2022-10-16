@@ -60,6 +60,9 @@ class TginfoMoverApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sticker Importer',
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        SystemChromeNavigationObserver(),
+      ],
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: NoOverscrollBehavior(),
@@ -266,5 +269,28 @@ class TginfoMoverApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
     );
+  }
+}
+
+class SystemChromeNavigationObserver
+    extends RouteObserver<ModalRoute<dynamic>> {
+  SystemChromeNavigationObserver();
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPush(route, previousRoute);
+    updateBar();
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    updateBar();
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPop(route, previousRoute);
+    updateBar();
   }
 }
