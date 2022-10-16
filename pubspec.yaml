@@ -4,63 +4,80 @@ version: 2.0.0+10
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+    sdk: ">=2.18.0 <3.0.0"
 
 platforms:
-  android:
+    android:
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.17.0
-  vkget:
-    git: 
-      url: https://github.com/Sominemo/VkGet.git
-      path: vkget
-  flutter_svg: ^1.1.1
-  package_info_plus: ^1.3.0
-  url_launcher: ^6.0.20
-  path_provider: ^2.0.9
-  path: ^1.8.1
-  enough_convert: ^1.4.0
-  emoji_picker_flutter: ^1.1.1
-  device_info_plus: ^4.0.0
+    flutter:
+        sdk: flutter
+    flutter_localizations:
+        sdk: flutter
+    intl: ^0.17.0
+    vkget:
+        git:
+            url: https://github.com/Sominemo/VkGet.git
+            path: vkget
+    fluttertoast: ^8.0.9
+    package_info_plus: ^1.3.0
+    url_launcher: ^6.0.20
+    path_provider: ^2.0.9
+    path: ^1.8.1
+    enough_convert: ^1.4.0
+    device_info_plus: ^5.0.5
+    idb_sqflite: ^1.1.1
+    sqflite: ^2.0.3+1
+    share_plus: ^4.1.0
+    cross_file: ^0.3.3+2
 
 dev_dependencies:
-  lints: ^2.0.0
-  intl_utils: ^2.7.0
-  flutter_launcher_icons: ^0.10.0
-  flutter_native_splash: ^2.2.7
+    flutter_lints: ^2.0.1
+    intl_utils: ^2.7.0
 
 flutter:
-  uses-material-design: true
-  generate: true
-  assets:
-    - assets/
-  fonts:
-    - family: Open Sans
-      fonts:
-        - asset: fonts/OpenSans-SemiBold.ttf
-          weight: 600
-    - family: CustomIcons
-      fonts:
-        - asset: fonts/CustomIcons.ttf
+    uses-material-design: true
+    generate: true
+    assets:
+        - assets/
+        - vkscript/
+    fonts:
+        - family: Open Sans
+          fonts:
+              - asset: fonts/OpenSans-SemiBold.ttf
+                weight: 600
+        - family: CustomIcons
+          fonts:
+              - asset: fonts/CustomIcons.ttf
+                weight: 600
+        # Generated with https://github.com/samuelngs/apple-emoji-linux
+        # Change the line in Makefile to compress the assets:
+        # @convert $(IMOPS) "$<" -adaptive-resize 48x48 -composite "PNG32:$@"
+        - family: AppleColorEmoji
+          fonts:
+              - asset: fonts/AppleColorEmoji.ttf
 flutter_intl:
-  enabled: true
-  main_locale: en
-  arb_dir: l10n/
+    enabled: true
+    main_locale: en
+    arb_dir: l10n/
 
 flutter_icons:
-  android: true
-  image_path: assets/icon-full.png
-  adaptive_icon_background: "#FFECED"
-  adaptive_icon_foreground: assets/icon.png
+    android: true
+    image_path: assets/icon-full.png
+    adaptive_icon_background: "#FFECED"
+    adaptive_icon_foreground: assets/icon.png
 
 flutter_native_splash:
-  ios: false
-  color: "#FFECED"
-  image: assets/icon-splash.png
-  color_dark: "#000000"
-  image_dark: assets/icon-splash-dark.png
+    ios: false
+    web: false
+    color: "#FFECED"
+    image: assets/icon-splash.png
+    # branding: assets/branding.png
+    color_dark: "#303030"
+    image_dark: assets/icon-splash-dark.png
+    # branding_dark: assets/branding-dark.png
+    android_12:
+        image: assets/splash-12.png
+        icon_background_color: "#FFECED"
+        image_dark: assets/splash-12-dark.png
+        icon_background_color_dark: "#303030"

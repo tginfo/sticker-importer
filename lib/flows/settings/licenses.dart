@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sticker_import/generated/l10n.dart';
 
 class LicensesRoute extends StatelessWidget {
+  const LicensesRoute({super.key});
+
   @override
   Widget build(BuildContext context) {
     var data = <LicenseEntry>[];
@@ -19,12 +21,8 @@ class LicensesRoute extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<LicenseEntry>> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
-                ),
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
 

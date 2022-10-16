@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:vkget/vkget.dart';
 
 class VKGetUtilsFlutter extends VKGetUtils {
   static Future<VKProxyList> getProxyListAsAndroidDevice() async {
-    final deviceInfo = DeviceInfoPlugin();
-    final androidInfo = await deviceInfo.androidInfo;
+    int? sdk;
+    String? version;
+    String? device;
 
-    final sdk = androidInfo.version.sdkInt;
-    final version = androidInfo.version.release;
-    final device = androidInfo.model;
+    if (Platform.isAndroid) {
+      final deviceInfo = DeviceInfoPlugin();
+      final androidInfo = await deviceInfo.androidInfo;
+      sdk = androidInfo.version.sdkInt;
+      version = androidInfo.version.release;
+      device = androidInfo.model;
+    }
 
     try {
       return await VKGetUtils.getProxyList(

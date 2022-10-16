@@ -50,30 +50,40 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Telegram Info Sticker Importer`
+  /// `en`
+  String get code {
+    return Intl.message(
+      'en',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker Importer`
   String get tginfo_sticker_importer {
     return Intl.message(
-      'Telegram Info Sticker Importer',
+      'Sticker Importer',
       name: 'tginfo_sticker_importer',
       desc: '',
       args: [],
     );
   }
 
-  /// `Welcome here`
+  /// `Welcome`
   String get welcome {
     return Intl.message(
-      'Welcome here',
+      'Welcome',
       name: 'welcome',
       desc: '',
       args: [],
     );
   }
 
-  /// `We can help you to move your stickers from VK.com and LINE to Telegram smoothly`
+  /// `We can help you to move your stickers from VK.com to Telegram`
   String get welcome_screen_description {
     return Intl.message(
-      'We can help you to move your stickers from VK.com and LINE to Telegram smoothly',
+      'We can help you to move your stickers from VK.com to Telegram',
       name: 'welcome_screen_description',
       desc: '',
       args: [],
@@ -120,6 +130,16 @@ class S {
     );
   }
 
+  /// `tginfoen`
+  String get tginfo_tag {
+    return Intl.message(
+      'tginfoen',
+      name: 'tginfo_tag',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `https://t.me/tginfoen`
   String get tginfo_link {
     return Intl.message(
@@ -150,21 +170,21 @@ class S {
     );
   }
 
-  /// `AntonioMarreti`
-  String get antonio_marreti {
+  /// `Leave feedback`
+  String get feedback {
     return Intl.message(
-      'AntonioMarreti',
-      name: 'antonio_marreti',
+      'Leave feedback',
+      name: 'feedback',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lead editor of @tginfo`
-  String get antonio_marreti_desc {
+  /// `If you have any questions or suggestions, please contact us`
+  String get feedback_desc {
     return Intl.message(
-      'Lead editor of @tginfo',
-      name: 'antonio_marreti_desc',
+      'If you have any questions or suggestions, please contact us',
+      name: 'feedback_desc',
       desc: '',
       args: [],
     );
@@ -280,10 +300,10 @@ class S {
     );
   }
 
-  /// `Are you sure you want to stop export?`
+  /// `Are you sure you want to stop the task?`
   String get stop_export_confirm {
     return Intl.message(
-      'Are you sure you want to stop export?',
+      'Are you sure you want to stop the task?',
       name: 'stop_export_confirm',
       desc: '',
       args: [],
@@ -305,6 +325,16 @@ class S {
     return Intl.message(
       'Return',
       name: 'go_back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue exporting`
+  String get continue_importing {
+    return Intl.message(
+      'Continue exporting',
+      name: 'continue_importing',
       desc: '',
       args: [],
     );
@@ -447,6 +477,36 @@ class S {
     return Intl.message(
       'With outline',
       name: 'with_border',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Without outline`
+  String get without_border {
+    return Intl.message(
+      'Without outline',
+      name: 'without_border',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker outline`
+  String get with_border_title {
+    return Intl.message(
+      'Sticker outline',
+      name: 'with_border_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you wish to import these stickers as is, or with a white outline around their edges?`
+  String get with_border_info {
+    return Intl.message(
+      'Do you wish to import these stickers as is, or with a white outline around their edges?',
+      name: 'with_border_info',
       desc: '',
       args: [],
     );
@@ -612,36 +672,6 @@ class S {
     );
   }
 
-  /// `Done!`
-  String get done_exc {
-    return Intl.message(
-      'Done!',
-      name: 'done_exc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Thank you for using Sticker Importer. This program was developed by Telegram Info.`
-  String get done_exc_block1 {
-    return Intl.message(
-      'Thank you for using Sticker Importer. This program was developed by Telegram Info.',
-      name: 'done_exc_block1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Telegram Info is a non-commercial project which exists thanks to your support. Our mission is helping spreading the knowledge about Telegram, making it more open and accessible this way.`
-  String get done_exc_block2 {
-    return Intl.message(
-      'Telegram Info is a non-commercial project which exists thanks to your support. Our mission is helping spreading the knowledge about Telegram, making it more open and accessible this way.',
-      name: 'done_exc_block2',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Subscribe @tginfo`
   String get follow_tginfo {
     return Intl.message(
@@ -742,10 +772,30 @@ class S {
     );
   }
 
-  /// `Telegram is not installed on your device, so we couldn't export the pack`
+  /// `Some stickers may be skipped`
+  String get animated_stickers_support_note {
+    return Intl.message(
+      'Some stickers may be skipped',
+      name: 'animated_stickers_support_note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This sticker pack is animated, so you can import it either as static images, or as animations.`
+  String get animated_stickers_support_note_text {
+    return Intl.message(
+      'This sticker pack is animated, so you can import it either as static images, or as animations.',
+      name: 'animated_stickers_support_note_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Telegram is not installed on your device, so we couldn't import the pack`
   String get not_installed {
     return Intl.message(
-      'Telegram is not installed on your device, so we couldn\'t export the pack',
+      'Telegram is not installed on your device, so we couldn\'t import the pack',
       name: 'not_installed',
       desc: '',
       args: [],
@@ -799,6 +849,16 @@ class S {
       name: 'source_code',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Pack ID is not found for {uri}. Check if your link is correct.`
+  String pack_not_found(Object uri) {
+    return Intl.message(
+      'Pack ID is not found for $uri. Check if your link is correct.',
+      name: 'pack_not_found',
+      desc: '',
+      args: [uri],
     );
   }
 
@@ -867,6 +927,1026 @@ class S {
     return Intl.message(
       'VK.com returned Error 429: Too Many Requests. Try using a different connection (proxy, VPN, etc.)',
       name: 'vk_error_429',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK.com Login`
+  String get vk_login {
+    return Intl.message(
+      'VK.com Login',
+      name: 'vk_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get sign_in {
+    return Intl.message(
+      'Sign in',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login or phone number`
+  String get login {
+    return Intl.message(
+      'Login or phone number',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading`
+  String get loading {
+    return Intl.message(
+      'Loading',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill all the fields`
+  String get fill_all_fields {
+    return Intl.message(
+      'Fill all the fields',
+      name: 'fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the picture to continue`
+  String get enter_code_from_img {
+    return Intl.message(
+      'Enter code from the picture to continue',
+      name: 'enter_code_from_img',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the SMS sent to your phone`
+  String get enter_code_from_sms {
+    return Intl.message(
+      'Enter code from the SMS sent to your phone',
+      name: 'enter_code_from_sms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter code from the message sent to authentication app`
+  String get enter_code_from_app {
+    return Intl.message(
+      'Enter code from the message sent to authentication app',
+      name: 'enter_code_from_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You request codes too often`
+  String get twofa_codes_too_often {
+    return Intl.message(
+      'You request codes too often',
+      name: 'twofa_codes_too_often',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New code sent`
+  String get twofa_code_sent {
+    return Intl.message(
+      'New code sent',
+      name: 'twofa_code_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SMS`
+  String get sms {
+    return Intl.message(
+      'SMS',
+      name: 'sms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Call`
+  String get call {
+    return Intl.message(
+      'Call',
+      name: 'call',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required`
+  String get field_required {
+    return Intl.message(
+      'Required',
+      name: 'field_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internet error`
+  String get internet_error_title {
+    return Intl.message(
+      'Internet error',
+      name: 'internet_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request failed. Check your Internet connection and try again`
+  String get internet_error_info {
+    return Intl.message(
+      'Request failed. Check your Internet connection and try again',
+      name: 'internet_error_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get t_continue {
+    return Intl.message(
+      'Continue',
+      name: 't_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get auth_code {
+    return Intl.message(
+      'Code',
+      name: 'auth_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By Link`
+  String get by_link {
+    return Intl.message(
+      'By Link',
+      name: 'by_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK.com Account`
+  String get vk_account {
+    return Intl.message(
+      'VK.com Account',
+      name: 'vk_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get delete_account_confirm {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'delete_account_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add account`
+  String get add_account {
+    return Intl.message(
+      'Add account',
+      name: 'add_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logged in`
+  String get logged_in {
+    return Intl.message(
+      'Logged in',
+      name: 'logged_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get access to your sticker packs and VK's sticker store`
+  String get vk_login_access {
+    return Intl.message(
+      'Get access to your sticker packs and VK\'s sticker store',
+      name: 'vk_login_access',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK Sticker Store`
+  String get vk_sticker_store {
+    return Intl.message(
+      'VK Sticker Store',
+      name: 'vk_sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://m.vk.com/stickers?tab=popular`
+  String get vk_sticker_store_url {
+    return Intl.message(
+      'https://m.vk.com/stickers?tab=popular',
+      name: 'vk_sticker_store_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heads up!`
+  String get vk_id_setting_title {
+    return Intl.message(
+      'Heads up!',
+      name: 'vk_id_setting_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disable "Protection from suspicious apps" in your VK ID settings to be able to use the feature`
+  String get vk_id_setting_info {
+    return Intl.message(
+      'Disable "Protection from suspicious apps" in your VK ID settings to be able to use the feature',
+      name: 'vk_id_setting_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `https://id.vk.com/account/#/security`
+  String get vk_id_security_link {
+    return Intl.message(
+      'https://id.vk.com/account/#/security',
+      name: 'vk_id_security_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to VK ID`
+  String get go_to_vk_id {
+    return Intl.message(
+      'Go to VK ID',
+      name: 'go_to_vk_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Two-factor authentication failed`
+  String get twofa_failed {
+    return Intl.message(
+      'Two-factor authentication failed',
+      name: 'twofa_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try sending the request again`
+  String get try_sending_request_again {
+    return Intl.message(
+      'Try sending the request again',
+      name: 'try_sending_request_again',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't pass Captcha`
+  String get captcha_fail {
+    return Intl.message(
+      'Couldn\'t pass Captcha',
+      name: 'captcha_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent emoji`
+  String get recent_emoji {
+    return Intl.message(
+      'Recent emoji',
+      name: 'recent_emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No recent emoji`
+  String get no_recent_emoji {
+    return Intl.message(
+      'No recent emoji',
+      name: 'no_recent_emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Browse through available emojis by categories or use search.`
+  String get no_recent_emoji_help {
+    return Intl.message(
+      'Browse through available emojis by categories or use search.',
+      name: 'no_recent_emoji_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick some emoji, so they will be used for sticker suggestions in Telegram`
+  String get pick_emoji_sticker_suggestion {
+    return Intl.message(
+      'Pick some emoji, so they will be used for sticker suggestions in Telegram',
+      name: 'pick_emoji_sticker_suggestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick an emoji to search for stickers`
+  String get pick_emoji_sticker_search {
+    return Intl.message(
+      'Pick an emoji to search for stickers',
+      name: 'pick_emoji_sticker_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Smileys & People`
+  String get smileys_and_people {
+    return Intl.message(
+      'Smileys & People',
+      name: 'smileys_and_people',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Animals & Nature`
+  String get animals_and_nature {
+    return Intl.message(
+      'Animals & Nature',
+      name: 'animals_and_nature',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Food & Drink`
+  String get food_and_drink {
+    return Intl.message(
+      'Food & Drink',
+      name: 'food_and_drink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activity`
+  String get activity {
+    return Intl.message(
+      'Activity',
+      name: 'activity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel & Places`
+  String get travel_and_places {
+    return Intl.message(
+      'Travel & Places',
+      name: 'travel_and_places',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Objects`
+  String get objects {
+    return Intl.message(
+      'Objects',
+      name: 'objects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Symbols`
+  String get symbols {
+    return Intl.message(
+      'Symbols',
+      name: 'symbols',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flags`
+  String get flags {
+    return Intl.message(
+      'Flags',
+      name: 'flags',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No emojis matching your request were found`
+  String get no_emoji_matches {
+    return Intl.message(
+      'No emojis matching your request were found',
+      name: 'no_emoji_matches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type to search`
+  String get emoji_type_to_search {
+    return Intl.message(
+      'Type to search',
+      name: 'emoji_type_to_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker Store`
+  String get sticker_store {
+    return Intl.message(
+      'Sticker Store',
+      name: 'sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker Search`
+  String get sticker_search {
+    return Intl.message(
+      'Sticker Search',
+      name: 'sticker_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search results`
+  String get search_results {
+    return Intl.message(
+      'Search results',
+      name: 'search_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No stickers found`
+  String get no_sticker_search_results {
+    return Intl.message(
+      'No stickers found',
+      name: 'no_sticker_search_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sticker pack`
+  String get sticker_pack {
+    return Intl.message(
+      'Sticker pack',
+      name: 'sticker_pack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import to Telegram`
+  String get import_to_telegram {
+    return Intl.message(
+      'Import to Telegram',
+      name: 'import_to_telegram',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove`
+  String get remove {
+    return Intl.message(
+      'Remove',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import settings`
+  String get import_settings {
+    return Intl.message(
+      'Import settings',
+      name: 'import_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stickers without suggestions`
+  String get stickers_without_suggestions {
+    return Intl.message(
+      'Stickers without suggestions',
+      name: 'stickers_without_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Some stickers don't have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker`
+  String get stickers_without_suggestions_info {
+    return Intl.message(
+      'Some stickers don\'t have suggestions, so you can assign them manually by clicking on the icon in the bottom right corner of the sticker',
+      name: 'stickers_without_suggestions_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All stickers`
+  String get all_stickers {
+    return Intl.message(
+      'All stickers',
+      name: 'all_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with your VK.com account to:`
+  String get login_with_vk_to {
+    return Intl.message(
+      'Sign in with your VK.com account to:',
+      name: 'login_with_vk_to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `and also`
+  String get and_also {
+    return Intl.message(
+      'and also',
+      name: 'and_also',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get access to your added sticker packs`
+  String get login_with_vk_to_library {
+    return Intl.message(
+      'Get access to your added sticker packs',
+      name: 'login_with_vk_to_library',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List popular sticker packs`
+  String get login_with_vk_to_store {
+    return Intl.message(
+      'List popular sticker packs',
+      name: 'login_with_vk_to_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for stickers by keywords and emoji`
+  String get login_with_vk_to_search {
+    return Intl.message(
+      'Search for stickers by keywords and emoji',
+      name: 'login_with_vk_to_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import vmoji packs`
+  String get login_with_vk_to_vmoji {
+    return Intl.message(
+      'Import vmoji packs',
+      name: 'login_with_vk_to_vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill in emoji suggestions automatically`
+  String get login_with_vk_to_suggestions {
+    return Intl.message(
+      'Fill in emoji suggestions automatically',
+      name: 'login_with_vk_to_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open VK.com store in web`
+  String get vk_sticker_store_web {
+    return Intl.message(
+      'Open VK.com store in web',
+      name: 'vk_sticker_store_web',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I changed my mind`
+  String get i_changed_my_mind {
+    return Intl.message(
+      'I changed my mind',
+      name: 'i_changed_my_mind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign out`
+  String get sign_out {
+    return Intl.message(
+      'Sign out',
+      name: 'sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to change account`
+  String get tap_to_change_account {
+    return Intl.message(
+      'Tap to change account',
+      name: 'tap_to_change_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Stickers`
+  String get my_stickers {
+    return Intl.message(
+      'My Stickers',
+      name: 'my_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `VK Vmoji`
+  String get vmoji {
+    return Intl.message(
+      'VK Vmoji',
+      name: 'vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `With emoji suggestions`
+  String get with_emoji_suggestions {
+    return Intl.message(
+      'With emoji suggestions',
+      name: 'with_emoji_suggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't ask again`
+  String get do_not_ask_again {
+    return Intl.message(
+      'Don\'t ask again',
+      name: 'do_not_ask_again',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start typing or pick an emoji to find stickers and sticker packs`
+  String get start_typing_to_search_stickers {
+    return Intl.message(
+      'Start typing or pick an emoji to find stickers and sticker packs',
+      name: 'start_typing_to_search_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose account`
+  String get choose_account {
+    return Intl.message(
+      'Choose account',
+      name: 'choose_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No added stickers`
+  String get no_added_stickers {
+    return Intl.message(
+      'No added stickers',
+      name: 'no_added_stickers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This page will conveniently display stickers you added to your library on VK.com`
+  String get no_added_stickers_help {
+    return Intl.message(
+      'This page will conveniently display stickers you added to your library on VK.com',
+      name: 'no_added_stickers_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get purchased {
+    return Intl.message(
+      'All',
+      name: 'purchased',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No suggestions`
+  String get no_suggestions_section {
+    return Intl.message(
+      'No suggestions',
+      name: 'no_suggestions_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All stickers`
+  String get all_stickers_section {
+    return Intl.message(
+      'All stickers',
+      name: 'all_stickers_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import is done`
+  String get import_is_done {
+    return Intl.message(
+      'Import is done',
+      name: 'import_is_done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message(
+      'Retry',
+      name: 'retry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize`
+  String get customize {
+    return Intl.message(
+      'Customize',
+      name: 'customize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Sticker Store`
+  String get go_to_sticker_store {
+    return Intl.message(
+      'Go to Sticker Store',
+      name: 'go_to_sticker_store',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe `
+  String get subscribe_tg_channel_up_sell_part_1 {
+    return Intl.message(
+      'Subscribe ',
+      name: 'subscribe_tg_channel_up_sell_part_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` for Telegram news and more services`
+  String get subscribe_tg_channel_up_sell_part_2 {
+    return Intl.message(
+      ' for Telegram news and more services',
+      name: 'subscribe_tg_channel_up_sell_part_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source code on GitHub`
+  String get source_code_on_github {
+    return Intl.message(
+      'Source code on GitHub',
+      name: 'source_code_on_github',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vmoji Import`
+  String get vmoji_import {
+    return Intl.message(
+      'Vmoji Import',
+      name: 'vmoji_import',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to import your own or someone else's vmoji pack?`
+  String get vmoji_own_or_user {
+    return Intl.message(
+      'Do you want to import your own or someone else\'s vmoji pack?',
+      name: 'vmoji_own_or_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My own`
+  String get vmoji_own {
+    return Intl.message(
+      'My own',
+      name: 'vmoji_own',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Someone else's`
+  String get vmoji_user {
+    return Intl.message(
+      'Someone else\'s',
+      name: 'vmoji_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the URL of the owner of the vmoji pack`
+  String get vmoji_user_url_desc {
+    return Intl.message(
+      'Enter the URL of the owner of the vmoji pack',
+      name: 'vmoji_user_url_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User page URL`
+  String get vmoji_user_url {
+    return Intl.message(
+      'User page URL',
+      name: 'vmoji_user_url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This user doesn't use vmoji`
+  String get vmoji_user_does_not_use_vmoji {
+    return Intl.message(
+      'This user doesn\'t use vmoji',
+      name: 'vmoji_user_does_not_use_vmoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have Telegram installed, install it before using the app`
+  String get ahead_warning_not_installed {
+    return Intl.message(
+      'You don\'t have Telegram installed, install it before using the app',
+      name: 'ahead_warning_not_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your version of Telegram is too old to import stickers. At least version 7.8 is required. If you use a third-party client, try installing the official Telegram app.`
+  String get ahead_warning_old {
+    return Intl.message(
+      'Your version of Telegram is too old to import stickers. At least version 7.8 is required. If you use a third-party client, try installing the official Telegram app.',
+      name: 'ahead_warning_old',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Telegram X doesn't support sticker import. Please use the official Telegram app.`
+  String get ahead_warning_telegram_x {
+    return Intl.message(
+      'Telegram X doesn\'t support sticker import. Please use the official Telegram app.',
+      name: 'ahead_warning_telegram_x',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Importing won't work`
+  String get importing_will_not_work {
+    return Intl.message(
+      'Importing won\'t work',
+      name: 'importing_will_not_work',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Google Play`
+  String get go_to_google_play {
+    return Intl.message(
+      'Go to Google Play',
+      name: 'go_to_google_play',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ignore`
+  String get ignore {
+    return Intl.message(
+      'Ignore',
+      name: 'ignore',
       desc: '',
       args: [],
     );

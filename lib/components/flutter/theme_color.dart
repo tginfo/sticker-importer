@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeColor {
-  static MaterialColor swatch = MaterialColor(
+  static MaterialColor swatch = const MaterialColor(
     0xFFAC1B24,
     {
       50: Color(0xFFf7e8e9),
@@ -17,7 +17,7 @@ class ThemeColor {
     },
   );
 
-  static MaterialColor swatchLight = MaterialColor(
+  static MaterialColor swatchLight = const MaterialColor(
     0xFFd68d92,
     {
       50: Color(0xFFFFFFFF),

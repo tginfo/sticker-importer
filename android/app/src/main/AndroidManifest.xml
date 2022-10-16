@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.tginfo.stickerimport">
     <queries>
         <intent>
@@ -9,10 +10,18 @@
             <action android:name="org.telegram.messenger.CREATE_STICKER_PACK" />
             <data android:mimeType="application/x-tgsticker" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tg" />
+        </intent>
     </queries>
    <application
         android:label="Sticker Import"
-        android:icon="@mipmap/ic_launcher">
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher_round"
+        android:localeConfig="@xml/locales_config"
+       tools:targetApi="tiramisu">
+                
        <provider
            android:name="androidx.core.content.FileProvider"
            android:authorities="me.tginfo.fileprovider"
@@ -23,14 +32,15 @@
                android:resource="@xml/file_paths" />
        </provider>
 
-       <activity
+        <activity
             android:name=".MainActivity"
+            android:label="Importer"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -49,6 +59,15 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+                <meta-data
+                    android:name="autoStoreLocales"
+                    android:value="true" />
+        </service>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

@@ -24,7 +24,7 @@ Widget statusToast({
       children: [
         if (leading != null) leading,
         if (leading != null)
-          SizedBox(
+          const SizedBox(
             width: 12.0,
           ),
         DefaultTextStyle(

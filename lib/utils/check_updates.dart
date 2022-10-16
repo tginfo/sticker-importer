@@ -9,7 +9,8 @@ import 'package:sticker_import/generated/l10n.dart';
 import 'package:sticker_import/utils/debugging.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void checkUpdates(BuildContext context) async {
+Future<bool> checkUpdates(BuildContext context) async {
+  final locale = S.of(context).code;
   final supportedAbis = (await DeviceInfoPlugin().androidInfo).supportedAbis;
 
   final res = await (await HttpClient().getUrl(
@@ -70,8 +71,23 @@ void checkUpdates(BuildContext context) async {
   if (targetRelease == null || targetFile == null) {
     iLog(
         'No updates found: ${targetRelease == null ? 'No new package' : 'Asset not found'}');
-    return;
+    return false;
   }
+
+  final changelog = targetRelease['body'] as String;
+
+  // Get current language from markdown
+  String localeChangelog = changelog.substring(
+    RegExp('## \\[$locale\\].+\$', multiLine: true)
+            .firstMatch(changelog)
+            ?.end ??
+        0,
+  );
+
+  localeChangelog = localeChangelog.substring(
+    0,
+    RegExp('##').firstMatch(localeChangelog)?.start ?? localeChangelog.length,
+  );
 
   await showModalBottomSheet<dynamic>(
     context: context,
@@ -82,36 +98,40 @@ void checkUpdates(BuildContext context) async {
         children: [
           SizedBox(height: WidgetsBinding.instance.window.padding.top),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: LargeText(S.of(context).update),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(targetRelease!['body'] as String),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(localeChangelog),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
                   onPressed: () {
                     launchUrl(
-                        Uri.parse('https://apps.tginfo.me/sticker-import/'));
+                      Uri.parse('https://apps.tginfo.me/sticker-import/'),
+                      mode: LaunchMode.externalApplication,
+                    );
                   },
                   child: Text(S.of(context).open_in_browser),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () {
-                    launchUrl(Uri.parse(
-                        targetFile!['browser_download_url'] as String));
+                    launchUrl(
+                      Uri.parse(targetFile!['browser_download_url'] as String),
+                      mode: LaunchMode.externalApplication,
+                    );
                   },
-                  icon: Icon(Icons.download),
+                  icon: const Icon(Icons.download_rounded),
                   label: Text(S.of(context).download),
                 ),
               ],
@@ -121,4 +141,6 @@ void checkUpdates(BuildContext context) async {
       );
     },
   );
+
+  return true;
 }
