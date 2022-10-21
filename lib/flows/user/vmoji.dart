@@ -30,6 +30,8 @@ void vmojiWizard({
   showLoadingPopup(context);
 
   try {
+    // ignore: use_build_context_synchronously
+    await account.fire(language: S.of(context).code);
     final userResolve =
         (await account.vk.call('utils.resolveScreenName', <String, String>{
       'screen_name': Uri.parse(url).pathSegments[0],
