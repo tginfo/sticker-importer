@@ -42,7 +42,7 @@ abstract class ExportController {
     warmup().onError((error, stackTrace) {
       setState(() {
         state = ExportControllerState.error;
-        errorDetails = stackTrace.toString();
+        errorDetails = error.toString() + stackTrace.toString();
       });
       if (error != null) throw error;
     });
@@ -52,7 +52,7 @@ abstract class ExportController {
     return worker().onError((error, stackTrace) {
       setState(() {
         state = ExportControllerState.error;
-        errorDetails = stackTrace.toString();
+        errorDetails = error.toString() + stackTrace.toString();
       });
       if (error != null) throw error;
     });

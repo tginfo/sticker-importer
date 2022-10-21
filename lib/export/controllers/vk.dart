@@ -74,7 +74,7 @@ class VkExportController extends ExportController with VkStickerStoreUrlGet {
     GZipCodec? gzip;
 
     if (isAnimated) {
-      gzip = GZipCodec();
+      gzip = GZipCodec(level: ZLibOption.maxLevel);
     }
 
     for (final stickerId in stickerTarget!.stickerIds) {
@@ -90,14 +90,7 @@ class VkExportController extends ExportController with VkStickerStoreUrlGet {
 
       if (isAnimated) {
         final tempFile = File('$directory/stickers/$id/$stickerId.json');
-        final tempFileStream = tempFile.openWrite();
-
-        if (await tempFile.exists()) await tempFile.delete();
-        await tempFile.create(recursive: true);
-
-        i = await account.vk.fetch(
-          Uri.parse('https://vk.com/sticker/$stickerId/animation.json'),
-        );
+        final tempFileStream = await tempFile.open(mode: FileMode.write);
 
         final preview = await account.vk.fetch(
           Uri.parse('https://vk.com/sticker/1-$stickerId-128'),
@@ -112,7 +105,12 @@ class VkExportController extends ExportController with VkStickerStoreUrlGet {
 
         previews.add(previewFile.path);
 
-        await i.listen(tempFileStream.add).asFuture<List<int>?>();
+        i = await account.vk.fetch(
+          Uri.parse('https://vk.com/sticker/$stickerId/animation.json'),
+        );
+
+        await tempFileStream
+            .writeFrom(await i.expand((element) => element).toList());
         await tempFileStream.flush();
         await tempFileStream.close();
 

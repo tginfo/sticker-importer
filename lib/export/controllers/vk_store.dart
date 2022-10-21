@@ -55,7 +55,7 @@ class VkStoreExportController extends ExportController {
     GZipCodec? gzip;
 
     if (isAnimated) {
-      gzip = GZipCodec();
+      gzip = GZipCodec(level: ZLibOption.maxLevel);
     }
 
     await style.updateKeywords(account);
@@ -75,14 +75,7 @@ class VkStoreExportController extends ExportController {
       if (isAnimated) {
         final tempFile =
             File('$directory/stickers/${style.id}/${sticker.id}.json');
-        final tempFileStream = tempFile.openWrite();
-
-        if (await tempFile.exists()) await tempFile.delete();
-        await tempFile.create(recursive: true);
-
-        i = await account.vk.fetch(
-          Uri.parse(sticker.animation!),
-        );
+        final tempFileStream = await tempFile.open(mode: FileMode.write);
 
         final preview = await account.vk.fetch(
           Uri.parse(sticker.thumbnail),
@@ -97,13 +90,22 @@ class VkStoreExportController extends ExportController {
 
         previews.add(previewFile.path);
 
-        await i.listen(tempFileStream.add).asFuture<List<int>?>();
+        i = await account.vk.fetch(
+          Uri.parse(sticker.animation!),
+        );
+
+        await tempFileStream
+            .writeFrom(await i.expand((element) => element).toList());
         await tempFileStream.flush();
         await tempFileStream.close();
 
         await targetFile.writeAsBytes(
           gzip!.encode(List.from(await tempFile.readAsBytes())),
+          flush: true,
         );
+
+        print(
+            'Sticker ${sticker.id} = ${(await targetFile.stat()).size < 60 * 1024}');
 
         await tempFile.delete();
       } else {
