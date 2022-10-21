@@ -164,6 +164,7 @@ class _StickerStoreBodyState extends State<StickerStoreBody> {
           account: AccountData.of(context).account!,
         );
       },
+      itemCount: widget.sections.length,
       onPageChanged: (value) {
         final tabController = DefaultTabController.of(context)!;
 
