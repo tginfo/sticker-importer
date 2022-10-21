@@ -1,6 +1,6 @@
 name: sticker_import
 description: VK to TG Sticker Import
-version: 2.0.0+10
+version: 2.0.1+11
 publish_to: none
 
 environment:

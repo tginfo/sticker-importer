@@ -104,9 +104,6 @@ class VkStoreExportController extends ExportController {
           flush: true,
         );
 
-        print(
-            'Sticker ${sticker.id} = ${(await targetFile.stat()).size < 60 * 1024}');
-
         await tempFile.delete();
       } else {
         final targetFileStream = targetFile.openWrite();
