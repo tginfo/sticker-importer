@@ -26,10 +26,10 @@ class EmojiButton extends StatelessWidget {
 
 class EmojiGridViewBuilder extends StatelessWidget {
   const EmojiGridViewBuilder({
-    Key? key,
+    super.key,
     required this.category,
     required this.onEmojiSelected,
-  }) : super(key: key);
+  });
 
   final List<String> category;
   final void Function(String emoji) onEmojiSelected;

@@ -14,9 +14,9 @@ import 'package:sticker_import/utils/map.dart';
 
 class ExportProgressFlow extends StatefulWidget {
   const ExportProgressFlow({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final ExportController controller;
 
@@ -122,8 +122,8 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       LogoAsset(),
                     ],
                   ),
@@ -149,14 +149,14 @@ class ExportProgressFlowState extends State<ExportProgressFlow> {
                     BodyPadding(
                       child: Text(
                         S.of(context).export_config_info,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   if (controller.state == ExportControllerState.error)
                     BodyPadding(
                       child: Text(
                         S.of(context).export_error_description,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   BodyPadding(
@@ -345,7 +345,7 @@ Future<StickerStyle> chooseYourFighter(
             ),
             Text(
               S.of(context).sticker_styles,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: 10.0,
@@ -416,10 +416,10 @@ Future<bool> shouldUseAnimated(BuildContext context) async {
 
 class StickerStyleChooser extends StatefulWidget {
   const StickerStyleChooser({
-    Key? key,
+    super.key,
     required this.styles,
     required this.changer,
-  }) : super(key: key);
+  });
 
   final List<StickerStyle> styles;
   final void Function(int index) changer;

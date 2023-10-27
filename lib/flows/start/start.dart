@@ -16,7 +16,7 @@ import 'package:sticker_import/services/connection/user_list.dart';
 import 'package:sticker_import/utils/debugging.dart';
 
 class ImportByLinkRoute extends StatefulWidget {
-  const ImportByLinkRoute({Key? key}) : super(key: key);
+  const ImportByLinkRoute({super.key});
 
   @override
   ImportByLinkRouteState createState() => ImportByLinkRouteState();
@@ -71,6 +71,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
         return;
       }
 
+      if (!context.mounted) return;
       vmojiWizard(context: context, account: account);
       return;
     }
@@ -86,6 +87,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
         return;
       }
 
+      if (!context.mounted) return;
       controller = VkStoreUrlExportController(
         account: account,
         uri: u,
@@ -138,8 +140,8 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       LogoAsset(),
                     ],
                   ),
@@ -147,7 +149,7 @@ class ImportByLinkRouteState extends State<ImportByLinkRoute> {
                   BodyPadding(
                     child: Text(
                       S.of(context).welcome_screen_description,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                   BodyPadding(

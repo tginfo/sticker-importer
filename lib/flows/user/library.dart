@@ -166,7 +166,7 @@ class _StickerPacksListState extends State<StickerPacksList> {
                       Text(
                         S.of(context).no_added_stickers,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 8),
                       Text(

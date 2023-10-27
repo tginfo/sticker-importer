@@ -79,7 +79,9 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
                   ),
                 );
 
-                if (!mounted || r == null || r.isEmpty) return;
+                if (r == null || r.isEmpty) return;
+
+                if (!mounted) return;
 
                 // ignore: unawaited_futures
                 EmojiPicker.updateRecents(r, context);
@@ -119,11 +121,11 @@ class _EmojiPickerScreenState extends State<EmojiPickerScreen> {
 
 class PickedEmojiList extends StatelessWidget {
   const PickedEmojiList({
-    Key? key,
+    super.key,
     required this.emojis,
     required this.removeEmoji,
     required this.placeholder,
-  }) : super(key: key);
+  });
 
   final Set<String> emojis;
   final void Function(String emoji) removeEmoji;
@@ -144,11 +146,10 @@ class PickedEmojiList extends StatelessWidget {
 
 class _PickedEmojiListContent extends StatelessWidget {
   const _PickedEmojiListContent({
-    Key? key,
     required this.emojis,
     required this.removeEmoji,
     required this.placeholder,
-  }) : super(key: key);
+  });
 
   final Set<String> emojis;
   final void Function(String emoji) removeEmoji;

@@ -107,11 +107,11 @@ class _VkPageSignedInMenuState extends State<VkPageSignedInMenu> {
                         children: [
                           Text(
                             AccountData.of(context).account!.name,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
                             S.of(context).tap_to_change_account,
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
                       ),
@@ -196,8 +196,8 @@ class _VkPageSignedInMenuState extends State<VkPageSignedInMenu> {
 
 class AccountListChooser extends StatefulWidget {
   const AccountListChooser({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AccountListChooser> createState() => _AccountListChooserState();
@@ -356,7 +356,7 @@ class _VkPageSignedOutState extends State<VkPageSignedOut> {
               Flexible(
                 child: Text(
                   S.of(context).login_with_vk_to,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ],
@@ -377,7 +377,7 @@ class _VkPageSignedOutState extends State<VkPageSignedOut> {
                 opacity: 0.5,
                 child: Text(
                   S.of(context).and_also,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(width: 16),

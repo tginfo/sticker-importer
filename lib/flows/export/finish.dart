@@ -18,11 +18,11 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class ExportFinishRoute extends StatefulWidget {
   const ExportFinishRoute({
-    Key? key,
+    super.key,
     required this.paths,
     required this.emojis,
     required this.isAnimated,
-  }) : super(key: key);
+  });
 
   final List<String> paths;
   final List<String> emojis;
@@ -116,8 +116,8 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: const [
+                              const Row(
+                                children: [
                                   LogoAsset(),
                                 ],
                               ),
@@ -174,7 +174,7 @@ class ExportFinishRouteState extends State<ExportFinishRoute> {
                                 minLeadingWidth: 36,
                                 leading: Text(
                                   '👀',
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 title: RichText(
                                   text: TextSpan(

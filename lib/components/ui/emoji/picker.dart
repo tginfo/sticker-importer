@@ -93,11 +93,11 @@ class EmojiPickerState extends State<EmojiPicker> {
 
 class EmojiPage extends StatefulWidget {
   const EmojiPage({
-    Key? key,
+    super.key,
     required this.categories,
     required this.onEmojiSelected,
     required this.onBackspacePressed,
-  }) : super(key: key);
+  });
 
   final List<EmojiUiCategory> categories;
   final void Function(String emoji) onEmojiSelected;
@@ -208,7 +208,7 @@ class EmojiGridState extends State<EmojiGrid> {
                 Text(
                   S.of(context).no_recent_emoji,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(

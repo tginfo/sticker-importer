@@ -1,6 +1,6 @@
 # Telegram Info Sticker Importer
 
-Move stickers from VK and LINE to Telegram
+Move stickers from VK to Telegram
 
 ## Building
 

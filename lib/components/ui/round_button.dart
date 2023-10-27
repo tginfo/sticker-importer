@@ -45,7 +45,7 @@ class IconRoundButton extends StatelessWidget {
                 icon,
                 size: 30.0,
                 color: (isDarkTheme
-                    ? Theme.of(context).textTheme.button!.color
+                    ? Theme.of(context).textTheme.labelLarge!.color
                     : null),
               ),
             ),
@@ -56,7 +56,7 @@ class IconRoundButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20.0,
                   color: (isDarkTheme
-                      ? Theme.of(context).textTheme.button!.color
+                      ? Theme.of(context).textTheme.labelLarge!.color
                       : null),
                 ),
                 textAlign: TextAlign.center,

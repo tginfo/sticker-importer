@@ -21,6 +21,8 @@ Future<Account?> createToken(
     await authObj.refresh();
     return authObj;
   } catch (e) {
+    if (!context.mounted) return null;
+
     Navigator.of(context).pop();
     // ignore: unawaited_futures
     showDialog<void>(

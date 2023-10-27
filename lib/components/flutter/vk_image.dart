@@ -29,7 +29,8 @@ class VKGetImageProvider extends ImageProvider<NetworkImage>
         StreamController<ImageChunkEvent>();
 
     return MultiFrameImageStreamCompleter(
-      codec: _loadAsync(key as VKGetImageProvider, chunkEvents, null, decode),
+      codec: _loadAsync(key as VKGetImageProvider, chunkEvents,
+          decodeDeprecated: decode),
       chunkEvents: chunkEvents.stream,
       scale: key.scale,
       debugLabel: key.url,
@@ -42,12 +43,32 @@ class VKGetImageProvider extends ImageProvider<NetworkImage>
 
   @override
   ImageStreamCompleter loadBuffer(
-      NetworkImage key, DecoderBufferCallback decode) {
+      NetworkImage key,
+      // ignore: deprecated_member_use
+      DecoderBufferCallback decode) {
     final StreamController<ImageChunkEvent> chunkEvents =
         StreamController<ImageChunkEvent>();
 
     return MultiFrameImageStreamCompleter(
-      codec: _loadAsync(key as VKGetImageProvider, chunkEvents, decode, null),
+      codec: _loadAsync(key, chunkEvents, decodeBufferDeprecated: decode),
+      chunkEvents: chunkEvents.stream,
+      scale: key.scale,
+      debugLabel: key.url,
+      informationCollector: () => <DiagnosticsNode>[
+        DiagnosticsProperty<ImageProvider>('Image provider', this),
+        DiagnosticsProperty<NetworkImage>('Image key', key),
+      ],
+    );
+  }
+
+  @override
+  ImageStreamCompleter loadImage(
+      NetworkImage key, ImageDecoderCallback decode) {
+    final StreamController<ImageChunkEvent> chunkEvents =
+        StreamController<ImageChunkEvent>();
+
+    return MultiFrameImageStreamCompleter(
+      codec: _loadAsync(key, chunkEvents, decode: decode),
       chunkEvents: chunkEvents.stream,
       scale: key.scale,
       debugLabel: key.url,
@@ -60,11 +81,13 @@ class VKGetImageProvider extends ImageProvider<NetworkImage>
 
   Future<Codec> _loadAsync(
     NetworkImage key,
-    StreamController<ImageChunkEvent> chunkEvents,
-    DecoderBufferCallback? decode,
+    StreamController<ImageChunkEvent> chunkEvents, {
+    ImageDecoderCallback? decode,
+    // ignore: deprecated_member_use
+    DecoderBufferCallback? decodeBufferDeprecated,
     // ignore: deprecated_member_use
     DecoderCallback? decodeDeprecated,
-  ) async {
+  }) async {
     try {
       assert(key == this);
 
@@ -94,6 +117,10 @@ class VKGetImageProvider extends ImageProvider<NetworkImage>
         final ImmutableBuffer buffer =
             await ImmutableBuffer.fromUint8List(bytes);
         return decode(buffer);
+      } else if (decodeBufferDeprecated != null) {
+        final ImmutableBuffer buffer =
+            await ImmutableBuffer.fromUint8List(bytes);
+        return decodeBufferDeprecated(buffer);
       } else {
         assert(decodeDeprecated != null);
         return decodeDeprecated!(bytes);

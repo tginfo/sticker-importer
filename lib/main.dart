@@ -41,7 +41,7 @@ void main() async {
 }
 
 class TginfoMoverApp extends StatelessWidget {
-  const TginfoMoverApp({Key? key}) : super(key: key);
+  const TginfoMoverApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -157,12 +157,12 @@ class TginfoMoverApp extends StatelessWidget {
           ),
           floatingLabelStyle: MaterialStateTextStyle.resolveWith((states) {
             if (states.contains(MaterialState.focused)) {
-              return theme.textTheme.caption!.copyWith(
+              return theme.textTheme.bodySmall!.copyWith(
                 color: const Color(0xFFAC1B24),
               );
             }
 
-            return theme.textTheme.subtitle1!;
+            return theme.textTheme.titleMedium!;
           }),
           iconColor: MaterialStateColor.resolveWith((states) {
             if (states.contains(MaterialState.focused)) {
@@ -177,7 +177,7 @@ class TginfoMoverApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: theme.textTheme.copyWith(
-            headline6: theme.textTheme.headline6!.copyWith(
+            titleLarge: theme.textTheme.titleLarge!.copyWith(
           fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
           inherit: true,
         )),
@@ -239,7 +239,6 @@ class TginfoMoverApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: ThemeColor.swatchLight,
-          primaryColorDark: ThemeColor.swatchLight,
           accentColor: ThemeColor.swatchLight,
           brightness: Brightness.dark,
         ).copyWith(secondary: ThemeColor.swatchLight),
@@ -253,7 +252,7 @@ class TginfoMoverApp extends StatelessWidget {
         ),
         indicatorColor: Colors.white,
         textTheme: darkTheme.textTheme.copyWith(
-            headline6: darkTheme.textTheme.headline6!.copyWith(
+            titleLarge: darkTheme.textTheme.titleLarge!.copyWith(
           fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
           inherit: true,
         )),

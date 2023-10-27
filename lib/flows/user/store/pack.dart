@@ -27,10 +27,10 @@ void vkStoreStickerPackPopup({
 
 class VkStickerStorePackBottomSheet extends StatefulWidget {
   const VkStickerStorePackBottomSheet({
-    Key? key,
+    super.key,
     required this.pack,
     required this.account,
-  }) : super(key: key);
+  });
 
   final VkStickerStorePack pack;
   final Account account;
@@ -66,7 +66,7 @@ class _VkStickerStorePackBottomSheetState
                 child: ListTile(
                   title: Text(
                     S.of(context).sticker_pack,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   leading: IconButton(
                     icon: const Icon(Icons.close_rounded),
@@ -118,7 +118,7 @@ class _VkStickerStorePackBottomSheetState
                                 ),
                                 Text(
                                   widget.pack.author,
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
                             ),
@@ -298,10 +298,10 @@ class VkStickerStoreImportSettings {
 
 class VkStickerStoreImportSettingsBottomSheet extends StatefulWidget {
   const VkStickerStoreImportSettingsBottomSheet({
-    Key? key,
+    super.key,
     required this.style,
     required this.account,
-  }) : super(key: key);
+  });
 
   final VkStickerStoreStyle style;
   final Account account;
@@ -341,7 +341,7 @@ class VkStickerStoreImportSettingsBottomSheetState
                 child: ListTile(
                   title: Text(
                     S.of(context).import_settings,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   leading: IconButton(
                     icon: const Icon(Icons.close_rounded),

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'create_token.dart';
 
 class LoginRoute extends StatefulWidget {
-  const LoginRoute({Key? key}) : super(key: key);
+  const LoginRoute({super.key});
 
   @override
   State<LoginRoute> createState() => _LoginRouteState();
@@ -74,6 +74,8 @@ class _LoginRouteState extends State<LoginRoute> {
         );
         if (authResult == null) return;
       } catch (e) {
+        if (!context.mounted) return;
+
         Navigator.of(context).pop();
         if (e is Map<String, dynamic>) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

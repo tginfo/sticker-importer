@@ -11,8 +11,7 @@ import 'package:sticker_import/utils/check_updates.dart';
 enum StartRouteScreen { start, login, about }
 
 class StartRoute extends StatefulWidget {
-  const StartRoute({this.tab = StartRouteScreen.start, Key? key})
-      : super(key: key);
+  const StartRoute({this.tab = StartRouteScreen.start, super.key});
 
   final StartRouteScreen tab;
 
@@ -46,6 +45,7 @@ class StartRouteState extends State<StartRoute> {
       Timer.run(() async {
         if (await checkUpdates(context)) return;
 
+        if (!context.mounted) return;
         checkSupport(context);
       });
     }

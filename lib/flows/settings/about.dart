@@ -119,6 +119,8 @@ class AboutRoute extends StatelessWidget {
                         try {
                           final r = await saveLogs();
 
+                          if (!context.mounted) return;
+
                           // ignore: unawaited_futures
                           showDialog<dynamic>(
                             context: context,

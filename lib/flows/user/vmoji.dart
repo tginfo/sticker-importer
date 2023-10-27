@@ -72,6 +72,7 @@ void vmojiWizard({
       return;
     }
 
+    if (!context.mounted) return;
     vkStoreStickerPackPopup(pack: pack, account: account, context: context);
   } catch (e) {
     // ignore: use_build_context_synchronously
@@ -154,7 +155,7 @@ class VkVmojiImportSettingsBottomSheet extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     S.of(context).vmoji_import,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   leading: IconButton(
                     icon: const Icon(Icons.close_rounded),

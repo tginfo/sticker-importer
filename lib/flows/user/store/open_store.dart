@@ -7,10 +7,13 @@ import 'store.dart';
 Future<void> openStickerStore(BuildContext context) async {
   final navigator = Navigator.of(context);
   if (await getDoNotAskAboutStickerStoreLogin()) {
+    if (!context.mounted) return;
+
     launchStickerStoreInWeb(context);
     return;
   }
 
+  if (!context.mounted) return;
   final account = await getCurrentAccount(
     context,
     intent: VkAuthIntent.store,

@@ -98,7 +98,7 @@ class _VkStickerStoreRouteState extends State<VkStickerStoreRoute> {
                 bottom: TabBar(
                   isScrollable: true,
                   labelStyle:
-                      Theme.of(context).primaryTextTheme.bodyText1!.copyWith(
+                      Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
                     fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
                     inherit: true,
                   ),
@@ -166,7 +166,7 @@ class _StickerStoreBodyState extends State<StickerStoreBody> {
       },
       itemCount: widget.sections.length,
       onPageChanged: (value) {
-        final tabController = DefaultTabController.of(context)!;
+        final tabController = DefaultTabController.of(context);
 
         if (tabController.index != value && !tabController.indexIsChanging) {
           tabController.animateTo(value);
@@ -233,7 +233,7 @@ class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
 
   void appendContent() {
     if (!mounted) return;
-    final scrollController = PrimaryScrollController.of(context)!;
+    final scrollController = PrimaryScrollController.of(context);
     if (isInProgress || isEnd) return;
     if (scrollController.position.pixels >
         scrollController.position.maxScrollExtent - 200) {
@@ -319,10 +319,10 @@ class _VkStickerStoreLayoutPageState extends State<VkStickerStoreLayoutPage> {
 
 class VkStickerStoreLayoutWidget extends StatelessWidget {
   const VkStickerStoreLayoutWidget({
-    Key? key,
+    super.key,
     required this.layout,
     required this.account,
-  }) : super(key: key);
+  });
 
   final VkStickerStoreLayout layout;
   final Account account;
@@ -560,7 +560,7 @@ class VkStickerStoreLayoutWidgetPackList extends StatelessWidget {
                       ),
                       Text(
                         pack.author,
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
                   ),
@@ -667,9 +667,9 @@ class _VkStoreEntityImageState extends State<VkStoreEntityImage> {
 
 class VkStickerStoreSectionRoute extends StatelessWidget {
   const VkStickerStoreSectionRoute({
-    Key? key,
+    super.key,
     required this.section,
-  }) : super(key: key);
+  });
 
   final VkStickerStoreSection section;
 
@@ -678,7 +678,7 @@ class VkStickerStoreSectionRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(section.title),
-        titleTextStyle: Theme.of(context).textTheme.headline6!.copyWith(
+        titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
           fontFamilyFallback: ['sans-serif', 'AppleColorEmoji'],
           inherit: true,
         ),
@@ -815,7 +815,7 @@ class VkStickerStoreSearchDelegate extends SearchDelegate<VkStickerStorePack?> {
               Text(
                 S.of(context).sticker_search,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(

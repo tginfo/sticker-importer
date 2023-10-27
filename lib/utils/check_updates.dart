@@ -38,7 +38,8 @@ Future<bool> checkUpdates(BuildContext context) async {
 
     abiSearch:
     for (final abi in supportedAbis) {
-      for (final Map<String, dynamic> asset in release['assets']) {
+      for (final Map<String, dynamic> asset
+          in (release['assets'] as List<Map<String, dynamic>>)) {
         final f = p.extension(asset['name'] as String, 1);
         if (f != '.apk') continue;
 
@@ -89,6 +90,8 @@ Future<bool> checkUpdates(BuildContext context) async {
     RegExp('##').firstMatch(localeChangelog)?.start ?? localeChangelog.length,
   );
 
+  if (!context.mounted) return false;
+
   await showModalBottomSheet<dynamic>(
     context: context,
     isScrollControlled: true,
@@ -96,7 +99,7 @@ Future<bool> checkUpdates(BuildContext context) async {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: WidgetsBinding.instance.window.padding.top),
+          SizedBox(height: View.of(context).padding.top),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: LargeText(S.of(context).update),
