@@ -59,7 +59,7 @@ ${emojiList.map((String emoji) => '    ${toStringLiteral(emoji)}').join(', \n')}
 String toEmojiKeywordVocabulary(List<Map<String, dynamic>> emojiList) {
   return '''EmojiKeywordVocabulary(
   keywords: {
-${emojiList.map((keyword) => '''    r${json.encoder.convert(keyword['k'] as String)}: EmojiKeyword(emojis: [
+${emojiList.map((keyword) => '''    ${json.encoder.convert(keyword['k'] as String).replaceAll(r"$", r"\$")}: EmojiKeyword(emojis: [
 ${(keyword['e'] as String).split(' ').map((String emoji) => '    ${toStringLiteral(emoji)}').join(', \n')}
 ],
 )''').join(', \n')}
