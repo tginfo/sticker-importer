@@ -15,3 +15,6 @@ linter:
     prefer_final_in_for_each: true
     prefer_final_locals: true
     use_build_context_synchronously: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_const_declarations: true
